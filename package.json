@@ -1,0 +1,20 @@
+{
+  "name": "fountain-of-dreams",
+  "version": "1.0.0",
+  "description": "An internet radio with a Node.js backend. Based on the same idea as plaza.one, except more focused on melancholy genres.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingOfCaves/fountain-of-dreams.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KingOfCaves/fountain-of-dreams/issues"
+  },
+  "homepage": "https://github.com/KingOfCaves/fountain-of-dreams#readme"
+}
