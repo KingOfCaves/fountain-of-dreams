@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/KingOfCaves/fountain-of-dreams/issues"
   },
-  "homepage": "https://github.com/KingOfCaves/fountain-of-dreams#readme"
+  "homepage": "https://github.com/KingOfCaves/fountain-of-dreams#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "icy": "^2.1.0"
+  }
 }
