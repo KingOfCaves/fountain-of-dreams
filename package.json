@@ -4,7 +4,8 @@
   "description": "An internet radio with a Node.js backend. Based on the same idea as plaza.one, except more focused on melancholy genres.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/index.js",
+    "start:dev": "nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "icy": "^2.1.0"
+    "icy": "^2.1.0",
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0"
   }
 }
