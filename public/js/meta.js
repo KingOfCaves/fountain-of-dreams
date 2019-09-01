@@ -15,7 +15,7 @@
 	}
 
 	function playerInit() {
-		$player.volume = 0.25;
+		$player.volume = 0.1;
 	}
 	
 	// EVENTS

@@ -1,0 +1,31 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+*:link, *:visited{
+	color: currentColor;
+	text-decoration: none;
+}
+
+body {
+	overflow-x: hidden;
+	font-size: 6rem;
+	color: #131313;
+	background: #fefefe;
+	font-family: 'Noto Sans JP';
+	font-weight: 100;
+	user-select: none;
+	line-height: 1.25;
+}
+
+.wrapper {
+	position: relative;
+	height: auto;
+	max-width: 140rem;
+	margin: auto;
+}
