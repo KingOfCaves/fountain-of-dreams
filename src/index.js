@@ -17,14 +17,25 @@ app.get('/', (req, res) => {
 	res.render('index')
 });
 
-app.get('/stream', (req, res) => {
-	icy.get('http://localhost:8080/stream', (data) => {
-		data.on('metadata', (metadata) => {
+app.get('/radio', (req, res) => {
+	icy.get({
+		port: 8080,
+		path: '/radio',
+		headers: { 'Content-Type': 'audio/mpeg' }
+	}, (src) => {
+		src.on('error', (error) => {
+			console.log(`woops ${error}`)
+		});
+		src.on('end', () => {
+			console.log('Theres nothing else!')
+		});
+		src.on('metadata', (metadata) => {
 			const { StreamTitle: info } = icy.parse(metadata);
 			io.sockets.emit('metadataUpdate', info);
 		});
-		data.pipe(res);
-	});
+
+		src.pipe(res);
+	})
 });
 
 app.get('*', (req, res) => {

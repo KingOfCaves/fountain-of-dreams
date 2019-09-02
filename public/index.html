@@ -5,16 +5,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="./fonts/Noto Sans JP/stylesheet.css">
+	<link rel="stylesheet" href="./css/reset.css">
 	<link rel="stylesheet" href="./css/main.css">
 	<title>ｒａｄｉｏ</title>
 </head>
 <body>
-	<h1>Hi!</h1>
-	<p>Artist: <span id="artist">artist</span></p>
-	<p>Title: <span id="title">title</span></p>
-	<audio id="player" controls autoplay>
-		<source src="/stream">
-	</audio>
+	<div class="wrapper">
+		<div id="player">
+			<h1>Fountain of Dreams</h1>
+			<p id="artist"></p>
+			<p id="title"></p>
+			<p id="error"></p>
+			<audio id="radio" src="/radio" controls autoplay></audio>
+		</div>
+		<div id="gallery"></div>
+	</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="./js/meta.js"></script>
 </body>

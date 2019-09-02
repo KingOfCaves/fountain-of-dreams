@@ -14,13 +14,11 @@ html {
 
 body {
 	overflow-x: hidden;
-	font-size: 6rem;
-	color: #131313;
-	background: #fefefe;
+	font-size: 2rem;
+	background: #131313;
+	color: #fefefe;
 	font-family: 'Noto Sans JP';
-	font-weight: 100;
 	user-select: none;
-	line-height: 1.25;
 }
 
 .wrapper {
@@ -28,4 +26,14 @@ body {
 	height: auto;
 	max-width: 140rem;
 	margin: auto;
+	text-align: center;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 1rem;
+}
+
+p {
+	margin: 1rem;
 }
