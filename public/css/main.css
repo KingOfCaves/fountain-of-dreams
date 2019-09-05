@@ -14,26 +14,44 @@ html {
 
 body {
 	overflow-x: hidden;
-	font-size: 2rem;
-	background: #131313;
+	font-size: 3rem;
+	background: url(../imgs/b68a86c405bfada0cee3f5e997a7b24d8017932e.jpg) no-repeat center;
+	background-size: cover;
 	color: #fefefe;
+	font-weight: 900;
+	text-shadow: 0 0 4px black;
 	font-family: 'Noto Sans JP';
 	user-select: none;
 }
 
 .wrapper {
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: auto;
-	max-width: 140rem;
-	margin: auto;
+	width: auto;
 	text-align: center;
+	min-height: 100vh;
 }
 
-h1 {
-	font-size: 2em;
-	margin: 1rem;
+#player {
+	position: relative;
+	padding: 10rem;
+	backdrop-filter: blur(8px);
+}
+
+#player::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 3rem;
+	width: 100%;
+	background-color: currentColor;
+	box-shadow: 0 0 2rem black;
 }
 
 p {
-	margin: 1rem;
+	margin-bottom: .5em;
 }

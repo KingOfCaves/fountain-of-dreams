@@ -23,20 +23,18 @@ app.get('/radio', (req, res) => {
 		path: '/radio',
 		headers: { 'Content-Type': 'audio/mpeg' }
 	}, (src) => {
+		src.on('metadata', (metadata) => {
+			const { StreamTitle: info } = icy.parse(metadata);
+			io.emit('metadataUpdate', info);
+		});
 		src.on('error', (error) => {
 			console.log(`woops ${error}`)
 		});
 		src.on('end', () => {
-			console.log('Theres nothing else!')
-		});
-		src.on('metadata', (metadata) => {
-			const { StreamTitle: info } = icy.parse(metadata);
-			io.sockets.emit('metadataUpdate', info);
 		});
 
 		src.pipe(res);
-	})
-});
+	});});
 
 app.get('*', (req, res) => {
 	res.redirect('/')
