@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="./fonts/Noto Sans JP/stylesheet.css">
+	<link rel="stylesheet" href="./fonts/noto-sans-jp/stylesheet.css">
 	<link rel="stylesheet" href="./css/reset.css">
 	<link rel="stylesheet" href="./css/main.css">
 	<title>ｒａｄｉｏ</title>
@@ -12,13 +12,21 @@
 <body>
 	<div class="wrapper">
 		<div id="player">
-			<p id="artist"></p>
-			<p id="title"></p>
-			<audio id="radio" src="/radio" controls autoplay></audio>
+			<span class="subtitle">Title</span>
+			<p id="title" class="continent">...<p>
+			<span class="subtitle">Artist</span>
+			<p id="artist" class="continent">...</p>
+			<audio id="radio" src="/radio" autoplay></audio>
+			<div id="controls">
+				<input id="volume" type="range" step=".05" max="1">
+			</div>
 		</div>
-		<div id="gallery"></div>
+		<div id="gallery">
+			<button id="reveal"></button>
+		</div>
 	</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="./js/player.js"></script>
+<script src="./js/gallery.js"></script>
 </body>
 </html>

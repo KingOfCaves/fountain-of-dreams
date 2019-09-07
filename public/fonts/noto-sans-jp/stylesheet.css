@@ -11,6 +11,19 @@
        url('noto-sans-jp-v24-latin_japanese-100.ttf') format('truetype'), /* Safari, Android, iOS */
        url('noto-sans-jp-v24-latin_japanese-100.svg#NotoSansJP') format('svg'); /* Legacy iOS */
 }
+/* noto-sans-jp-300 - latin_japanese */
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 300;
+  src: url('noto-sans-jp-v24-latin_japanese-300.eot'); /* IE9 Compat Modes */
+  src: local('Noto Sans Japanese Light'), local('NotoSansJapanese-Light'),
+       url('noto-sans-jp-v24-latin_japanese-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('noto-sans-jp-v24-latin_japanese-300.woff2') format('woff2'), /* Super Modern Browsers */
+       url('noto-sans-jp-v24-latin_japanese-300.woff') format('woff'), /* Modern Browsers */
+       url('noto-sans-jp-v24-latin_japanese-300.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('noto-sans-jp-v24-latin_japanese-300.svg#NotoSansJP') format('svg'); /* Legacy iOS */
+}
 /* noto-sans-jp-regular - latin_japanese */
 @font-face {
   font-family: 'Noto Sans JP';
@@ -36,6 +49,19 @@
        url('noto-sans-jp-v24-latin_japanese-500.woff') format('woff'), /* Modern Browsers */
        url('noto-sans-jp-v24-latin_japanese-500.ttf') format('truetype'), /* Safari, Android, iOS */
        url('noto-sans-jp-v24-latin_japanese-500.svg#NotoSansJP') format('svg'); /* Legacy iOS */
+}
+/* noto-sans-jp-700 - latin_japanese */
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 700;
+  src: url('noto-sans-jp-v24-latin_japanese-700.eot'); /* IE9 Compat Modes */
+  src: local('Noto Sans Japanese Bold'), local('NotoSansJapanese-Bold'),
+       url('noto-sans-jp-v24-latin_japanese-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('noto-sans-jp-v24-latin_japanese-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('noto-sans-jp-v24-latin_japanese-700.woff') format('woff'), /* Modern Browsers */
+       url('noto-sans-jp-v24-latin_japanese-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('noto-sans-jp-v24-latin_japanese-700.svg#NotoSansJP') format('svg'); /* Legacy iOS */
 }
 /* noto-sans-jp-900 - latin_japanese */
 @font-face {

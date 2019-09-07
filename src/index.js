@@ -34,7 +34,8 @@ app.get('/radio', (req, res) => {
 		});
 
 		src.pipe(res);
-	});});
+	});
+});
 
 app.get('*', (req, res) => {
 	res.redirect('/')

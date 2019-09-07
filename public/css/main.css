@@ -14,12 +14,10 @@ html {
 
 body {
 	overflow-x: hidden;
-	font-size: 3rem;
-	background: url(../imgs/b68a86c405bfada0cee3f5e997a7b24d8017932e.jpg) no-repeat center;
+	font-size: 2rem;
+	background: url(../imgs/temp.jpg) no-repeat center;
 	background-size: cover;
 	color: #fefefe;
-	font-weight: 900;
-	text-shadow: 0 0 4px black;
 	font-family: 'Noto Sans JP';
 	user-select: none;
 }
@@ -32,26 +30,94 @@ body {
 	height: auto;
 	width: auto;
 	text-align: center;
-	min-height: 100vh;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#player, #gallery {
+	background: #31313145;
+	backdrop-filter: blur(16px);
+	box-shadow: 0 0 2rem black;
+	text-shadow: 0 0 4px black;
+	font-weight: 500;
 }
 
 #player {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	position: relative;
-	padding: 10rem;
-	backdrop-filter: blur(8px);
+	height: 24rem;
+	width: 48rem;
 }
 
-#player::before {
-	content: "";
+#player > :not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+.subtitle {
+	font-size: .5em;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+#volume {
+	-webkit-appearance: none;
+	height: 4px;
+	background-color: #fefefe;
+	box-shadow: 0 0 2px black;
+}
+
+#volume:focus {
+	outline: none;
+}
+
+#volume::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 2rem;
+	width: 1rem;
+	background-color: #fefefe;
+	box-shadow: 0 0 4px black;
+}
+
+#gallery {
 	position: absolute;
-	top: 0;
-	left: 0;
-	height: 3rem;
-	width: 100%;
-	background-color: currentColor;
-	box-shadow: 0 0 2rem black;
+	top: 95vh;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 48rem;
+	height: 48rem;
+	padding: 2rem;
+	transition: all 1s;
 }
 
-p {
-	margin-bottom: .5em;
+#reveal {
+	width: 6rem;
+	height: 1rem;
+	background: #fefefe;
+	border: none;
+	box-shadow: 0 0 3px black;
+	transition: all .1s;
+}
+
+#reveal:active {
+	background: #fefefe00;
+	box-shadow: inset 0 0 3px black;
+}
+
+#reveal:focus {
+	outline: none;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	width: 50%;
+	background: linear-gradient(
+		to right, 
+		#fefefe00,
+		#fefefe,
+		#fefefe00
+	);
 }
