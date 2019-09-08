@@ -48,8 +48,9 @@ body {
 	align-items: center;
 	flex-direction: column;
 	position: relative;
-	height: 24rem;
-	width: 48rem;
+	padding: 2rem;
+	min-height: 24rem;
+	min-width: 48rem;
 }
 
 #player > :not(:last-child) {
@@ -83,7 +84,8 @@ body {
 
 #gallery {
 	position: absolute;
-	top: 95vh;
+	top: 100%;
+	margin-top: -6rem;
 	left: 50%;
 	transform: translate(-50%, 0);
 	width: 48rem;
@@ -92,16 +94,22 @@ body {
 	transition: all 1s;
 }
 
+#gallery.revealed {
+	top: 50vh;
+	margin: 0;
+	transform: translate(-50%, -50%);
+}
+
 #reveal {
 	width: 6rem;
-	height: 1rem;
+	height: 1.5rem;
 	background: #fefefe;
 	border: none;
 	box-shadow: 0 0 3px black;
-	transition: all .1s;
+	transition: all .5s;
 }
 
-#reveal:active {
+#gallery.revealed #reveal {
 	background: #fefefe00;
 	box-shadow: inset 0 0 3px black;
 }

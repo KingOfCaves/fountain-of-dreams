@@ -1,8 +1,11 @@
 // ELEMENTS
 const $revealBtn = document.querySelector('#reveal');
+const $gallery = document.querySelector('#gallery');
 
 // FUNCTIONS
+function revealGallery() {
+	$gallery.classList.toggle('revealed');
+}
 
 // EVENTS
-
-// SOCKET.IO EVENTS
+$revealBtn.addEventListener('click', revealGallery);
