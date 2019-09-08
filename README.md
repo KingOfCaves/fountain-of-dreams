@@ -20,8 +20,8 @@ A lot actually. I've really only just gotten started, but the main functionality
 
 The aero-like design I'm using right now isn't final, it's temporary. I might add something like different themes later.  I will definitely add more background options to use just like plaza-one.
 
-## SCREENSHOTS?
-hello yes here is some pictor
+## SCREENSHOTS
+hello yes sir here is some pictor
 
 ![Picture of stream in developer tools](./docs/6cI6BArDhK.jpg)
 ![Picture of full array of tools being used](./docs/vivaldi_eGbw4FSReV.jpg)
