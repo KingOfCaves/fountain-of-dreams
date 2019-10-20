@@ -1,13 +1,16 @@
 html {
-    font-size: 62.5%;
-    box-sizing: border-box;
+	font-size: 62.5%;
+	box-sizing: border-box;
 }
 
-*, *::before, *::after {
-    box-sizing: inherit;
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
 }
 
-*:link, *:visited{
+*:link,
+*:visited {
 	color: currentColor;
 	text-decoration: none;
 }
@@ -34,11 +37,18 @@ body {
 	overflow: hidden;
 }
 
-#player, #gallery {
-	background: #31313145;
-	backdrop-filter: blur(16px);
-	box-shadow: 0 0 2rem black;
-	text-shadow: 0 0 4px black;
+#player,
+#gallery {
+	background: #fefefe22 url(../imgs/noise-light.png);
+	background-size: contain;
+	background-repeat: repeat;
+	background-position: center bottom;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 0 1rem black;
+	text-shadow: 
+		0 0 4px black,
+		0 0 4px black,
+		0 0 4px black;
 	font-weight: 500;
 }
 
@@ -58,7 +68,7 @@ body {
 }
 
 .subtitle {
-	font-size: .5em;
+	font-size: 0.5em;
 	font-weight: 300;
 	text-transform: uppercase;
 }
@@ -106,7 +116,7 @@ body {
 	background: #fefefe;
 	border: none;
 	box-shadow: 0 0 3px black;
-	transition: all .5s;
+	transition: all 0.5s;
 }
 
 #gallery.revealed #reveal {
@@ -122,10 +132,5 @@ hr {
 	border: 0;
 	height: 1px;
 	width: 50%;
-	background: linear-gradient(
-		to right, 
-		#fefefe00,
-		#fefefe,
-		#fefefe00
-	);
+	background: linear-gradient(to right, #fefefe00, #fefefe, #fefefe00);
 }
