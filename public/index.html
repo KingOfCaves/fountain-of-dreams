@@ -12,13 +12,14 @@
 <body>
 	<div class="wrapper">
 		<div id="player">
-			<span class="subtitle">Title</span>
-			<p id="title" class="continent">...<p>
-			<span class="subtitle">Artist</span>
-			<p id="artist" class="continent">...</p>
+			<p class="subtitle">Title</p>
+			<p id="title" class="content">...<p>
+			<p class="subtitle">Artist</p>
+			<p id="artist" class="content">...</p>
 			<audio id="radio" src="/radio" autoplay></audio>
 			<div id="controls">
-				<input id="volume" type="range" step=".05" max="1">
+				<input id="volume" type="range" step=".02" max="1">
+				<label class="subtitle" id="volume__display">%</label>
 			</div>
 		</div>
 		<!-- <div id="gallery">

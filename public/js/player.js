@@ -5,6 +5,7 @@ const $infoArtist = document.querySelector('#artist');
 const $infoTitle = document.querySelector('#title');
 const $radio = document.querySelector('#radio');
 const $volume = document.querySelector('#volume');
+const $volumeDisplay = document.querySelector('#volume__display');
 
 // FUNCTIONS
 function infoUpdate(info) {
@@ -17,10 +18,17 @@ function infoUpdate(info) {
 function initPlayer() {
 	$radio.volume = .1;
 	$volume.value = $radio.volume;
+	updateVolumeDisplay();
 }
 
 function updateVolume() {
 	$radio.volume = this.value;
+	updateVolumeDisplay();
+}
+
+function updateVolumeDisplay() {
+	const displayValue = parseInt($volume.value * 100);
+	$volumeDisplay.textContent = `${displayValue}%`;
 }
 
 // EVENTS

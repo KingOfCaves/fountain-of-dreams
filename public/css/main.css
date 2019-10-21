@@ -39,7 +39,7 @@ body {
 
 #player,
 #gallery {
-	background: #fefefe22 url(../imgs/noise-light.png);
+	background: #fefefe22 url(../imgs/noise.png);
 	background-size: contain;
 	background-repeat: repeat;
 	background-position: center bottom;
@@ -68,12 +68,25 @@ body {
 }
 
 .subtitle {
-	font-size: 0.5em;
+	font-size: 0.6em;
 	font-weight: 300;
 	text-transform: uppercase;
 }
 
+#controls {
+	width: 66%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+#controls > :first-child {
+	margin: 2rem;
+}
+
 #volume {
+	width: 100%;
 	-webkit-appearance: none;
 	height: 4px;
 	background-color: #fefefe;
@@ -90,6 +103,10 @@ body {
 	width: 1rem;
 	background-color: #fefefe;
 	box-shadow: 0 0 4px black;
+}
+
+#volume__display {
+	letter-spacing: 2px;
 }
 
 #gallery {
