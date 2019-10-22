@@ -67,6 +67,10 @@ body {
 	margin-bottom: 1rem;
 }
 
+.content {
+	word-break: keep-all;
+}
+
 .subtitle {
 	font-size: 0.6em;
 	font-weight: 300;
@@ -74,7 +78,6 @@ body {
 }
 
 #controls {
-	width: 66%;
 	display: flex;
 	justify-content: center;
 	align-items: center;

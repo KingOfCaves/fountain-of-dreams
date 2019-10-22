@@ -9,20 +9,19 @@ const $volumeDisplay = document.querySelector('#volume__display');
 
 // FUNCTIONS
 function infoUpdate(info) {
-	const [artist, title] = info.split('//').map(i => i.trim());
+	const [artist, title] = info.split('//').map((i) => i.trim());
 
 	$infoArtist.textContent = artist;
 	$infoTitle.textContent = title;
 }
 
 function initPlayer() {
-	$radio.volume = .1;
-	$volume.value = $radio.volume;
+	updateVolume();
 	updateVolumeDisplay();
 }
 
 function updateVolume() {
-	$radio.volume = this.value;
+	$radio.volume = $volume.value;
 	updateVolumeDisplay();
 }
 
@@ -31,8 +30,29 @@ function updateVolumeDisplay() {
 	$volumeDisplay.textContent = `${displayValue}%`;
 }
 
+function shortcuts(e) {
+	console.log(e.key);
+	const current = Math.round(parseFloat($volume.value) * 100) / 100;
+	const step = e.shiftKey ? 0.1 : 0.01;
+
+	switch (e.key) {
+		case 'ArrowLeft':
+			$volume.value = current - step;
+			updateVolume();
+			break;
+		case 'ArrowRight':
+			$volume.value = current + step;
+			updateVolume();
+			break;
+		case 'p':
+			console.log('play');
+			break;
+	}
+}
+
 // EVENTS
 window.addEventListener('load', initPlayer);
+window.addEventListener('keydown', shortcuts);
 $volume.addEventListener('input', updateVolume);
 
 // SOCKET.IO EVENTS
