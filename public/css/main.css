@@ -112,6 +112,10 @@ body {
 	letter-spacing: 2px;
 }
 
+.muted {
+	text-decoration: line-through;
+}
+
 #gallery {
 	position: absolute;
 	top: 100%;
