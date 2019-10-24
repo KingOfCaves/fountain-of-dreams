@@ -52,6 +52,23 @@
 				$radio.muted = !$radio.muted;
 				$volumeDisplay.classList.toggle('muted');
 				break;
+			case 'h':
+				console.log('help');
+			case 'c':
+				const [artist, title] = [
+					$infoArtist.textContent,
+					$infoTitle.textContent
+				];
+				const formatted = `${artist} - ${title}`;
+
+				navigator.clipboard.writeText(formatted).then(
+					function() {
+						console.log(formatted, 'copied!');
+					},
+					function() {
+						console.log('woops!');
+					}
+				);
 		}
 	}
 

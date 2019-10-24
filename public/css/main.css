@@ -22,7 +22,6 @@ body {
 	background-size: cover;
 	color: #fefefe;
 	font-family: 'Noto Sans JP';
-	user-select: none;
 }
 
 .wrapper {
@@ -75,6 +74,8 @@ body {
 	font-size: 0.6em;
 	font-weight: 300;
 	text-transform: uppercase;
+	letter-spacing: 2px;
+	user-select: none;
 }
 
 #controls {
@@ -108,48 +109,8 @@ body {
 	box-shadow: 0 0 4px black;
 }
 
-#volume__display {
-	letter-spacing: 2px;
-}
-
 .muted {
 	text-decoration: line-through;
-}
-
-#gallery {
-	position: absolute;
-	top: 100%;
-	margin-top: -6rem;
-	left: 50%;
-	transform: translate(-50%, 0);
-	width: 48rem;
-	height: 48rem;
-	padding: 2rem;
-	transition: all 1s;
-}
-
-#gallery.revealed {
-	top: 50vh;
-	margin: 0;
-	transform: translate(-50%, -50%);
-}
-
-#reveal {
-	width: 6rem;
-	height: 1.5rem;
-	background: #fefefe;
-	border: none;
-	box-shadow: 0 0 3px black;
-	transition: all 0.5s;
-}
-
-#gallery.revealed #reveal {
-	background: #fefefe00;
-	box-shadow: inset 0 0 3px black;
-}
-
-#reveal:focus {
-	outline: none;
 }
 
 hr {
