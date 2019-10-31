@@ -1,12 +1,22 @@
 (function() {
 	const socket = io.connect();
 
-	// ELEMENTS
+	// VARIABLES
 	const $infoArtist = document.querySelector('#artist');
 	const $infoTitle = document.querySelector('#title');
 	const $radio = document.querySelector('#radio');
 	const $volume = document.querySelector('#volume');
 	const $volumeDisplay = document.querySelector('#volume__display');
+	
+	let volumeStored;
+
+	if(!localStorage.getItem('volume')) {
+		volumeStored = 0.1;
+		localStorage.setItem('volume', volumeStored);
+		volumeStored = +localStorage.getItem('volume');
+	} else {
+		volumeStored = +localStorage.getItem('volume');
+	};
 
 	// FUNCTIONS
 	function infoUpdate(info) {
@@ -17,12 +27,16 @@
 	}
 
 	function initPlayer() {
+		$volume.value = volumeStored;
 		updateVolume();
 		updateVolumeDisplay();
 	}
 
 	function updateVolume() {
-		$radio.volume = $volume.value;
+		const val = $volume.value;
+		
+		$radio.volume = val;
+		localStorage.setItem('volume', val);
 		updateVolumeDisplay();
 	}
 

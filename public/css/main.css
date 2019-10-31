@@ -44,10 +44,7 @@ body {
 	background-position: center bottom;
 	backdrop-filter: blur(10px);
 	box-shadow: 0 0 1rem black;
-	text-shadow: 
-		0 0 4px black,
-		0 0 4px black,
-		0 0 4px black;
+	text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px black;
 	font-weight: 500;
 }
 
@@ -63,7 +60,7 @@ body {
 }
 
 #player > :not(:last-child) {
-	margin-bottom: 1rem;
+	margin-bottom: 1em;
 }
 
 .content {
