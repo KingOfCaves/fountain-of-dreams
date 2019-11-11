@@ -8,7 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
+const IP_ADDRESS = process.env.IP_ADDRESS || 'localhost';
 
 const public_dir = path.join(__dirname, '../public');
 app.use(express.static(public_dir));
@@ -41,6 +42,6 @@ app.get('*', (req, res) => {
 	res.redirect('/')
 });
 
-server.listen(PORT, () => {
-	console.log(`Server is running on port ${ PORT }`)
+server.listen(PORT, IP_ADDRESS, () => {
+	console.log(`Server is running on port ${PORT}`);
 });

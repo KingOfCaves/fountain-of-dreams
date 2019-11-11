@@ -38,11 +38,13 @@ body {
 
 #player,
 #gallery {
-	background: #fefefe22 url(../imgs/noise.png);
+	background: 
+		#242424;
+		/* url(../imgs/noise.png); */
 	background-size: contain;
 	background-repeat: repeat;
 	background-position: center bottom;
-	backdrop-filter: blur(10px);
+	/* backdrop-filter: blur(10px); */
 	box-shadow: 0 0 1rem black;
 	text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px black;
 	font-weight: 500;

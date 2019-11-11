@@ -16,6 +16,7 @@
 		volumeStored = +localStorage.getItem('volume');
 	} else {
 		volumeStored = +localStorage.getItem('volume');
+		console.log(+localStorage.getItem('volume'));
 	};
 
 	// FUNCTIONS
@@ -34,7 +35,7 @@
 
 	function updateVolume() {
 		const val = $volume.value;
-		
+
 		$radio.volume = val;
 		localStorage.setItem('volume', val);
 		updateVolumeDisplay();
