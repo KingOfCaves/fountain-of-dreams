@@ -7,17 +7,17 @@
 	const $radio = document.querySelector('#radio');
 	const $volume = document.querySelector('#volume');
 	const $volumeDisplay = document.querySelector('#volume__display');
-	
+
 	let volumeStored;
 
-	if(!localStorage.getItem('volume')) {
+	if (!localStorage.getItem('volume')) {
 		volumeStored = 0.1;
 		localStorage.setItem('volume', volumeStored);
 		volumeStored = +localStorage.getItem('volume');
 	} else {
 		volumeStored = +localStorage.getItem('volume');
 		console.log(+localStorage.getItem('volume'));
-	};
+	}
 
 	// FUNCTIONS
 	function infoUpdate(info) {
