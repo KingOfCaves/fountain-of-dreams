@@ -11,6 +11,7 @@ const io = socketio(server);
 require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
+const ICECAST_PORT = process.env.ICECAST_PORT || 8080;
 const IP_ADDRESS = process.env.IP_ADDRESS || 'localhost';
 
 const public_dir = path.join(__dirname, '../public');
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 app.get('/radio', (req, res) => {
 	icy.get(
 		{
-			port: 8080,
+			port: ICECAST_PORT,
 			path: '/radio',
 			headers: { 'Content-Type': 'audio/mpeg' }
 		},
