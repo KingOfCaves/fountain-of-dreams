@@ -8,6 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+require('dotenv').config();
+
 const PORT = process.env.PORT || 8000;
 const IP_ADDRESS = process.env.IP_ADDRESS || 'localhost';
 
