@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 app.get('/radio', (req, res) => {
 	icy.get(
 		{
+			hostname: IP_ADDRESS,
 			port: ICECAST_PORT,
 			path: '/radio',
 			headers: { 'Content-Type': 'audio/mpeg' }
