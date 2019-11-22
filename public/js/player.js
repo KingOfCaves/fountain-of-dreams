@@ -16,12 +16,10 @@
 		volumeStored = +localStorage.getItem('volume');
 	} else {
 		volumeStored = +localStorage.getItem('volume');
-		// console.log(+localStorage.getItem('volume'));
 	}
 
 	// FUNCTIONS
 	function infoUpdate(info) {
-		console.log(info);
 		const [artist, title] = info.split('//').map((i) => i.trim());
 
 		$infoArtist.textContent = artist;

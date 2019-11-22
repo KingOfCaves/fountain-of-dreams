@@ -26,12 +26,12 @@ app.get('/radio', (req, res) => {
 		{
 			hostname: IP_ADDRESS,
 			port: ICECAST_PORT,
-			path: '/radio',
-			headers: { 'Content-Type': 'audio/mpeg' }
+			path: '/radio'
 		},
 		(src) => {
 			src.on('metadata', (metadata) => {
 				const { StreamTitle: info } = icy.parse(metadata);
+				console.log(info);
 				io.emit('metadataUpdate', info);
 			});
 			src.on('error', (error) => {
