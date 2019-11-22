@@ -31,7 +31,6 @@ app.get('/radio', (req, res) => {
 		(src) => {
 			src.on('metadata', (metadata) => {
 				const { StreamTitle: info } = icy.parse(metadata);
-				console.log(info);
 				io.emit('metadataUpdate', info);
 			});
 			src.on('error', (error) => {
