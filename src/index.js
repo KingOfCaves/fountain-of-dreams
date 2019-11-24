@@ -24,7 +24,6 @@ app.get('/', (req, res) => {
 app.get('/radio', (req, res) => {
 	icy.get(
 		{
-			hostname: IP_ADDRESS,
 			port: ICECAST_PORT,
 			path: '/radio'
 		},
@@ -46,6 +45,6 @@ app.get('*', (req, res) => {
 	res.redirect('/');
 });
 
-server.listen(PORT, IP_ADDRESS, () => {
+server.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
