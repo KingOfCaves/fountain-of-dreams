@@ -1,3 +1,7 @@
+:root {
+	--inbetween: 0.25s;
+}
+
 html {
 	font-size: 62.5%;
 	box-sizing: border-box;
@@ -62,7 +66,7 @@ body {
 }
 
 #player > :not(:last-child) {
-	margin-bottom: 1em;
+	margin-bottom: 2rem;
 }
 
 .content {
@@ -112,9 +116,56 @@ body {
 	text-decoration: line-through;
 }
 
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loader .loader__dot {
+	width: 6px;
+	height: 6px;
+	background-color: currentColor;
+	animation: both 1s wave infinite ease-in-out
+}
+
+.loader .loader__dot:not(:last-child) {
+	margin-right: 1rem;
+}
+
+.loader .loader__dot:nth-of-type(1) {
+	animation-delay: calc(var(--inbetween) * 0);
+}
+.loader .loader__dot:nth-of-type(2) {
+	animation-delay: calc(var(--inbetween) * .75);
+}
+.loader .loader__dot:nth-of-type(3) {
+	animation-delay: calc(var(--inbetween) * 1.5);
+}
+.loader .loader__dot:nth-of-type(4) {
+	animation-delay: calc(var(--inbetween) * 2.25);
+}
+.loader .loader__dot:nth-of-type(5) {
+	animation-delay: calc(var(--inbetween) * 3);
+}
+
 hr {
 	border: 0;
 	height: 1px;
 	width: 50%;
 	background: linear-gradient(to right, #fefefe00, #fefefe, #fefefe00);
+}
+
+@keyframes wave {
+	from {
+		transform: translate(0, -3px);
+	}
+
+	50% {
+		transform: translate(0, 3px);
+	}
+
+	to {
+		transform: translate(0, -3px);
+	}
 }

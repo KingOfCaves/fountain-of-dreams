@@ -12,10 +12,24 @@
 	<body>
 		<div class="wrapper">
 			<div id="player">
-				<p class="subtitle">Title</p>
-				<p id="title" class="content">...</p>
-				<p class="subtitle">Artist</p>
-				<p id="artist" class="content">...</p>
+				<span class="subtitle">Title</span>
+				<article id="title" class="content">
+					<div class="loader">
+						<div class="loader__dot"></div>
+						<div class="loader__dot"></div>
+						<div class="loader__dot"></div>
+						<div class="loader__dot"></div>
+					</div>
+				</article>
+				<span class="subtitle">Artist</span>
+				<article id="artist" class="content">
+					<div class="loader">
+						<div class="loader__dot"></div>
+						<div class="loader__dot"></div>
+						<div class="loader__dot"></div>
+						<div class="loader__dot"></div>
+					</div>
+				</article>
 				<audio id="radio" src="/radio" autoplay></audio>
 				<div id="controls">
 					<input id="volume" type="range" step="0.01" max="1" />

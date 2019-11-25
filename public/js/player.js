@@ -22,6 +22,8 @@
 	function infoUpdate(info) {
 		const [artist, title] = info.split('//').map((i) => i.trim());
 
+		if (!artist || !title) return;
+
 		$infoArtist.textContent = artist;
 		$infoTitle.textContent = title;
 	}
