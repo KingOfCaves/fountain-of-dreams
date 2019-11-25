@@ -68,6 +68,7 @@
 				break;
 			case 'h':
 				console.log('help');
+				break;
 			case 'c':
 				const [artist, title] = [
 					$infoArtist.textContent,
@@ -83,6 +84,10 @@
 						console.log('woops!');
 					}
 				);
+				break;
+			case 'k':
+				console.log('keyboard shortcuts')
+				break;
 		}
 	}
 
