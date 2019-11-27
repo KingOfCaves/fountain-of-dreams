@@ -11,8 +11,9 @@
 	</head>
 	<body>
 		<div class="wrapper">
+
 			<div id="player">
-				<span class="subtitle">Title</span>
+				<p class="subtitle">Title</p>
 				<article id="title" class="content">
 					<div class="loader">
 						<div class="loader__dot"></div>
@@ -21,7 +22,7 @@
 						<div class="loader__dot"></div>
 					</div>
 				</article>
-				<span class="subtitle">Artist</span>
+				<p class="subtitle">Artist</p>
 				<article id="artist" class="content">
 					<div class="loader">
 						<div class="loader__dot"></div>
@@ -33,10 +34,70 @@
 				<audio id="radio" src="/radio" autoplay></audio>
 				<div id="controls">
 					<input id="volume" type="range" step="0.01" max="1" />
-					<p class="subtitle" id="volume__display">0%</p>
+					<div class="subtitle" id="volume__display">0%</div>
 				</div>
 			</div>
-			<!-- <div id="gallery"></div> -->
+
+			<div id="shortcuts" class="open">
+				<h3>Shortcuts</h3>
+				<ul class="shortcut__list">
+					<li class="shortcut__key">
+						<div class="shortcut__icons">
+							<i class="shortcut__icon">P</i>
+						</div>
+						<p class="shortcut__desc">
+							Play / Pause the stream
+						</p>
+					</li>
+					<li class="shortcut__key">
+						<div class="shortcut__icons">
+							<i class="shortcut__icon">M</i>
+						</div>
+						<p class="shortcut__desc">
+							Toggle the player audio
+						</p>
+					</li>
+					<li class="shortcut__key">
+						<div class="shortcut__icons">
+							<i class="shortcut__icon">&#9650;</i>
+							<i class="shortcut__icon">&#9654;</i>
+						</div>
+						<p class="shortcut__desc">
+							Turn volume up by 1
+						</p>
+					</li>
+					<li class="shortcut__key">
+						<div class="shortcut__icons">
+							<i class="shortcut__icon">SHIFT</i> + 
+							<i class="shortcut__icon">&#9650;</i> /
+							<i class="shortcut__icon">&#9654;</i>
+						</div>
+						<p class="shortcut__desc">
+							Turn volume up by 10
+						</p>
+					</li>
+					<li class="shortcut__key">
+						<div class="shortcut__icons">
+							<i class="shortcut__icon">&#9664;</i>
+							<i class="shortcut__icon">&#9660;</i>
+						</div>
+						<p class="shortcut__desc">
+							Turn volume down by 1
+						</p>
+					</li>
+					<li class="shortcut__key">
+						<div class="shortcut__icons">
+							<i class="shortcut__icon">SHIFT</i> + 
+							<i class="shortcut__icon">&#9664;</i>
+							<i class="shortcut__icon">&#9660;</i>
+						</div>
+						<p class="shortcut__desc">
+							Turn volume down by 10
+						</p>
+					</li>
+				</ul>
+			</div>
+
 		</div>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="./js/player.js"></script>

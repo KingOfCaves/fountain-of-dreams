@@ -7,6 +7,7 @@
 	const $radio = document.querySelector('#radio');
 	const $volume = document.querySelector('#volume');
 	const $volumeDisplay = document.querySelector('#volume__display');
+	const $shortcutsDisplay = document.querySelector('#shortcuts');
 
 	let volumeStored;
 
@@ -69,7 +70,7 @@
 				$volumeDisplay.classList.toggle('muted');
 				break;
 			case 'h':
-				console.log('help');
+				$shortcutsDisplay.classList.toggle('open');
 				break;
 			case 'c':
 				const [artist, title] = [
@@ -86,9 +87,6 @@
 						console.log('woops!');
 					}
 				);
-				break;
-			case 'k':
-				console.log('keyboard shortcuts')
 				break;
 		}
 	}
