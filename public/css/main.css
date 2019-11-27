@@ -177,7 +177,7 @@ body {
 	width: 4px;
 	height: 4px;
 	background-color: currentColor;
-	animation: both 1.66s wave infinite ease-in-out;
+	animation: both 1.5s wave infinite ease-in-out;
 }
 
 .loader .loader__dot:not(:last-child) {
