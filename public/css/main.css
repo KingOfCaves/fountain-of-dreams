@@ -39,9 +39,8 @@ body {
 #player,
 #gallery,
 #shortcuts {
-	background: 
-		#242424;
-		/* url(../imgs/noise.png); */
+	background: #242424;
+	/* url(../imgs/noise.png); */
 	background-size: contain;
 	background-repeat: repeat;
 	background-position: center bottom;
@@ -122,7 +121,7 @@ body {
 	padding: 5rem;
 	z-index: 1;
 	opacity: 0;
-	transition: all .25s;
+	transition: all 0.25s;
 	text-transform: uppercase;
 }
 
@@ -132,9 +131,9 @@ body {
 }
 
 #shortcuts h3 {
+	margin-bottom: 2rem;
 	font-size: 2em;
-	margin-bottom: .66em;
-	font-weight: bold;
+	font-weight: 900;
 }
 
 .shortcut__list > :not(:last-child) {
@@ -142,7 +141,7 @@ body {
 }
 
 .shortcut__key > :not(:last-child) {
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 }
 
 .shortcut__key {
@@ -160,12 +159,12 @@ body {
 
 .shortcut__icon {
 	display: block;
-	padding: .5rem;
+	padding: 0.5rem;
 	font-weight: 900;
 }
 
 .shortcut__desc {
-	font-size: .66em;
+	font-size: 0.66em;
 }
 
 .loader {
@@ -175,10 +174,10 @@ body {
 }
 
 .loader .loader__dot {
-	width: 8px;
-	height: 8px;
+	width: 4px;
+	height: 4px;
 	background-color: currentColor;
-	animation: both 1.5s wave infinite ease-in-out
+	animation: both 1.66s wave infinite ease-in-out;
 }
 
 .loader .loader__dot:not(:last-child) {
@@ -189,25 +188,25 @@ body {
 	animation-delay: 0;
 }
 .loader .loader__dot:nth-of-type(2) {
-	animation-delay: .2s;
+	animation-delay: 0.25s;
 }
 .loader .loader__dot:nth-of-type(3) {
-	animation-delay: .4s;
+	animation-delay: 0.5s;
 }
 .loader .loader__dot:nth-of-type(4) {
-	animation-delay: .6s;
+	animation-delay: 0.75s;
 }
 
 @keyframes wave {
 	from {
-		transform: translate(0, -3px);
+		transform: translate(0, -2px);
 	}
 
 	50% {
-		transform: translate(0, 3px);
+		transform: translate(0, 2px);
 	}
 
 	to {
-		transform: translate(0, -3px);
+		transform: translate(0, -2px);
 	}
 }
