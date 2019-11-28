@@ -69,6 +69,14 @@
 	function shortcuts(e) {
 		const current = Math.round(parseFloat($volume.value) * 100) / 100;
 		const step = e.shiftKey ? 0.1 : 0.01;
+
+		const playing =
+			$radio.currentTime > 0 &&
+			!$radio.paused &&
+			!radio.ended &&
+			$radio.readyState > 2;
+
+		
 		switch (e.key) {
 			case 'ArrowDown':
 			case 'ArrowLeft':
@@ -81,7 +89,7 @@
 				updateVolume();
 				break;
 			case 'p':
-				!$radio.paused ? stopStream() : resumeStream();
+				playing ? stopStream() : resumeStream();
 				break;
 			case 'm':
 				$radio.muted = !$radio.muted;
