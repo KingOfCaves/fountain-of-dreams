@@ -59,7 +59,7 @@ body {
 	padding: 2rem;
 	min-height: 24rem;
 	min-width: 48rem;
-	transition: opacity .5s;
+	transition: opacity .25s;
 }
 
 #player > :not(:last-child) {

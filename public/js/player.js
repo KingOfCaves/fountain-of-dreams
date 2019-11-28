@@ -30,6 +30,20 @@
 		$infoTitle.textContent = title;
 	}
 
+	function infoPending() {
+		const loader = `
+		<div class="loader">
+			<div class="loader__dot"></div>
+			<div class="loader__dot"></div>
+			<div class="loader__dot"></div>
+			<div class="loader__dot"></div>
+		</div>
+		`.trim();
+		
+		$infoArtist.innerHTML = loader;
+		$infoTitle.innerHTML = loader;
+	}
+
 	function initRadio() {
 		stopStream();
 		resumeStream();
@@ -40,6 +54,7 @@
 	}
 
 	function stopStream() {
+		infoPending();
 		$radio.pause();
 		$radio.currentTime = 0;
 		$radio.src = '';
