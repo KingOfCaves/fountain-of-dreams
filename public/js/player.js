@@ -81,7 +81,7 @@
 				updateVolume();
 				break;
 			case 'p':
-				$radio.paused ? stopStream() : resumeStream();
+				!$radio.paused ? stopStream() : resumeStream();
 				break;
 			case 'm':
 				$radio.muted = !$radio.muted;
