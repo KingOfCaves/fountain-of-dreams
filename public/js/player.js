@@ -1,5 +1,5 @@
 (function() {
-	// const socket = io.connect();
+	const socket = io.connect();
 
 	// VARIABLES
 	const $player = document.querySelector('#player');
@@ -115,5 +115,5 @@
 	$volume.addEventListener('input', updateVolume);
 
 	// SOCKET.IO EVENTS
-	// socket.on('metadataUpdate', (info) => infoUpdate(info));
+	socket.on('metadataUpdate', (info) => infoUpdate(info));
 })();
