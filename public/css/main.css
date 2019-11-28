@@ -65,6 +65,10 @@ body {
 	margin-bottom: 2rem;
 }
 
+#player.stop {
+	opacity: 0.75;
+}
+
 .content {
 	word-break: keep-all;
 }

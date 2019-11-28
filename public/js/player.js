@@ -1,7 +1,8 @@
 (function() {
-	const socket = io.connect();
+	// const socket = io.connect();
 
 	// VARIABLES
+	const $player = document.querySelector('#player');
 	const $infoArtist = document.querySelector('#artist');
 	const $infoTitle = document.querySelector('#title');
 	const $radio = document.querySelector('#radio');
@@ -29,10 +30,27 @@
 		$infoTitle.textContent = title;
 	}
 
-	function initPlayer() {
+	function initRadio() {
+		stopStream();
+		resumeStream();
+		
 		$volume.value = volumeStored;
 		updateVolume();
 		updateVolumeDisplay();
+	}
+
+	function stopStream() {
+		$radio.pause();
+		$radio.currentTime = 0;
+		$radio.src = '';
+		$player.classList.add('stop');
+	}
+
+	function resumeStream() {
+		$radio.src = '/radio';
+		$radio.load();
+		$radio.play();
+		$player.classList.remove('stop');
 	}
 
 	function updateVolume() {
@@ -63,7 +81,7 @@
 				updateVolume();
 				break;
 			case 'p':
-				console.log('play');
+				$radio.paused ? stopStream() : resumeStream();
 				break;
 			case 'm':
 				$radio.muted = !$radio.muted;
@@ -92,10 +110,10 @@
 	}
 
 	// EVENTS
-	window.addEventListener('load', initPlayer);
+	window.addEventListener('load', initRadio);
 	window.addEventListener('keydown', shortcuts);
 	$volume.addEventListener('input', updateVolume);
 
 	// SOCKET.IO EVENTS
-	socket.on('metadataUpdate', (info) => infoUpdate(info));
+	// socket.on('metadataUpdate', (info) => infoUpdate(info));
 })();
