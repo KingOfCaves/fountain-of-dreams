@@ -82,8 +82,8 @@
 	}
 
 	function shortcuts(e) {
-		const highstep = Math.floor(parseFloat($volume.value) * 0.01) / 100;
-		const lowstep = Math.floor(parseFloat($volume.value) * 0.1) / 100;
+		const highstep = Math.floor(0.1 * 100) / 100;
+		const lowstep = Math.floor(0.01 * 100) / 100;
 		
 		const current = Math.floor(parseFloat($volume.value) * 100) / 100;
 		const step = e.shiftKey ? highstep : lowstep;
