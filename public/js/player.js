@@ -88,8 +88,6 @@
 			!radio.ended &&
 			$radio.readyState > 2;
 
-		console.log(step);
-
 		switch (e.key) {
 			case 'p':
 				playing ? stopStream() : resumeStream();
