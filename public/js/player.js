@@ -82,8 +82,11 @@
 	}
 
 	function shortcuts(e) {
-		const current = Math.round(parseFloat($volume.value) * 100) / 100;
-		const step = e.shiftKey ? 0.1 : 0.01;
+		const highstep = Math.floor(parseFloat($volume.value) * 0.01) / 100;
+		const lowstep = Math.floor(parseFloat($volume.value) * 0.1) / 100;
+		
+		const current = Math.floor(parseFloat($volume.value) * 100) / 100;
+		const step = e.shiftKey ? highstep : lowstep;
 
 		const playing =
 			$radio.currentTime > 0 &&
