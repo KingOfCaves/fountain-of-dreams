@@ -10,17 +10,22 @@
 - Screenshots?
 
 ## HOW TO USE IT?
+Clicking the link will bring you to the main page of the radio web application. You can use this to listen, or you can use any third party media player that supports mp3 streams. To use some like VLC to listen, use the /radio endpoint.
 
-
+ http://fountain.ddns.net/radio
 
 ## HOW IT WORKS?
-The main server that people connect to uses a basic frontend for ui and a node.js backend for handeling requests and routes. The backend has a route for the root, a route for handeling the radio server data and current song information and a catch-all so that pepople will get redirected back to the main page. 
+The server now has a proper host. A Raspberry Pi 4 running Raspbian.
 
-The route for the audio stream catches the icecast server being run in the background and uses socket-io in order to emit an event to all connected sockets. This event I conveniently named metadataUpdate sends the metadata from icecast to the front end where it is rendered as a title and an artist. Mixxx is running in the background alongside icecast and is the actualy source of the audio. Icecast is relaying it to the client.
+### Frontend
+The frontend only shows the metadata (e.g. artist, etc.), and the volume / volume slider. There are a number of different shortcuts that can be viewed by clicking the help button the in the bottom right corner or by clicking the 'H' key.
+
+### Backend
+The main server that people connect to uses a basic frontend for ui and a node.js backend for handling requests and routes. The backend has a route for the root, a route for handling the radio server data and current song information and a catch-all so that people will get redirected back to the main page. 
+
+The route for the audio stream catches the icecast server being run in the background and uses socket-io in order to emit an event to all connected sockets. This event I conveniently named metadataUpdate sends the metadata from icecast to the front end where it is rendered as a title and an artist. Mixxx is running in the background alongside icecast and is the actual source of the audio and metadata. Icecast is relaying it to the client.
 
 There are plans in the future for a gallery for looking at pictures of abandoned malls that I hand picked from places like r/deadmalls, r/abandonedporn, and Phil Donohue's tumblr/instagram. Props to those guys, a lot of these pictures are amazing. I also want to add a contact form for submitting songs and pictures for others to see and download, with a link to the original post / photographer page / bandcamp of course.
-
-I'll also add a credits page crediting artists and photographers later on when I get to actually hosting the radio on a platform that can be used as a 24/7 host like a miniPC or Raspberry PI. For now I only have screenshots and explanations for what's going on at the moment. I look forward to continue working as this.
 
 ## SCREENSHOTS
 need to take more pictor
