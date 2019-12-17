@@ -10,12 +10,12 @@
 - Screenshots?
 
 ## HOW TO USE IT?
-Clicking the link will bring you to the main page of the radio web application. You can use this to listen, or you can use any third party media player that supports mp3 streams. To use some like VLC to listen, use the /radio endpoint.
+Clicking the link at the top will bring you to the main page of the radio web application. You can use this to listen, or you can use any third party media player that supports mp3 streams. To use something like VLC to listen, use the /radio endpoint.
 
  http://fountain.ddns.net/radio
 
 ## HOW IT WORKS?
-The server now has a proper host. A Raspberry Pi 4 running Raspbian.
+The server now has a proper host now. A Raspberry Pi 4 running Raspbian.
 
 ### Frontend
 The frontend only shows the metadata (e.g. artist, etc.), and the volume / volume slider. There are a number of different shortcuts that can be viewed by clicking the help button the in the bottom right corner or by clicking the 'H' key.

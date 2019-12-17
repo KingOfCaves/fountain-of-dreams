@@ -10,6 +10,8 @@
 	const $volumeDisplay = document.querySelector('#volume__display');
 	const $shortcutsDisplay = document.querySelector('#shortcuts');
 
+	const documentTitle = 'ｆｏｕｎｔａｉｎ_ｏｆ_ｄｒｅａｍｓ';
+
 	let volumeStored;
 
 	if (!localStorage.getItem('volume')) {
@@ -28,6 +30,7 @@
 
 		$infoArtist.textContent = artist;
 		$infoTitle.textContent = title;
+		document.title = `${documentTitle} | ${artist} - ${title}`;
 	}
 
 	function infoPending() {
