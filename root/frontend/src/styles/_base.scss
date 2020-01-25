@@ -18,11 +18,11 @@ html {
 body {
 	background: url('/images/temp.jpg') center no-repeat;
 	background-size: cover;
-	color: #4c1a0d;
+	color: #fefefe;
 	font-size: 2rem;
 	font-weight: bold;
 	font-family: 'Noto Sans JP', 'Noto Sans KR', sans-serif;
-	font-weight: bold;
+	font-weight: 500;
 	width: 100%;
 	height: 100vh;
 }
@@ -31,7 +31,7 @@ body {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	padding: 6rem;
+	padding: 4rem;
 	width: auto;
 	height: auto;
 	transform: translate(-50%, -50%);
@@ -39,9 +39,54 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: #d9d6d5;
+	background: #242424;
 }
 
 .player > p {
-	margin-bottom: 3rem;
+	word-wrap: none;
+	margin-bottom: 5rem;
+}
+
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loader .loader__dot {
+	width: 6px;
+	height: 6px;
+	background-color: currentColor;
+	animation: both 1.5s wave infinite ease-in-out;
+}
+
+.loader .loader__dot:not(:last-child) {
+	margin-right: 1rem;
+}
+
+.loader .loader__dot:nth-of-type(1) {
+	animation-delay: 0;
+}
+.loader .loader__dot:nth-of-type(2) {
+	animation-delay: 0.25s;
+}
+.loader .loader__dot:nth-of-type(3) {
+	animation-delay: 0.5s;
+}
+.loader .loader__dot:nth-of-type(4) {
+	animation-delay: 0.75s;
+}
+
+@keyframes wave {
+	from {
+		transform: translate(0, -2px);
+	}
+
+	50% {
+		transform: translate(0, 2px);
+	}
+
+	to {
+		transform: translate(0, -2px);
+	}
 }

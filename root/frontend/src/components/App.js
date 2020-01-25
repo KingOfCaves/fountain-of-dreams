@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import Loader from './Loader';
 import io from 'socket.io-client';
 
+const environment = 'production';
 let socket;
 
 const App = () => {
 	const [metadata, setMetadata] = useState({
-		artist: '...',
-		track: '...'
+		artist: '',
+		track: ''
 	});
-	const [play, setPlay] = useState(false);
-	const environment = 'production';
-	const radioURL = environment === 'dev' ? '' : 'http://localhost:8000/radio';
+
+	const initRadio = () => {};
 
 	useEffect(() => {
 		socket =
@@ -34,9 +35,9 @@ const App = () => {
 
 	return (
 		<div className="player">
-			<p>{metadata.track}</p>
-			<p>{metadata.artist}</p>
-			<audio src={radioURL} controls></audio>
+			<p>{!!metadata.track ? metadata.track : <Loader />}</p>
+			<p>{!!metadata.artist ? metadata.artist : <Loader />}</p>
+			<audio src="/radio" controls></audio>
 		</div>
 	);
 };
