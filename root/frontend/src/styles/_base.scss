@@ -44,7 +44,13 @@ body {
 
 .player > p {
 	word-wrap: none;
-	margin-bottom: 5rem;
+	margin-bottom: 2em;
+}
+
+.player__subtitle {
+	font-size: 1rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
 }
 
 .loader {

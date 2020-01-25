@@ -11,8 +11,6 @@ const App = () => {
 		track: ''
 	});
 
-	const initRadio = () => {};
-
 	useEffect(() => {
 		socket =
 			environment === 'dev'
@@ -27,6 +25,8 @@ const App = () => {
 			setMetadata({ artist, track });
 		});
 
+
+
 		return () => {
 			socket.emit('disconnect');
 			socket.off();
@@ -35,9 +35,18 @@ const App = () => {
 
 	return (
 		<div className="player">
-			<p>{!!metadata.track ? metadata.track : <Loader />}</p>
-			<p>{!!metadata.artist ? metadata.artist : <Loader />}</p>
-			<audio src="/radio" controls></audio>
+			<p style={{ fontFamily: 'serif', fontStyle: 'italic' }}>
+				Metadata isn't available for now.
+			</p>
+			<p className="player__subtitle">Track</p>
+			<p className="player__info">
+				{!!metadata.track ? metadata.track : <Loader />}
+			</p>
+			<p className="player__subtitle">Artist</p>
+			<p className="player__info">
+				{!!metadata.artist ? metadata.artist : <Loader />}
+			</p>
+			<audio className="player__controls" src="/radio" controls></audio>
 		</div>
 	);
 };
