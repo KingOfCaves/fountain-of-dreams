@@ -25,8 +25,6 @@ const App = () => {
 			setMetadata({ artist, track });
 		});
 
-
-
 		return () => {
 			socket.emit('disconnect');
 			socket.off();
