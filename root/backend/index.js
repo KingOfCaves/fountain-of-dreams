@@ -3,6 +3,8 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const icy = require('icy');
+const mm = require('music-metadata');
+const util = require('util');
 
 const app = express();
 const server = http.createServer(app);
@@ -23,7 +25,15 @@ app.get('/', (req, res) => {
 
 app.get('/radio', (req, res) => {
 	res.setHeader('Content-Type', 'audio/ogg');
-	icy.get({ port: ICECAST_PORT, path: '/radio' }, (src) => src.pipe(res));
+	icy.get({ port: ICECAST_PORT, path: '/radio' }, (src) => {
+		mm.parseStream(src).then((metadata) => {
+			console.log(util.inspect(metadata.common, { showHidden: true, depth: null }));
+		});
+		src.on('end', () => {
+			console.log('stream has ended.');
+		});
+		src.pipe(res);
+	});
 });
 
 app.get('*', (req, res) => {
