@@ -60,7 +60,9 @@ body {
 }
 
 .player__info {
+	min-width: 360px;
 	display: flex;
+	justify-content: center;
 	background: #242424;
 	box-shadow: 0 0 0.5rem black;
 	padding: 2rem;
