@@ -24,75 +24,70 @@ const URL = `http://${IP_ADDRESS}:${ICECAST_PORT}/${MOUNTPOINT}`;
 let currentMetadata = {};
 let timestamp = null;
 let bufferArr = [];
+const indentifier = Uint8Array.from('fishead\0');
 
 const radioData = http.get(URL, (src) => {
 	src.on('data', (chunk) => {
-		try {
-			const max = 4;
-			if (chunk.byteLength === 58) {
-				timestamp = new Date().toLocaleTimeString();
-				console.log(timestamp);
-				console.log(chunk.byteLength);
-				bufferArr = [];
-				bufferArr.push(chunk);
-			} else if (bufferArr[0] && bufferArr.length < max) {
-				bufferArr.push(chunk);
-			} else if (bufferArr.length >= max) {
-				mm.parseBuffer(Buffer.concat(bufferArr), 'application/ogg')
-					.then((metadata) => {
-						const { artist, title, album, comment } = metadata.common;
-						const coverFind =
-							fs
-								.readdirSync(
-									'../frontend/build/images/covers',
-									(err, items) => {
-										if (err) return console.log(err);
-									}
-								)
-								.find((item) => {
-									const fixedFormat = (text) => {
-										return text
-											.replace(/\//g, '-')
-											.replace(/,/g, '_-_')
-											.replace(/[|]/g)
-											.replace(/　/, ' ')
-											.replace(/\s\s+/g, ' ')
-											.normalize();
-									};
-									const fixedAlbum = fixedFormat(album);
-									const fixedArtist = fixedFormat(artist);
+		if (chunk.indexOf(indentifier) > 0) {
+			bufferArr.push(chunk);
+		}
+		if (bufferArr.length === 2) {
+			timestamp = new Date().toLocaleTimeString();
+			console.log(timestamp);
+			const bigarr = Buffer.concat(bufferArr);
 
-									return (
-										item.includes(fixedAlbum) &&
-										item.includes(fixedArtist)
-									);
-								}) || 'unknown.gif';
-						const cover = `/images/covers/${coverFind}`;
+			mm.parseBuffer(Buffer.concat(bufferArr), 'audio/ogg')
+				.then((metadata) => {
+					console.log(Buffer.from(JSON.stringify(metadata)).byteLength);
+					const { artist, title, album, comment } = metadata.common;
+					const coverFind =
+						fs
+							.readdirSync(
+								'../frontend/build/images/covers',
+								(err, items) => {
+									if (err) return console.log(err);
+								}
+							)
+							.find((item) => {
+								const fixedFormat = (text) => {
+									return text
+										.replace(/\//g, '-')
+										.replace(/,/g, '_-_')
+										.replace(/[|]/g)
+										.replace(/　/, ' ')
+										.replace(/\s\s+/g, ' ')
+										.normalize();
+								};
+								const fixedAlbum = fixedFormat(album);
+								const fixedArtist = fixedFormat(artist);
 
-						const url =
-							comment || !comment.length === 0
-								? comment
-										.find((item) => item.includes('http'))
-										.match(/\bhttps?:\/\/\S+/gm)[0] || 'N/A'
-								: 'N/A';
-						currentMetadata = {
-							title,
-							album,
-							artist,
-							url,
-							cover
-						};
-						console.log(currentMetadata);
-						io.emit('metadataUpdate', currentMetadata);
-					})
-					.catch((error) => {
-						console.log('metadata\n', error);
-					});
-				bufferArr = [];
-			} else {
-			}
-		} catch (error) {
-			console.log(error);
+								return (
+									item.includes(fixedAlbum) &&
+									item.includes(fixedArtist)
+								);
+							}) || 'unknown.gif';
+					const cover = `/images/covers/${coverFind}`;
+
+					const url =
+						comment || !comment.length === 0
+							? comment
+									.find((item) => item.includes('http'))
+									.match(/\bhttps?:\/\/\S+/gm)[0] || 'N/A'
+							: 'N/A';
+					currentMetadata = {
+						title,
+						album,
+						artist,
+						url,
+						cover
+					};
+					console.log('metadata\n', currentMetadata);
+					io.emit('metadataUpdate', currentMetadata);
+				})
+				.catch((error) => {
+					console.log('metadata\n', 'waiting...');
+				});
+			bufferArr = [];
 		}
 	});
 });

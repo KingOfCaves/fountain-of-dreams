@@ -25,7 +25,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "fast-glob": "^3.1.1",
-    "glob": "^7.1.6",
     "move-file": "^1.2.0",
     "music-metadata": "^6.3.1",
     "socket.io": "^2.2.0"
