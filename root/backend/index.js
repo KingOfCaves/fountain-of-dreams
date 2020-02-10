@@ -82,7 +82,7 @@ const radioData = http.get(URL, (src) => {
 							url,
 							cover
 						};
-						console.log(currentMetadata);
+						io.emit('metadataUpdate', currentMetadata);
 					}
 				}
 			})
