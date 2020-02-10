@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const mm = require('music-metadata');
-const fs = require('fs');
+const fg = require('fast-glob');
 const { pipeline } = require('stream');
 
 const app = express();
@@ -22,74 +22,74 @@ const MOUNTPOINT = process.env.MOUNTPOINT || 'radio';
 const URL = `http://${IP_ADDRESS}:${ICECAST_PORT}/${MOUNTPOINT}`;
 
 let currentMetadata = {};
-let timestamp = null;
-let bufferArr = [];
-const indentifier = Uint8Array.from('fishead\0');
 
 const radioData = http.get(URL, (src) => {
-	src.on('data', (chunk) => {
-		if (chunk.indexOf(indentifier) > 0) {
-			bufferArr.push(chunk);
-		}
-		if (bufferArr.length === 2) {
-			timestamp = new Date().toLocaleTimeString();
-			console.log(timestamp);
-			const bigarr = Buffer.concat(bufferArr);
+	src.on('end', () => console.log('stream ended...'));
 
-			mm.parseBuffer(Buffer.concat(bufferArr), 'audio/ogg')
-				.then((metadata) => {
-					console.log(Buffer.from(JSON.stringify(metadata)).byteLength);
-					const { artist, title, album, comment } = metadata.common;
-					const coverFind =
-						fs
-							.readdirSync(
-								'../frontend/build/images/covers',
-								(err, items) => {
-									if (err) return console.log(err);
-								}
-							)
-							.find((item) => {
-								const fixedFormat = (text) => {
-									return text
-										.replace(/\//g, '-')
-										.replace(/,/g, '_-_')
-										.replace(/[|]/g)
-										.replace(/　/, ' ')
-										.replace(/\s\s+/g, ' ')
-										.normalize();
-								};
-								const fixedAlbum = fixedFormat(album);
-								const fixedArtist = fixedFormat(artist);
+	src.on('error', (error) => console.log('stream crashed...\n', error));
 
-								return (
-									item.includes(fixedAlbum) &&
-									item.includes(fixedArtist)
-								);
-							}) || 'unknown.gif';
-					const cover = `/images/covers/${coverFind}`;
-
-					const url =
-						comment || !comment.length === 0
-							? comment
-									.find((item) => item.includes('http'))
-									.match(/\bhttps?:\/\/\S+/gm)[0] || 'N/A'
-							: 'N/A';
-					currentMetadata = {
+	const siftThrough = async () => {
+		return await mm
+			.parseStream(src, 'audio/ogg', {
+				skipPostHeaders: true,
+				skipCovers: true,
+				observer: (update) => {
+					const {
+						artist,
 						title,
 						album,
-						artist,
-						url,
-						cover
-					};
-					console.log('metadata\n', currentMetadata);
-					io.emit('metadataUpdate', currentMetadata);
-				})
-				.catch((error) => {
-					console.log('metadata\n', 'waiting...');
-				});
-			bufferArr = [];
-		}
-	});
+						comment
+					} = update.metadata.common;
+					const allTags = artist && title && album && comment;
+					const updated =
+						currentMetadata.artist !== artist ||
+						currentMetadata.album !== album ||
+						currentMetadata.title !== title;
+
+					if (allTags && updated) {
+						const coverFind =
+							fg
+								.sync('../frontend/public/images/covers/*')
+								.find((item) => {
+									const fixedFormat = (text) => {
+										return text
+											.replace(/\//g, '-')
+											.replace(/,/g, '_-_')
+											.replace(/[|]/g)
+											.replace(/　/, ' ')
+											.replace(/\s\s+/g, ' ')
+											.normalize();
+									};
+									const fixedAlbum = fixedFormat(album);
+									const fixedArtist = fixedFormat(artist);
+
+									return (
+										item.includes(fixedAlbum) &&
+										item.includes(fixedArtist)
+									);
+								}) || 'unknown.gif';
+						const cover = `/images/covers/${path.basename(coverFind)}`;
+						const url =
+							comment || !comment.length === 0
+								? comment
+										.find((item) => item.includes('http'))
+										.match(/\bhttps?:\/\/\S+/gm)[0] || 'N/A'
+								: 'N/A';
+						currentMetadata = {
+							title,
+							album,
+							artist,
+							url,
+							cover
+						};
+						console.log(currentMetadata);
+					}
+				}
+			})
+			.then(() => siftThrough())
+			.catch((error) => console.log(error));
+	};
+	siftThrough();
 });
 
 io.on('connection', (socket) => {
