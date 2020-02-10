@@ -17,7 +17,7 @@ const socket =
 const App = () => {
 	const [metadata, setMetadata] = useState({});
 	const [volume, setVolume] = useState(0.01);
-	const [playing, setPlaying] = useState(false);
+	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
 	const [listeners, setListeners] = useState(null);
 
@@ -56,22 +56,23 @@ const App = () => {
 	const handlePlay = () => {
 		const radio = document.querySelector('audio');
 
-		if (playing) {
+		if (action === 'play') {
 			radio.src = '';
 			radio.currentTime = 0;
-			setPlaying(false);
-		} else {
+			setAction('stop');
+		} else if (action === 'stop') {
 			radio.src = '/radio';
-			setPlaying(true);
+			radio.load();
+			setAction('load');
 			const playPromise = radio.play();
 			if (playPromise !== undefined) {
 				playPromise
 					.then(function() {
-						console.log('playing!');
+						setAction('play');
 					})
 					.catch(function(error) {
 						console.log('woah!', error);
-						setPlaying(false);
+						setAction('stop');
 					});
 			}
 		}
@@ -125,7 +126,7 @@ const App = () => {
 				</div>
 			</div>
 			<div className="player__controls">
-				<audio autoPlay muted={muted}></audio>
+				<audio muted={muted} preload="auto"></audio>
 				<input
 					type="range"
 					value={volume}
@@ -141,9 +142,13 @@ const App = () => {
 				>
 					{(volume * 100).toFixed(0)}%
 				</div>
-				<div className="player__playpause" onClick={handlePlay}>
-					{playing ? '▶' : '■'}
-				</div>
+				{action === 'load' ? (
+					<Loader />
+				) : (
+					<div className="player__playpause" onClick={handlePlay}>
+						{action === 'play' ? '▶' : '■'}
+					</div>
+				)}
 			</div>
 		</div>
 	);

@@ -23,9 +23,8 @@ const URL = `http://${IP_ADDRESS}:${ICECAST_PORT}/${MOUNTPOINT}`;
 
 let currentMetadata = {};
 
-const radioData = http.get(URL, (src) => {
+http.get(URL, (src) => {
 	src.on('end', () => console.log('stream ended...'));
-
 	src.on('error', (error) => console.log('stream crashed...\n', error));
 
 	const siftThrough = async () => {
@@ -41,12 +40,12 @@ const radioData = http.get(URL, (src) => {
 						comment
 					} = update.metadata.common;
 					const allTags = artist && title && album && comment;
-					const updated =
+					const changed =
 						currentMetadata.artist !== artist ||
 						currentMetadata.album !== album ||
 						currentMetadata.title !== title;
 
-					if (allTags && updated) {
+					if (allTags && changed) {
 						const coverFind =
 							fg
 								.sync('../frontend/public/images/covers/*')
@@ -83,6 +82,7 @@ const radioData = http.get(URL, (src) => {
 							cover
 						};
 						io.emit('metadataUpdate', currentMetadata);
+						console.log(currentMetadata);
 					}
 				}
 			})
@@ -105,6 +105,7 @@ app.get('/radio', (req, res) => {
 	res.set({ 'Content-Type': 'audio/ogg' });
 	http.get(URL, (src) => {
 		pipeline(src, res, (error) => {
+			if (error.message === 'Premature close') return;
 			console.log('/radio\n', error);
 		});
 	});
