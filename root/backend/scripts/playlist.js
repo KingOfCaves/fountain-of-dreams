@@ -12,9 +12,7 @@ const rmExt = (str) => {
 
 const listDir = async (dir) => {
 	return await fg(dir).then((files) => {
-		return files
-			.map((file) => path.relative(liq_path, file))
-			.filter((file) => !!file.match(/^.*\.(ogg|mp3|flac|wav)$/));
+		return files.filter((file) => !!file.match(/^.*\.(ogg|mp3|flac|wav)$/));
 	});
 };
 
