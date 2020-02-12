@@ -146,7 +146,7 @@ const App = () => {
 					<Loader />
 				) : (
 					<div className="player__playpause" onClick={handlePlay}>
-						{action === 'play' ? '▶' : '■'}
+						{action === 'play' ? '▌▌' : '▶'}
 					</div>
 				)}
 			</div>
