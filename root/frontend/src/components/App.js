@@ -36,7 +36,7 @@ const App = () => {
 		} else {
 			socket.connect();
 			socket.on('metadataUpdate', (metadata) => setMetadata(metadata));
-			socket.on('listeners', (listenerCount) => setListeners(listenerCount));
+			// socket.on('listeners', (listenerCount) => setListeners(listenerCount));
 		}
 
 		return () => {
@@ -84,13 +84,6 @@ const App = () => {
 
 	return (
 		<div className="player">
-			<div className="player__header">
-				{listeners ? (
-					<div className="player__listeners">clients : {listeners}</div>
-				) : (
-					<Loader />
-				)}
-			</div>
 			<div className="player__info">
 				<a
 					className="player__art"

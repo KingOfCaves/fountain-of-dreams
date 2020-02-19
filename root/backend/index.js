@@ -62,10 +62,7 @@ http.get(URL, (src) => {
 									const fixedAlbum = fixedFormat(album);
 									const fixedArtist = fixedFormat(artist);
 
-									return (
-										item.includes(fixedAlbum) &&
-										item.includes(fixedArtist)
-									);
+									return item.includes(fixedAlbum);
 								}) || 'unknown.gif';
 						const cover = `/images/covers/${path.basename(coverFind)}`;
 						const url =
