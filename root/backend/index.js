@@ -33,12 +33,7 @@ http.get(URL, (src) => {
 				skipPostHeaders: true,
 				skipCovers: true,
 				observer: (update) => {
-					const {
-						artist,
-						title,
-						album,
-						comment
-					} = update.metadata.common;
+					const { artist, title, album, comment } = update.metadata.common;
 					const allTags = artist && title && album && comment;
 					const changed =
 						currentMetadata.artist !== artist ||
@@ -47,23 +42,21 @@ http.get(URL, (src) => {
 
 					if (allTags && changed) {
 						const coverFind =
-							fg
-								.sync('../frontend/public/images/covers/*')
-								.find((item) => {
-									const fixedFormat = (text) => {
-										return text
-											.replace(/\//g, '-')
-											.replace(/,/g, '_-_')
-											.replace(/[|]/g)
-											.replace(/　/, ' ')
-											.replace(/\s\s+/g, ' ')
-											.normalize();
-									};
-									const fixedAlbum = fixedFormat(album);
-									const fixedArtist = fixedFormat(artist);
+							fg.sync('../frontend/public/images/covers/*').find((item) => {
+								const fixedFormat = (text) => {
+									return text
+										.replace(/\//g, '-')
+										.replace(/,/g, '_-_')
+										.replace(/[|]/g)
+										.replace(/　/, ' ')
+										.replace(/\s\s+/g, ' ')
+										.normalize();
+								};
+								const fixedAlbum = fixedFormat(album);
+								const fixedArtist = fixedFormat(artist);
 
-									return item.includes(fixedAlbum);
-								}) || 'unknown.gif';
+								return item.includes(fixedAlbum);
+							}) || 'unknown.gif';
 						const cover = `/images/covers/${path.basename(coverFind)}`;
 						const url =
 							comment || !comment.length === 0
@@ -76,12 +69,12 @@ http.get(URL, (src) => {
 							album,
 							artist,
 							url,
-							cover
+							cover,
 						};
 						io.emit('metadataUpdate', currentMetadata);
 						console.log(currentMetadata);
 					}
-				}
+				},
 			})
 			.then(() => siftThrough())
 			.catch((error) => console.log(error));
