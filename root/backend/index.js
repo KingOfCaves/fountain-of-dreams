@@ -33,8 +33,8 @@ http.get(URL, (src) => {
 				skipPostHeaders: true,
 				skipCovers: true,
 				observer: (update) => {
-					const { artist, title, album, comment } = update.metadata.common;
-					const allTags = artist && title && album && comment;
+					const { artist, title, album } = update.metadata.common;
+					const allTags = artist && title && album;
 					const changed =
 						currentMetadata.artist !== artist ||
 						currentMetadata.album !== album ||
@@ -44,31 +44,20 @@ http.get(URL, (src) => {
 						const coverFind =
 							fg.sync('../frontend/public/images/covers/*').find((item) => {
 								const fixedFormat = (text) => {
-									return text
-										.replace(/\//g, '-')
-										.replace(/,/g, '_-_')
-										.replace(/[|]/g)
-										.replace(/　/, ' ')
-										.replace(/\s\s+/g, ' ')
-										.normalize();
+									return text.replace(/[<>:"\/\\|?*]+/g, '_');
 								};
 								const fixedAlbum = fixedFormat(album);
-								const fixedArtist = fixedFormat(artist);
+								console.log(item);
 
 								return item.includes(fixedAlbum);
 							}) || 'unknown.gif';
+						console.log(coverFind);
 						const cover = `/images/covers/${path.basename(coverFind)}`;
-						const url =
-							comment || !comment.length === 0
-								? comment
-										.find((item) => item.includes('http'))
-										.match(/\bhttps?:\/\/\S+/gm)[0] || 'N/A'
-								: 'N/A';
+						console.log(cover);
 						currentMetadata = {
 							title,
 							album,
 							artist,
-							url,
 							cover,
 						};
 						io.emit('metadataUpdate', currentMetadata);
