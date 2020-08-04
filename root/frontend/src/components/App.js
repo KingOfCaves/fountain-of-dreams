@@ -8,10 +8,10 @@ const socket =
 		? {
 				emit: () => {},
 				off: () => {},
-				on: () => {}
+				on: () => {},
 		  }
 		: io({
-				autoConnect: false
+				autoConnect: false,
 		  });
 
 const App = () => {
@@ -19,7 +19,6 @@ const App = () => {
 	const [volume, setVolume] = useState(0.01);
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
-	const [listeners, setListeners] = useState(null);
 
 	useEffect(() => {
 		if (environment === 'development') {
@@ -29,14 +28,12 @@ const App = () => {
 					title: 'MERN - Mongo/Express/React/Node',
 					album: 'Fullstack',
 					url: 'https://github.com/KingOfCaves',
-					cover: '/images/covers/unknown.gif'
+					cover: '/images/covers/unknown.gif',
 				});
-				setListeners(100);
 			}, 3000);
 		} else {
 			socket.connect();
 			socket.on('metadataUpdate', (metadata) => setMetadata(metadata));
-			// socket.on('listeners', (listenerCount) => setListeners(listenerCount));
 		}
 
 		return () => {
@@ -67,10 +64,10 @@ const App = () => {
 			const playPromise = radio.play();
 			if (playPromise !== undefined) {
 				playPromise
-					.then(function() {
+					.then(function () {
 						setAction('play');
 					})
-					.catch(function(error) {
+					.catch(function (error) {
 						console.log('woah!', error);
 						setAction('stop');
 					});
@@ -85,18 +82,11 @@ const App = () => {
 	return (
 		<div className="player">
 			<div className="player__info">
-				<a
-					className="player__art"
-					href={metadata.url}
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					{!!metadata.cover ? (
-						<img src={metadata.cover} alt="cover art" />
-					) : (
-						<Loader />
-					)}
-				</a>
+				{!!metadata.cover ? (
+					<img src={metadata.cover} alt={metadata.album} />
+				) : (
+					<Loader />
+				)}
 				<div className="player__text">
 					<div className="player__field">
 						<div className="player__subtitle">Track</div>
