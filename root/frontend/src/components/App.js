@@ -80,58 +80,36 @@ const App = () => {
 	};
 
 	return (
-		<div className="player">
-			<div className="player__info">
-				{!!metadata.cover ? (
-					<img src={metadata.cover} alt={metadata.album} />
-				) : (
-					<Loader />
-				)}
-				<div className="player__text">
-					<div className="player__field">
-						<div className="player__subtitle">Track</div>
-						<div className="player__title">
-							{!!metadata.title ? metadata.title : <Loader />}
-						</div>
-					</div>
-					<div className="player__field">
-						<div className="player__subtitle">Album</div>
-						<div className="player__title">
-							{!!metadata.album ? metadata.album : <Loader />}
-						</div>
-					</div>
-					<div className="player__field">
-						<div className="player__subtitle">Artist</div>
-						<div className="player__title">
-							{!!metadata.artist ? metadata.artist : <Loader />}
-						</div>
-					</div>
-				</div>
+		<div className="wrapper">
+			<div className="splash">
+				<img className="splash__banner" src="/images/fountainofdreamsbanner.gif"></img>
+				{/* ファウンテン オブ ドリーム */}
 			</div>
-			<div className="player__controls">
-				<audio muted={muted} preload="auto"></audio>
-				<input
-					type="range"
-					value={volume}
-					max="1"
-					step="0.01"
-					onChange={handleVolumeChange}
-					className="player__volume"
-				></input>
-
-				<div
-					className={`player__volume__display ${muted ? 'muted' : ''}`}
-					onClick={handleMute}
-				>
-					{(volume * 100).toFixed(0)}%
-				</div>
-				{action === 'load' ? (
-					<Loader />
-				) : (
-					<div className="player__playpause" onClick={handlePlay}>
-						{action === 'play' ? '▌▌' : '▶'}
+			<div className="player">
+				<div className="player__controls">
+					<audio muted={muted} preload="auto"></audio>
+					<input
+						type="range"
+						value={volume}
+						max="1"
+						step="0.01"
+						onChange={handleVolumeChange}
+						className="player__volume"
+					></input>
+					<div
+						className={`player__volume__display ${muted ? 'muted' : ''}`}
+						onClick={handleMute}
+					>
+						{(volume * 100).toFixed(0)}%
 					</div>
-				)}
+					{action === 'load' ? (
+						<Loader />
+					) : (
+						<div className="player__playpause" onClick={handlePlay}>
+							{action === 'play' ? '▌▌' : '▶'}
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);
