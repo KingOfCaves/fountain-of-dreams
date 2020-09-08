@@ -20,13 +20,13 @@
   "homepage": "https://github.com/KingOfCaves/fountain-of-dreams#readme",
   "devDependencies": {
     "dotenv": "^8.2.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.4"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "fast-glob": "^3.1.1",
+    "fast-glob": "^3.2.4",
     "move-file": "^1.2.0",
-    "music-metadata": "^6.3.1",
-    "socket.io": "^2.2.0"
+    "music-metadata": "^6.4.0",
+    "socket.io": "^2.3.0"
   }
 }

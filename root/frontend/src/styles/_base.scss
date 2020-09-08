@@ -20,6 +20,7 @@ body {
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
+	image-rendering: crisp-edges;
 	color: #fefefe;
 	font-size: 2rem;
 	font-weight: bold;
@@ -92,16 +93,16 @@ body {
 }
 
 .loader .loader__dot:nth-of-type(1) {
-	animation-delay: 0;
+	animation-delay: -0.75s;
 }
 .loader .loader__dot:nth-of-type(2) {
-	animation-delay: 0.25s;
+	animation-delay: -0.5s;
 }
 .loader .loader__dot:nth-of-type(3) {
-	animation-delay: 0.5s;
+	animation-delay: -0.25s;
 }
 .loader .loader__dot:nth-of-type(4) {
-	animation-delay: 0.75s;
+	animation-delay: 0;
 }
 
 @keyframes wave {

@@ -82,7 +82,7 @@ const App = () => {
 	return (
 		<div className="wrapper">
 			<div className="splash">
-				<img className="splash__banner" src="/images/fountainofdreamsbanner.gif"></img>
+				<img className="splash__banner" src="/images/fountainofdreamsbanner.gif" />
 				{/* ファウンテン オブ ドリーム */}
 			</div>
 			<div className="player">
