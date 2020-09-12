@@ -50,7 +50,7 @@ http.get(URL, (src) => {
 								console.log(item);
 
 								return item.includes(fixedAlbum);
-							}) || 'unknown.gif';
+							}) || 'unknown.jpg';
 						console.log(coverFind);
 						const cover = `/images/covers/${path.basename(coverFind)}`;
 						console.log(cover);

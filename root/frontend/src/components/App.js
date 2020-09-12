@@ -27,8 +27,7 @@ const App = () => {
 					artist: 'Front End Developer',
 					title: 'MERN - Mongo/Express/React/Node',
 					album: 'Fullstack',
-					url: 'https://github.com/KingOfCaves',
-					cover: '/images/covers/unknown.gif',
+					cover: '/images/covers/unknown.jpg',
 				});
 			}, 3000);
 		} else {
@@ -82,10 +81,21 @@ const App = () => {
 	return (
 		<div className="wrapper">
 			<div className="splash">
-				<img className="splash__banner" src="/images/fountainofdreamsbanner.gif" />
-				{/* ファウンテン オブ ドリーム */}
+				<img
+					className="splash__banner"
+					src="/images/fountainofdreamsbanner.gif"
+					alt="fountain of dreams banner"
+				/>
 			</div>
 			<div className="player">
+				{metadata.artist ? <p>{metadata.artist}</p> : <Loader />}
+				{metadata.album ? <p>{metadata.album}</p> : <Loader />}
+				{metadata.title ? <p>{metadata.title}</p> : <Loader />}
+				{metadata.cover ? (
+					<img src={metadata.cover} alt={metadata.album} />
+				) : (
+					<Loader />
+				)}
 				<div className="player__controls">
 					<audio muted={muted} preload="auto"></audio>
 					<input
