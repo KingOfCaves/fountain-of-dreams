@@ -24,12 +24,12 @@ const App = () => {
 		if (environment === 'development') {
 			setTimeout(() => {
 				setMetadata({
-					artist: 'Front End Developer',
-					title: 'MERN - Mongo/Express/React/Node',
-					album: 'Fullstack',
+					artist: '間宮貴子',
+					title: '真夜中のジョーク',
+					album: 'Love Trip',
 					cover: '/images/covers/unknown.jpg',
 				});
-			}, 3000);
+			}, 5000);
 		} else {
 			socket.connect();
 			socket.on('metadataUpdate', (metadata) => setMetadata(metadata));
@@ -80,45 +80,45 @@ const App = () => {
 
 	return (
 		<div className="wrapper">
-			<div className="splash">
-				<img
-					className="splash__banner"
-					src="/images/fountainofdreamsbanner.gif"
-					alt="fountain of dreams banner"
-				/>
-			</div>
-			<div className="player">
-				{metadata.artist ? <p>{metadata.artist}</p> : <Loader />}
-				{metadata.album ? <p>{metadata.album}</p> : <Loader />}
-				{metadata.title ? <p>{metadata.title}</p> : <Loader />}
-				{metadata.cover ? (
-					<img src={metadata.cover} alt={metadata.album} />
-				) : (
-					<Loader />
-				)}
-				<div className="player__controls">
-					<audio muted={muted} preload="auto"></audio>
-					<input
-						type="range"
-						value={volume}
-						max="1"
-						step="0.01"
-						onChange={handleVolumeChange}
-						className="player__volume"
-					></input>
-					<div
-						className={`player__volume__display ${muted ? 'muted' : ''}`}
-						onClick={handleMute}
-					>
-						{(volume * 100).toFixed(0)}%
-					</div>
-					{action === 'load' ? (
-						<Loader />
+			{/* <img
+				className="splash__banner"
+				src="/images/fountainofdreamsbanner.gif"
+				alt="fountain of dreams banner"
+			/> */}
+			<div className="window">
+				<div className="player">
+					{metadata.artist ? <p>{metadata.artist}</p> : <Loader />}
+					{metadata.album ? <p>{metadata.album}</p> : <Loader />}
+					{metadata.title ? <p>{metadata.title}</p> : <Loader />}
+					{metadata.cover ? (
+						<img src={metadata.cover} alt={metadata.album} />
 					) : (
-						<div className="player__playpause" onClick={handlePlay}>
-							{action === 'play' ? '▌▌' : '▶'}
-						</div>
+						<Loader />
 					)}
+					<div className="player__controls">
+						<audio muted={muted} preload="auto"></audio>
+						<input
+							className="player__volume"
+							type="range"
+							value={volume}
+							max="1"
+							step="0.01"
+							onChange={handleVolumeChange}
+						></input>
+						<div
+							className={`player__volume__display ${muted ? 'muted' : ''}`}
+							onClick={handleMute}
+						>
+							{(volume * 100).toFixed(0)}%
+						</div>
+						{action === 'load' ? (
+							<Loader />
+						) : (
+							<div className="player__playpause" onClick={handlePlay}>
+								{action === 'play' ? '▌▌' : '▶'}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
