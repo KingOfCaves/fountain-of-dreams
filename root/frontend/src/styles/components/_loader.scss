@@ -1,0 +1,43 @@
+.loader {
+	margin: 1rem 0;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.loader .loader__dot {
+	width: 6px;
+	height: 6px;
+	animation: both 1s wave infinite steps(3);
+}
+
+.loader .loader__dot:not(:last-child) {
+	margin-right: 1rem;
+}
+
+.loader .loader__dot:nth-of-type(1) {
+	animation-delay: 0s;
+}
+.loader .loader__dot:nth-of-type(2) {
+	animation-delay: var(--delay-timing);
+}
+.loader .loader__dot:nth-of-type(3) {
+	animation-delay: calc(var(--delay-timing) * 2);
+}
+.loader .loader__dot:nth-of-type(4) {
+	animation-delay: calc(var(--delay-timing) * 3);
+}
+
+@keyframes wave {
+	from {
+		background-color: var(--fg-4);
+	}
+
+	50% {
+		background-color: var(--fg-1);
+	}
+
+	to {
+		background-color: var(--fg-4);
+	}
+}

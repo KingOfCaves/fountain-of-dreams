@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Loader from './Loader';
 import io from 'socket.io-client';
 
@@ -79,7 +79,7 @@ const App = () => {
 	};
 
 	return (
-		<div className="wrapper">
+		<Fragment>
 			{/* <img
 				className="splash__banner"
 				src="/images/fountainofdreamsbanner.gif"
@@ -95,33 +95,35 @@ const App = () => {
 					) : (
 						<Loader />
 					)}
-					<div className="player__controls">
-						<audio muted={muted} preload="auto"></audio>
-						<input
-							className="player__volume"
-							type="range"
-							value={volume}
-							max="1"
-							step="0.01"
-							onChange={handleVolumeChange}
-						></input>
-						<div
-							className={`player__volume__display ${muted ? 'muted' : ''}`}
-							onClick={handleMute}
-						>
-							{(volume * 100).toFixed(0)}%
-						</div>
-						{action === 'load' ? (
-							<Loader />
-						) : (
-							<div className="player__playpause" onClick={handlePlay}>
-								{action === 'play' ? '▌▌' : '▶'}
-							</div>
-						)}
-					</div>
 				</div>
 			</div>
-		</div>
+			<div className="window">
+				<div className="player__controls">
+					<audio muted={muted} preload="auto"></audio>
+					<input
+						className="player__volume"
+						type="range"
+						value={volume}
+						max="1"
+						step="0.01"
+						onChange={handleVolumeChange}
+					></input>
+					<div
+						className={`player__volume__display ${muted ? 'muted' : ''}`}
+						onClick={handleMute}
+					>
+						{(volume * 100).toFixed(0)}%
+					</div>
+					{action === 'load' ? (
+						<Loader />
+					) : (
+						<div className="player__playpause" onClick={handlePlay}>
+							{action === 'play' ? '▌▌' : '▶'}
+						</div>
+					)}
+				</div>
+			</div>
+		</Fragment>
 	);
 };
 
