@@ -1,5 +1,4 @@
 .loader {
-	margin: 1rem 0;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -30,14 +29,14 @@
 
 @keyframes wave {
 	from {
-		background-color: var(--fg-4);
+		background-color: darkgray;
 	}
 
 	50% {
-		background-color: var(--fg-1);
+		background-color: black;
 	}
 
 	to {
-		background-color: var(--fg-4);
+		background-color: darkgray;
 	}
 }

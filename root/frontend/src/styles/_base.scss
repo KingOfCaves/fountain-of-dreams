@@ -1,17 +1,6 @@
 :root {
-	--fg-1: #d9d9d9;
-	--fg-2: #7d8379;
-	--fg-3: #464e46;
-	--fg-4: #2c302c;
-
 	--bg-1: #8b9186;
 	--bg-2: #677267;
-
-	--wbg-1: #dcdcd0;
-	--wbg-2: #ccccc1;
-
-	--brd-1: #b1b5b1;
-	--brd-2: #636a62;
 
 	--delay-timing: 0.1s;
 }
@@ -34,15 +23,12 @@ html {
 }
 
 body {
-	background-image: linear-gradient(0deg, var(--bg-1) 2px, transparent 4px),
-		linear-gradient(90deg, var(--bg-1) 2px, var(--bg-2) 4px);
-	background-size: 4px 4px, 4px 4px;
-	background-position: 4px 4px, 4px 4px;
-	color: var(--fg-4);
-	font-size: 2rem;
-	font-family: 'FontopoNIHONGO', 'Noto Sans JP', 'ヒラギノ角ゴ Pro W3',
-		'Hiragino Kaku Gothic Pro', Osaka, 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic',
-		sans-serif;
+	background-image: linear-gradient(0deg, var(--bg-1) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bg-1) 1px, var(--bg-2) 1px);
+	background-size: 2px 2px, 2px 2px;
+	color: #5e5f5a;
+	font-size: 1.6rem;
+	font-family: 'MS PGothic', sans-serif;
 }
 
 #wrapper {
@@ -53,31 +39,26 @@ body {
 	min-height: 100vh;
 }
 
-.window {
-	background-color: var(--wbg-2);
-	margin: 1rem;
-	padding: 2rem;
-}
-
 .player {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	white-space: nowrap;
+	padding: 2rem;
 
-	& > p,
-	& > img {
+	& > *:not(:last-child) {
 		margin-bottom: 1rem;
 	}
 
-	& img {
+	&__coverart {
 		display: block;
 		max-width: 240px;
 		max-height: 240px;
 	}
 
 	&__controls {
+		visibility: hidden;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;

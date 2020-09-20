@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import Loader from './Loader';
 import io from 'socket.io-client';
+import WindowBorder from './WindowBorder';
 
 const environment = process.env.NODE_ENV;
 const socket =
@@ -16,7 +17,7 @@ const socket =
 
 const App = () => {
 	const [metadata, setMetadata] = useState({});
-	const [volume, setVolume] = useState(0.01);
+	const [volume, setVolume] = useState(0);
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
 
@@ -85,43 +86,36 @@ const App = () => {
 				src="/images/fountainofdreamsbanner.gif"
 				alt="fountain of dreams banner"
 			/> */}
-			<div className="window">
+			<WindowBorder title="terminal" type="dark">
 				<div className="player">
 					{metadata.artist ? <p>{metadata.artist}</p> : <Loader />}
 					{metadata.album ? <p>{metadata.album}</p> : <Loader />}
 					{metadata.title ? <p>{metadata.title}</p> : <Loader />}
-					{metadata.cover ? (
-						<img src={metadata.cover} alt={metadata.album} />
-					) : (
-						<Loader />
-					)}
 				</div>
-			</div>
-			<div className="window">
-				<div className="player__controls">
-					<audio muted={muted} preload="auto"></audio>
-					<input
-						className="player__volume"
-						type="range"
-						value={volume}
-						max="1"
-						step="0.01"
-						onChange={handleVolumeChange}
-					></input>
-					<div
-						className={`player__volume__display ${muted ? 'muted' : ''}`}
-						onClick={handleMute}
-					>
-						{(volume * 100).toFixed(0)}%
+			</WindowBorder>
+			<WindowBorder type="light">
+				{metadata.cover ? <img className="player__coverart" src={metadata.cover} alt={metadata.album} /> : <Loader />}
+			</WindowBorder>
+			<div className="player__controls">
+				<audio muted={muted} preload="auto"></audio>
+				<input
+					className="player__volume"
+					type="range"
+					value={volume}
+					max="1"
+					step="0.01"
+					onChange={handleVolumeChange}
+				></input>
+				<div className={`player__volume__display ${muted ? 'muted' : ''}`} onClick={handleMute}>
+					{(volume * 100).toFixed(0)}%
+				</div>
+				{action === 'load' ? (
+					<Loader />
+				) : (
+					<div className="player__playpause" onClick={handlePlay}>
+						{action === 'play' ? '▌▌' : '▶'}
 					</div>
-					{action === 'load' ? (
-						<Loader />
-					) : (
-						<div className="player__playpause" onClick={handlePlay}>
-							{action === 'play' ? '▌▌' : '▶'}
-						</div>
-					)}
-				</div>
+				)}
 			</div>
 		</Fragment>
 	);
