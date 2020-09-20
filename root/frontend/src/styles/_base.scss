@@ -27,60 +27,25 @@ body {
 		linear-gradient(90deg, var(--bg-1) 1px, var(--bg-2) 1px);
 	background-size: 2px 2px, 2px 2px;
 	color: #5e5f5a;
-	font-size: 1.6rem;
-	font-family: 'MS PGothic', sans-serif;
+	font-size: 1.4rem;
+	font-family: 'ＭＳ ゴシック', 'MS Gothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体',
+		YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, HiraKakuProN-W3, 'TakaoExゴシック', TakaoExGothic, 'MotoyaLCedar',
+		'Droid Sans Japanese', sans-serif;
+	font-smooth: never;
+	-webkit-font-smoothing: none;
+	-moz-osx-font-smoothing: none;
 }
 
 #wrapper {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
 }
 
-.player {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	white-space: nowrap;
-	padding: 2rem;
-
-	& > *:not(:last-child) {
-		margin-bottom: 1rem;
-	}
-
-	&__coverart {
-		display: block;
-		max-width: 240px;
-		max-height: 240px;
-	}
-
-	&__controls {
-		visibility: hidden;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-
-		& > * {
-			padding: 0 0.5rem;
-		}
-	}
-
-	&__volume {
-		flex: 1 0;
-	}
-
-	&__playpause {
-		font-size: 2em;
-		line-height: 0.5;
-	}
-}
-
 input[type='range'] {
 	-webkit-appearance: none;
+	-moz-appearance: none;
 	width: 100%;
 	background: transparent;
 }
@@ -95,11 +60,19 @@ input[type='range']::-webkit-slider-thumb {
 	width: 16px;
 	height: 16px;
 	background-color: #636a62;
-	border: outset 2px #b1b5b1;
+	box-shadow: inset calc(var(--border-sizing) * -2) calc(var(--border-sizing) * -2) 0 var(--border-dark),
+		inset calc(2 * var(--border-sizing)) calc(2 * var(--border-sizing)) 0 var(--border-light);
 	cursor: pointer;
 }
 
 input[type='range']::-moz-range-thumb {
+	border-radius: 0;
+	width: 16px;
+	height: 16px;
+	background-color: #636a62;
+	box-shadow: inset calc(var(--border-sizing) * -2) calc(var(--border-sizing) * -2) 0 var(--border-dark),
+		inset calc(2 * var(--border-sizing)) calc(2 * var(--border-sizing)) 0 var(--border-light);
+	cursor: pointer;
 }
 
 input[type='range']::-webkit-slider-runnable-track {

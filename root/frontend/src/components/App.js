@@ -86,37 +86,39 @@ const App = () => {
 				src="/images/fountainofdreamsbanner.gif"
 				alt="fountain of dreams banner"
 			/> */}
-			<WindowBorder title="terminal" type="dark">
-				<div className="player">
-					{metadata.artist ? <p>{metadata.artist}</p> : <Loader />}
-					{metadata.album ? <p>{metadata.album}</p> : <Loader />}
-					{metadata.title ? <p>{metadata.title}</p> : <Loader />}
-				</div>
-			</WindowBorder>
-			<WindowBorder type="light">
-				{metadata.cover ? <img className="player__coverart" src={metadata.cover} alt={metadata.album} /> : <Loader />}
-			</WindowBorder>
-			<div className="player__controls">
-				<audio muted={muted} preload="auto"></audio>
-				<input
-					className="player__volume"
-					type="range"
-					value={volume}
-					max="1"
-					step="0.01"
-					onChange={handleVolumeChange}
-				></input>
-				<div className={`player__volume__display ${muted ? 'muted' : ''}`} onClick={handleMute}>
-					{(volume * 100).toFixed(0)}%
-				</div>
-				{action === 'load' ? (
-					<Loader />
-				) : (
-					<div className="player__playpause" onClick={handlePlay}>
-						{action === 'play' ? '▌▌' : '▶'}
+			<WindowBorder title="terminal" type="dark" titlebar={true} extraDecor={true}>
+				<ol className="player__info">
+					<li className="player__info__artist">{metadata.artist ? metadata.artist : ' '}</li>
+					<li className="player__info__album">{metadata.album ? metadata.album : ' '}</li>
+					<li className="player__info__title">{metadata.title ? metadata.title : ' '}</li>
+					<div className="player__info__decor">
+						<span>info.txt</span>
+						<span>[utf-8]</span>
 					</div>
-				)}
-			</div>
+				</ol>
+			</WindowBorder>
+			<WindowBorder>
+				<div className="player__controls">
+					<audio muted={muted} preload="auto"></audio>
+					<input
+						className="player__volume"
+						type="range"
+						value={volume}
+						max="1"
+						step="0.01"
+						onChange={handleVolumeChange}
+					></input>
+					<div className={`player__volume__display ${muted ? 'muted' : ''}`} onClick={handleMute}>
+						{(volume * 100).toFixed(0)}%
+					</div>
+					{action === 'load' ? <Loader /> : <div className="player__playpause" onClick={handlePlay}></div>}
+				</div>
+			</WindowBorder>
+			<WindowBorder title="coverart" titlebar={true} extraDecor={true}>
+				<div className="player__coverart">
+					{metadata.cover ? <img src={metadata.cover} alt={metadata.album} /> : <Loader />}
+				</div>
+			</WindowBorder>
 		</Fragment>
 	);
 };

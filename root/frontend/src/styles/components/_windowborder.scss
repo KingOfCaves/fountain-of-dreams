@@ -6,15 +6,18 @@
 	--button-sizing: 24px;
 
 	position: relative;
-	background-color: var(--border-medium);
-	border: calc(2 * var(--border-sizing)) solid;
-	border-top-color: var(--border-light);
-	border-right-color: var(--border-dark);
-	border-bottom-color: var(--border-dark);
-	border-left-color: var(--border-light);
+	overflow: hidden;
 	margin: 1rem;
+	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.5);
 
-	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.232);
+	&__mask {
+		background-color: var(--border-medium);
+		border: calc(2 * var(--border-sizing)) solid;
+		border-top-color: var(--border-light);
+		border-right-color: var(--border-dark);
+		border-bottom-color: var(--border-dark);
+		border-left-color: var(--border-light);
+	}
 
 	&__decor {
 		&--top::before,
@@ -23,8 +26,8 @@
 		&--bottom::after {
 			content: '';
 			position: absolute;
-			width: 29px;
-			height: 29px;
+			width: 31px;
+			height: 31px;
 		}
 
 		&--top::before {
@@ -70,6 +73,7 @@
 	}
 
 	&__inner {
+		flex: 1;
 		border: calc(2 * var(--border-sizing)) solid var(--border-medium);
 	}
 
@@ -78,6 +82,7 @@
 		display: flex;
 		background-color: var(--border-light);
 		height: var(--button-sizing);
+		font-size: 1.2rem;
 		color: var(--title-color);
 		z-index: 1;
 
@@ -126,21 +131,6 @@
 			linear-gradient(90deg, var(--bg-color1) 1px, var(--bg-color2) 1px);
 		background-size: 2px 2px, 2px 2px;
 		z-index: 1;
+		white-space: pre;
 	}
-}
-
-.window--light {
-	--border-light: #dbe0d7;
-	--border-medium: #9fa696;
-	--border-dark: #52564e;
-	--border-title: #646c63;
-	--title-color: #5e5f5a;
-}
-
-.window--dark {
-	--border-light: #8a9489;
-	--border-medium: #646c63;
-	--border-dark: #353835;
-	--border-title: #ddddd2;
-	--title-color: #ddded2;
 }
