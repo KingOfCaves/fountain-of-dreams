@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import Loader from './Loader';
 import io from 'socket.io-client';
 import WindowBorder from './WindowBorder';
@@ -18,6 +18,9 @@ const socket =
 const App = () => {
 	const [metadata, setMetadata] = useState({});
 	const [volume, setVolume] = useState(0);
+	const [displayVolume, setDisplayVolume] = useState(false);
+	const [currentInfo, setCurrentInfo] = useState('');
+	const [enteredInfo, setEnteredInfo] = useState(false);
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
 
@@ -26,11 +29,19 @@ const App = () => {
 			setTimeout(() => {
 				setMetadata({
 					artist: '間宮貴子',
-					title: '真夜中のジョーク',
 					album: 'Love Trip',
+					title: '真夜中のジョーク',
 					cover: '/images/covers/unknown.jpg',
 				});
-			}, 5000);
+			}, 4000);
+			setTimeout(() => {
+				setMetadata({
+					artist: '山下達郎',
+					album: 'Melodies',
+					title: 'Christmas Eve',
+					cover: '/images/covers/unknown.jpg',
+				});
+			}, 8000);
 		} else {
 			socket.connect();
 			socket.on('metadataUpdate', (metadata) => setMetadata(metadata));
@@ -41,10 +52,6 @@ const App = () => {
 			socket.off();
 		};
 	}, []);
-
-	useEffect(() => {
-		document.querySelector('audio').volume = volume;
-	}, [volume]);
 
 	const handleVolumeChange = (e) => {
 		setVolume(e.target.value);
@@ -79,18 +86,80 @@ const App = () => {
 		setMuted(!muted);
 	};
 
+	const handleInfoMouseEnter = (e) => {
+		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target)) {
+			setEnteredInfo(true);
+			setCurrentInfo(e.target.dataset.info);
+		} else {
+			setEnteredInfo(false);
+		}
+	};
+
+	const handleInfoMouseLeave = (e) => {
+		setEnteredInfo(false);
+		setCurrentInfo('');
+	};
+
+	const handleInfoMouseMove = (e) => {
+		const tooltip = document.querySelector('.player__tooltip');
+		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target)) {
+			tooltip.style.left = `${e.clientX + 10}px`;
+			tooltip.style.top = `${e.clientY - 25}px`;
+		}
+	};
+
+	const handleInfoClick = (e) => {
+		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target)) {
+			window.getSelection().selectAllChildren(e.target);
+		}
+	};
+
+	const handleVolumeClick = (state) => {
+		setDisplayVolume(state);
+	};
+
+	const handleIcon = (playerState) => {
+		switch (true) {
+			case playerState === 'play':
+				return '⏸';
+			case playerState === 'stop':
+				return '▶';
+			default:
+				return <Loader />;
+		}
+	};
+
+	const volumeFormat = (v) => {
+		const toHundred = +(v * 100).toFixed(0);
+		if (toHundred < 10) return `00${toHundred}%`;
+		if (toHundred < 100) return `0${toHundred}%`;
+		if (toHundred === 100) return `${toHundred}%`;
+	};
+
 	return (
-		<Fragment>
+		<div id="desktop">
 			{/* <img
 				className="splash__banner"
 				src="/images/fountainofdreamsbanner.gif"
 				alt="fountain of dreams banner"
 			/> */}
 			<WindowBorder title="terminal" type="dark" titlebar={true} extraDecor={true}>
-				<ol className="player__info">
-					<li className="player__info__artist">{metadata.artist ? metadata.artist : ' '}</li>
-					<li className="player__info__album">{metadata.album ? metadata.album : ' '}</li>
-					<li className="player__info__title">{metadata.title ? metadata.title : ' '}</li>
+				<ol
+					className="player__info"
+					onMouseOver={handleInfoMouseEnter}
+					onMouseLeave={handleInfoMouseLeave}
+					onMouseMove={handleInfoMouseMove}
+					onClick={handleInfoClick}
+				>
+					<li className="player__info__artist" data-info="artist">
+						{metadata.artist}
+					</li>
+					<li className="player__info__album" data-info="album">
+						{metadata.album}
+					</li>
+					<li className="player__info__title" data-info="title">
+						{metadata.title}
+					</li>
 					<div className="player__info__decor">
 						<span>info.txt</span>
 						<span>[utf-8]</span>
@@ -99,7 +168,6 @@ const App = () => {
 			</WindowBorder>
 			<WindowBorder>
 				<div className="player__controls">
-					<audio muted={muted} preload="auto"></audio>
 					<input
 						className="player__volume"
 						type="range"
@@ -107,11 +175,22 @@ const App = () => {
 						max="1"
 						step="0.01"
 						onChange={handleVolumeChange}
+						onMouseEnter={() => handleVolumeClick(true)}
+						onMouseLeave={() => handleVolumeClick(false)}
+						onTouchStart={() => handleVolumeClick(true)}
+						onTouchEnd={() => handleVolumeClick(false)}
 					></input>
-					<div className={`player__volume__display ${muted ? 'muted' : ''}`} onClick={handleMute}>
-						{(volume * 100).toFixed(0)}%
+					<div
+						className={`player__volume__display ${muted ? 'muted' : ''} ${displayVolume ? 'active' : ''}`}
+						onClick={handleMute}
+					>
+						<span>Volume</span>
+						<span>{(volume * 100).toFixed(0) + '%'}</span>
 					</div>
-					{action === 'load' ? <Loader /> : <div className="player__playpause" onClick={handlePlay}></div>}
+					<div className="player__playpause player__button" onClick={handlePlay}>
+						{handleIcon(action)}
+					</div>
+					<audio className="player__audio" muted={muted} preload="auto"></audio>
 				</div>
 			</WindowBorder>
 			<WindowBorder title="coverart" titlebar={true} extraDecor={true}>
@@ -119,7 +198,10 @@ const App = () => {
 					{metadata.cover ? <img src={metadata.cover} alt={metadata.album} /> : <Loader />}
 				</div>
 			</WindowBorder>
-		</Fragment>
+			<WindowBorder helperClasses={`player__tooltip ${enteredInfo ? 'active' : ''}`}>
+				<div>{currentInfo}</div>
+			</WindowBorder>
+		</div>
 	);
 };
 

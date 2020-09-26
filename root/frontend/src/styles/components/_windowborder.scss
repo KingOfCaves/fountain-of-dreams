@@ -1,16 +1,17 @@
 .window {
-	--bg-color1: #dcdcd0;
-	--bg-color2: #e6e6da;
-
 	--border-sizing: 1px;
-	--button-sizing: 24px;
+	--button-sizing: 20px;
 
 	position: relative;
-	overflow: hidden;
-	margin: 1rem;
-	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.5);
+	box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.5);
+
+	&--enclosed {
+		overflow: hidden;
+	}
 
 	&__mask {
+		position: relative;
+		height: 100%;
 		background-color: var(--border-medium);
 		border: calc(2 * var(--border-sizing)) solid;
 		border-top-color: var(--border-light);
@@ -26,8 +27,8 @@
 		&--bottom::after {
 			content: '';
 			position: absolute;
-			width: 31px;
-			height: 31px;
+			width: 25px;
+			height: 25px;
 		}
 
 		&--top::before {
@@ -63,6 +64,9 @@
 
 		&--inner {
 			position: relative;
+			display: flex;
+			flex-direction: column;
+			height: inherit;
 			border: 1px solid;
 			border-top-color: var(--border-dark);
 			border-right-color: var(--border-light);
@@ -73,7 +77,7 @@
 	}
 
 	&__inner {
-		flex: 1;
+		height: inherit;
 		border: calc(2 * var(--border-sizing)) solid var(--border-medium);
 	}
 
@@ -121,14 +125,14 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			padding: 0 2rem;
+			padding: 0 16px;
 		}
 	}
 
 	&__content {
+		flex-grow: 1;
 		position: relative;
-		background-image: linear-gradient(0deg, var(--bg-color1) 1px, transparent 1px),
-			linear-gradient(90deg, var(--bg-color1) 1px, var(--bg-color2) 1px);
+		background-image: var(--bg-pattern-light);
 		background-size: 2px 2px, 2px 2px;
 		z-index: 1;
 		white-space: pre;
