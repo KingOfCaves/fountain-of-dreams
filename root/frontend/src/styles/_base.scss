@@ -44,12 +44,14 @@ body {
 }
 
 #desktop {
+	position: relative;
 	display: grid;
+	grid-template-rows: max-content 60px;
 	grid-auto-columns: auto auto;
 	gap: 24px;
 
 	& > :nth-child(1) {
-		grid-row: span 3;
+		grid-row: span 1;
 		grid-column: 1;
 	}
 	& > :nth-child(2) {
@@ -57,7 +59,7 @@ body {
 		grid-column: 1;
 	}
 	& > :nth-child(3) {
-		grid-row: 1 / span 4;
+		grid-row: 1 / span 2;
 		grid-column: 2;
 	}
 }

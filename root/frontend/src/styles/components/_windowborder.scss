@@ -89,6 +89,7 @@
 		font-size: 1.2rem;
 		color: var(--title-color);
 		z-index: 1;
+		user-select: none;
 
 		& > * {
 			box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Loader from './Loader';
 import io from 'socket.io-client';
 import WindowBorder from './WindowBorder';
@@ -24,6 +24,14 @@ const App = () => {
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
 
+	const fullhouse = !!metadata.artist && !!metadata.album && !!metadata.title;
+
+	const [popUp, setPopUp] = useState({
+		text: '',
+		active: false,
+	});
+	let popUpTimerRef = useRef(null);
+
 	useEffect(() => {
 		if (environment === 'development') {
 			setTimeout(() => {
@@ -33,15 +41,7 @@ const App = () => {
 					title: '真夜中のジョーク',
 					cover: '/images/covers/unknown.jpg',
 				});
-			}, 4000);
-			setTimeout(() => {
-				setMetadata({
-					artist: '山下達郎',
-					album: 'Melodies',
-					title: 'Christmas Eve',
-					cover: '/images/covers/unknown.jpg',
-				});
-			}, 8000);
+			}, 3000);
 		} else {
 			socket.connect();
 			socket.on('metadataUpdate', (metadata) => setMetadata(metadata));
@@ -56,6 +56,10 @@ const App = () => {
 	const handleVolumeChange = (e) => {
 		setVolume(e.target.value);
 	};
+
+	useEffect(() => {
+		document.querySelector('.player__audio').volume = volume;
+	}, [volume]);
 
 	const handlePlay = () => {
 		const radio = document.querySelector('audio');
@@ -86,33 +90,36 @@ const App = () => {
 		setMuted(!muted);
 	};
 
-	const handleInfoMouseEnter = (e) => {
-		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target)) {
+	const handleInfoMouse = (e) => {
+		if (!!e.target.dataset.info) {
 			setEnteredInfo(true);
 			setCurrentInfo(e.target.dataset.info);
 		} else {
 			setEnteredInfo(false);
+			setCurrentInfo('');
 		}
-	};
-
-	const handleInfoMouseLeave = (e) => {
-		setEnteredInfo(false);
-		setCurrentInfo('');
 	};
 
 	const handleInfoMouseMove = (e) => {
 		const tooltip = document.querySelector('.player__tooltip');
-		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target)) {
+		if (!!e.target.dataset.info) {
 			tooltip.style.left = `${e.clientX + 10}px`;
-			tooltip.style.top = `${e.clientY - 25}px`;
+			tooltip.style.top = `${e.clientY - 40}px`;
 		}
 	};
 
 	const handleInfoClick = (e) => {
-		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target)) {
+		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
 			window.getSelection().selectAllChildren(e.target);
 		}
 	};
+
+	useEffect(() => {
+		if (popUpTimerRef.current !== null) {
+			clearTimeout(popUpTimerRef.current);
+		}
+		popUpTimerRef.current = setTimeout(() => setPopUp({ active: false }), 3000);
+	}, [popUp]);
 
 	const handleVolumeClick = (state) => {
 		setDisplayVolume(state);
@@ -121,36 +128,30 @@ const App = () => {
 	const handleIcon = (playerState) => {
 		switch (true) {
 			case playerState === 'play':
-				return '⏸';
+				return <div className="player__icon__pause"></div>;
 			case playerState === 'stop':
-				return '▶';
+				return <div className="player__icon__play"></div>;
 			default:
 				return <Loader />;
 		}
 	};
 
-	const volumeFormat = (v) => {
-		const toHundred = +(v * 100).toFixed(0);
+	const volumeFormat = (vol) => {
+		const toHundred = +(vol * 100).toFixed(0);
 		if (toHundred < 10) return `00${toHundred}%`;
 		if (toHundred < 100) return `0${toHundred}%`;
 		if (toHundred === 100) return `${toHundred}%`;
 	};
 
 	return (
-		<div id="desktop">
+		<div id="desktop" onMouseOver={handleInfoMouse} onMouseMove={handleInfoMouseMove}>
 			{/* <img
 				className="splash__banner"
 				src="/images/fountainofdreamsbanner.gif"
 				alt="fountain of dreams banner"
 			/> */}
 			<WindowBorder title="terminal" type="dark" titlebar={true} extraDecor={true}>
-				<ol
-					className="player__info"
-					onMouseOver={handleInfoMouseEnter}
-					onMouseLeave={handleInfoMouseLeave}
-					onMouseMove={handleInfoMouseMove}
-					onClick={handleInfoClick}
-				>
+				<ol className="player__info" onClick={handleInfoClick}>
 					<li className="player__info__artist" data-info="artist">
 						{metadata.artist}
 					</li>
@@ -199,7 +200,10 @@ const App = () => {
 				</div>
 			</WindowBorder>
 			<WindowBorder helperClasses={`player__tooltip ${enteredInfo ? 'active' : ''}`}>
-				<div>{currentInfo}</div>
+				<div>{`${currentInfo}`}</div>
+			</WindowBorder>
+			<WindowBorder helperClasses={`player__popup ${popUp.active ? 'active' : ''}`}>
+				<div>{popUp.text}</div>
 			</WindowBorder>
 		</div>
 	);

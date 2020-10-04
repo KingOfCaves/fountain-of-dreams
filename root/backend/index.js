@@ -36,18 +36,17 @@ http.get(URL, (src) => {
 					const { artist, title, album } = update.metadata.common;
 					const allTags = artist && title && album;
 					const changed =
-						currentMetadata.artist !== artist ||
-						currentMetadata.album !== album ||
-						currentMetadata.title !== title;
+						currentMetadata.artist !== artist || currentMetadata.album !== album || currentMetadata.title !== title;
 
 					if (allTags && changed) {
 						const coverFind =
 							fg.sync('../frontend/public/images/covers/*').find((item) => {
 								const fixedFormat = (text) => {
-									return text.replace(/[<>:"\/\\|?*]+/g, '_');
+									return text.replace(/[^a-zA-Z0-9\\.\\-]/g, '_');
 								};
 								const fixedAlbum = fixedFormat(album);
 								console.log(item);
+								console.log(fixedAlbum);
 
 								return item.includes(fixedAlbum);
 							}) || 'unknown.jpg';

@@ -3,6 +3,24 @@
 		display: none;
 	}
 
+	&__popup {
+		left: 50%;
+		bottom: 110%;
+		transform: translate(-50%, 0);
+		position: absolute;
+		display: none;
+		text-transform: capitalize;
+		z-index: 2;
+
+		& .window__content {
+			padding: 12px;
+		}
+
+		&.active {
+			display: block;
+		}
+	}
+
 	&__tooltip {
 		position: fixed;
 		display: none;
@@ -47,24 +65,39 @@
 	}
 
 	&__button {
-		padding: 4px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
 			inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
 		background: var(--border-medium);
-		font-size: 24px;
-		color: black;
-		line-height: 0.6;
 		user-select: none;
 		cursor: pointer;
 
 		&:active {
-			box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-medium),
-				inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
+			box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-light),
+				inset var(--border-sizing) var(--border-sizing) 0 var(--border-medium);
 			background: var(--border-dark);
-			color: white;
+		}
+	}
+
+	&__icon__play {
+		width: 0;
+		height: 0;
+		border-top: 6px solid transparent;
+		border-bottom: 6px solid transparent;
+		border-left: 12px solid black;
+	}
+
+	&__icon__pause {
+		display: flex;
+		&::before,
+		&::after {
+			content: '';
+			width: 4px;
+			height: 12px;
+			margin: 0 2px;
+			background-color: black;
 		}
 	}
 
@@ -106,7 +139,7 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	min-width: 200px;
+	width: 200px;
 	height: 100%;
 	padding: 2px;
 	list-style-type: none;
@@ -117,28 +150,29 @@
 	}
 
 	& > li {
-		display: flex;
-		align-items: center;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		counter-increment: customlistcounter;
 		padding: 2px;
 		cursor: help;
 
 		&:hover {
 			background-color: #59546c;
-			color: #b3bbad;
+			color: #cfd4cb;
 		}
 	}
 
 	& > li:before {
 		content: counter(customlistcounter) ' ';
 		float: left;
-		margin: 0 4px;
+		margin: 0 8px 0 4px;
 	}
 
 	&__decor {
 		margin-top: auto;
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
 		position: relative;
 		padding: 2px;
@@ -147,9 +181,5 @@
 		background-color: #555a63;
 		user-select: none;
 		cursor: default;
-
-		& > span:first-child {
-			margin-right: auto;
-		}
 	}
 }
