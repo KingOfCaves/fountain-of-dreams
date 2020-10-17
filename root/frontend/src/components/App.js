@@ -36,12 +36,12 @@ const App = () => {
 		if (environment === 'development') {
 			setTimeout(() => {
 				setMetadata({
-					artist: '間宮貴子',
-					album: 'Love Trip',
-					title: '真夜中のジョーク',
+					artist: '中森明菜',
+					album: 'Slow Motion スローモーション',
+					title: 'スローモーション',
 					cover: '/images/covers/unknown.jpg',
 				});
-			}, 3000);
+			}, 5000);
 		} else {
 			socket.connect();
 			socket.on('metadataUpdate', (metadata) => setMetadata(metadata));
@@ -110,7 +110,10 @@ const App = () => {
 
 	const handleInfoClick = (e) => {
 		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
+			const data = e.target.dataset;
 			window.getSelection().selectAllChildren(e.target);
+			document.execCommand('copy');
+			setPopUp({ active: true, text: `${data.info} - copied!` });
 		}
 	};
 
@@ -151,7 +154,12 @@ const App = () => {
 				alt="fountain of dreams banner"
 			/> */}
 			<WindowBorder title="terminal" type="dark" titlebar={true} extraDecor={true}>
-				<ol className="player__info" onClick={handleInfoClick}>
+				<ol
+					className="player__info"
+					onClick={handleInfoClick}
+					onMouseLeave={() => setEnteredInfo(false)}
+					onContextMenu={(e) => e.preventDefault()}
+				>
 					<li className="player__info__artist" data-info="artist">
 						{metadata.artist}
 					</li>

@@ -21,45 +21,29 @@
 	}
 
 	&__decor {
-		&--top::before,
-		&--top::after,
-		&--bottom::before,
-		&--bottom::after {
-			content: '';
+		&--horizontal,
+		&--vertical {
 			position: absolute;
-			width: 25px;
-			height: 25px;
 		}
 
-		&--top::before {
+		&--horizontal {
 			top: -2px;
-			left: -2px;
-			box-shadow: inset calc(-1 * var(--border-sizing)) calc(-1 * var(--border-sizing)) 0 var(--border-dark),
-				var(--border-sizing) var(--border-sizing) 0 var(--border-light);
-		}
-
-		&--top::after {
-			top: -2px;
-			right: -2px;
-			box-shadow: inset calc(-1 * var(--border-sizing)) calc(-1 * var(--border-sizing)) 0 var(--border-dark),
-				0 var(--border-sizing) 0 var(--border-light), inset var(--border-sizing) 0 0 var(--border-light),
-				calc(-1 * var(--border-sizing)) 0 0 var(--border-dark);
-		}
-
-		&--bottom::before {
+			right: 23px;
+			left: 23px;
 			bottom: -2px;
-			left: -2px;
-			box-shadow: 0 calc(-1 * var(--border-sizing)) 0 var(--border-dark),
-				inset 0 var(--border-sizing) 0 var(--border-light), var(--border-sizing) 0 0 var(--border-light),
-				inset calc(-1 * var(--border-sizing)) 0 0 var(--border-dark);
+			box-shadow: calc(-1 * var(--border-sizing)) 0 0 var(--border-dark),
+				inset var(--border-sizing) 0 0 var(--border-light), inset calc(-1 * var(--border-sizing)) 0 0 var(--border-dark),
+				var(--border-sizing) 0 0 var(--border-light);
 		}
 
-		&--bottom::after {
-			bottom: -2px;
+		&--vertical {
+			top: 23px;
 			right: -2px;
+			left: -2px;
+			bottom: 23px;
 			box-shadow: 0 calc(-1 * var(--border-sizing)) 0 var(--border-dark),
-				inset 0 var(--border-sizing) 0 var(--border-light), inset var(--border-sizing) 0 0 var(--border-light),
-				calc(-1 * var(--border-sizing)) 0 0 var(--border-dark);
+				inset 0 var(--border-sizing) 0 var(--border-light), inset 0 calc(-1 * var(--border-sizing)) 0 var(--border-dark),
+				0 var(--border-sizing) 0 var(--border-light);
 		}
 
 		&--inner {

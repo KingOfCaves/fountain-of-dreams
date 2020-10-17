@@ -47,10 +47,9 @@
 		align-items: center;
 		width: 176px;
 		height: 176px;
+		padding: 4px;
 
 		& > img {
-			image-rendering: pixelated;
-			image-rendering: -moz-crisp-edges;
 			max-width: 100%;
 			max-height: 100%;
 			object-fit: contain;
@@ -75,9 +74,10 @@
 		cursor: pointer;
 
 		&:active {
-			box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-light),
-				inset var(--border-sizing) var(--border-sizing) 0 var(--border-medium);
-			background: var(--border-dark);
+			filter: invert(1);
+			// box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-light),
+			// 	inset var(--border-sizing) var(--border-sizing) 0 var(--border-medium);
+			// background: var(--border-dark);
 		}
 	}
 

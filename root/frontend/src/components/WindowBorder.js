@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const WindowBorder = ({
 	title = 'terminal',
@@ -8,12 +8,25 @@ const WindowBorder = ({
 	helperClasses = '',
 	children,
 }) => {
+	const [contentWidth, setContentWidth] = useState(0);
+	const [contentHeight, setContentHeight] = useState(0);
 	const windowClass = [helperClasses, 'window', `window--${type}`].join(' ');
+	let content = null;
+
+	useEffect(() => {
+		setContentWidth(content.getBoundingClientRect().width);
+		setContentHeight(content.getBoundingClientRect().height);
+	}, [content]);
 
 	return (
-		<div className={windowClass}>
+		<div
+			className={windowClass}
+			ref={(div) => {
+				content = div;
+			}}
+		>
 			<div className="window__mask">
-				{extraDecor && <div className="window__decor--top"></div>}
+				{extraDecor && contentWidth > 80 && <div className="window__decor--horizontal"></div>}
 				<div className="window__inner">
 					<div className="window__decor--inner">
 						{titlebar && (
@@ -26,7 +39,7 @@ const WindowBorder = ({
 						<div className="window__content">{children}</div>
 					</div>
 				</div>
-				{extraDecor && <div className="window__decor--bottom"></div>}
+				{extraDecor && contentHeight > 80 && <div className="window__decor--vertical"></div>}
 			</div>
 		</div>
 	);
