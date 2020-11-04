@@ -23,13 +23,21 @@ const URL = `http://${IP_ADDRESS}:${ICECAST_PORT}/${MOUNTPOINT}`;
 
 let currentMetadata = {};
 
-http.get(URL, (src) => {
-	src.on('end', () => console.log('stream ended...'));
-	src.on('error', (error) => console.log('stream crashed...\n', error));
+http.get(URL, async (src) => {
+	let keepParsing = true;
 
-	const siftThrough = async () => {
-		return await mm
-			.parseStream(src, 'audio/ogg', {
+	src.on('end', () => {
+		keepParsing = false;
+		console.log('stream ended...');
+	});
+	src.on('error', (error) => {
+		keepParsing = false;
+		console.log('stream crashed...\n', error);
+	});
+
+	while (keepParsing) {
+		try {
+			await mm.parseStream(src, 'audio/ogg', {
 				skipPostHeaders: true,
 				skipCovers: true,
 				observer: (update) => {
@@ -63,11 +71,11 @@ http.get(URL, (src) => {
 						console.log(currentMetadata);
 					}
 				},
-			})
-			.then(() => siftThrough())
-			.catch((error) => console.log(error));
-	};
-	siftThrough();
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
 });
 
 io.on('connection', (socket) => {
