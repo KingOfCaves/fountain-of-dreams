@@ -48,19 +48,16 @@ http.get(URL, async (src) => {
 
 					if (allTags && changed) {
 						const coverFind =
-							fg.sync('../frontend/public/images/covers/*').find((item) => {
+							fg.sync('../frontend/build/images/covers/*').find((item) => {
 								const fixedFormat = (text) => {
 									return text.replace(/[^a-zA-Z0-9\\.\\-]/g, '_');
 								};
 								const fixedAlbum = fixedFormat(album);
-								console.log(item);
-								console.log(fixedAlbum);
+								const fixedItem = fixedFormat(item);
 
-								return item.includes(fixedAlbum);
+								return fixedItem.includes(fixedAlbum);
 							}) || 'unknown.jpg';
-						console.log(coverFind);
 						const cover = `/images/covers/${path.basename(coverFind)}`;
-						console.log(cover);
 						currentMetadata = {
 							title,
 							album,
