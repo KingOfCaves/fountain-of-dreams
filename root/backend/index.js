@@ -47,22 +47,10 @@ http.get(URL, async (src) => {
 						currentMetadata.artist !== artist || currentMetadata.album !== album || currentMetadata.title !== title;
 
 					if (allTags && changed) {
-						const coverFind =
-							fg.sync('../frontend/build/images/covers/*').find((item) => {
-								const fixedFormat = (text) => {
-									return text.replace(/[^a-zA-Z0-9\\.\\-]/g, '_');
-								};
-								const fixedAlbum = fixedFormat(album);
-								const fixedItem = fixedFormat(item);
-
-								return fixedItem.includes(fixedAlbum);
-							}) || 'unknown.jpg';
-						const cover = `/images/covers/${path.basename(coverFind)}`;
 						currentMetadata = {
 							title,
 							album,
 							artist,
-							cover,
 						};
 						io.emit('metadataUpdate', currentMetadata);
 						console.log(currentMetadata);

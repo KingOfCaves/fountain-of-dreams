@@ -39,7 +39,6 @@ const App = () => {
 					artist: '中森明菜',
 					album: 'Slow Motion スローモーション',
 					title: 'スローモーション',
-					cover: '/images/covers/unknown.jpg',
 				});
 			}, 5000);
 		} else {
@@ -147,27 +146,27 @@ const App = () => {
 	};
 
 	return (
-		<div id="desktop" onMouseOver={handleInfoMouse} onMouseMove={handleInfoMouseMove}>
+		<div
+			id="desktop"
+			onMouseOver={handleInfoMouse}
+			onMouseMove={handleInfoMouseMove}
+			onMouseLeave={() => setEnteredInfo(false)}
+		>
 			{/* <img
 				className="splash__banner"
 				src="/images/fountainofdreamsbanner.gif"
 				alt="fountain of dreams banner"
 			/> */}
 			<WindowBorder title="terminal" type="dark" titlebar={true} extraDecor={true}>
-				<ol
-					className="player__info"
-					onClick={handleInfoClick}
-					onMouseLeave={() => setEnteredInfo(false)}
-					onContextMenu={(e) => e.preventDefault()}
-				>
+				<ol className="player__info" onClick={handleInfoClick}>
 					<li className="player__info__artist" data-info="artist">
-						{metadata.artist}
+						{metadata.artist || '. . .'}
 					</li>
 					<li className="player__info__album" data-info="album">
-						{metadata.album}
+						{metadata.album || '. . .'}
 					</li>
 					<li className="player__info__title" data-info="title">
-						{metadata.title}
+						{metadata.title || '. . .'}
 					</li>
 					<div className="player__info__decor">
 						<span>info.txt</span>
@@ -204,7 +203,7 @@ const App = () => {
 			</WindowBorder>
 			<WindowBorder title="coverart" titlebar={true} extraDecor={true}>
 				<div className="player__coverart">
-					{metadata.cover ? <img src={metadata.cover} alt={metadata.album} /> : <Loader />}
+					<img src="/images/covers/unknown.jpg" alt={metadata.album} data-info="Coming soon!" />
 				</div>
 			</WindowBorder>
 			<WindowBorder helperClasses={`player__tooltip ${enteredInfo ? 'active' : ''}`}>
