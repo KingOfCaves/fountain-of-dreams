@@ -3,7 +3,6 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const mm = require('music-metadata');
-const fg = require('fast-glob');
 const { pipeline } = require('stream');
 
 const app = express();
