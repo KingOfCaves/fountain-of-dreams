@@ -16,9 +16,8 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
 const ICECAST_PORT = process.env.ICECAST_PORT || 8080;
-const IP_ADDRESS = process.env.IP_ADDRESS || '0.0.0.0';
 const MOUNTPOINT = process.env.MOUNTPOINT || 'radio';
-const URL = `http://${IP_ADDRESS}:${ICECAST_PORT}/${MOUNTPOINT}`;
+const URL = `http://localhost:${ICECAST_PORT}/${MOUNTPOINT}`;
 
 let currentMetadata = {};
 
