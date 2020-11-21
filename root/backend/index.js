@@ -7,13 +7,15 @@ const mm = require('music-metadata');
 const fs = require('fs');
 const { pipeline } = require('stream');
 
-const options = {
-	key: fs.readFileSync('key.pem'),
-	cert: fs.readFileSync('cert.pem'),
-};
-
 const app = express();
-const server = https.createServer(options, app);
+// const server = https.createServer(
+// 	{
+// 		key: fs.readFileSync('key.pem'),
+// 		cert: fs.readFileSync('cert.pem'),
+// 	},
+// 	app
+// );
+const server = http.createServer(app);
 const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
@@ -97,5 +99,5 @@ app.get('*', (req, res) => {
 });
 
 server.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
+	console.log(`Server is running on port ${PORT}\n`);
 });
