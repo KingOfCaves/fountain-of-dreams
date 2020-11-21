@@ -1,12 +1,19 @@
 const path = require('path');
 const http = require('http');
+const https = require('https');
 const express = require('express');
 const socketio = require('socket.io');
 const mm = require('music-metadata');
+const fs = require('fs');
 const { pipeline } = require('stream');
 
+const options = {
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem'),
+};
+
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(options, app);
 const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
