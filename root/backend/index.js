@@ -4,17 +4,9 @@ const https = require('https');
 const express = require('express');
 const socketio = require('socket.io');
 const mm = require('music-metadata');
-const fs = require('fs');
 const { pipeline } = require('stream');
 
 const app = express();
-// const server = https.createServer(
-// 	{
-// 		key: fs.readFileSync('key.pem'),
-// 		cert: fs.readFileSync('cert.pem'),
-// 	},
-// 	app
-// );
 const server = http.createServer(app);
 const io = socketio(server);
 
