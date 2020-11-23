@@ -23,12 +23,13 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 8080;
 const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
-const MOUNTPOINT = process.env.MOUNTPOINT || 'radio';
-const URL = `http://localhost:${ICECAST_PORT}/${MOUNTPOINT}`;
+const OGG_MOUNTPOINT = 'ogg';
+const MPEG_MOUNTPOINT = 'mp3';
+const URL = `http://localhost:${ICECAST_PORT}`;
 
 let currentMetadata = {};
 
-http.get(URL, async (src) => {
+http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 	let keepParsing = true;
 
 	src.on('end', () => {
@@ -69,7 +70,7 @@ http.get(URL, async (src) => {
 });
 
 io.on('connection', (socket) => {
-	io.emit('listeners', io.sockets.clients.length);
+	console.log(io.sockets.clients.length);
 	socket.emit('metadataUpdate', currentMetadata);
 });
 
@@ -77,9 +78,19 @@ app.get('/', (req, res) => {
 	res.render('index');
 });
 
-app.get('/radio', (req, res) => {
+app.get('/ogg', (req, res) => {
 	res.set({ 'Content-Type': 'audio/ogg' });
-	http.get(URL, (src) => {
+	http.get(`${URL}/${OGG_MOUNTPOINT}`, (src) => {
+		pipeline(src, res, (error) => {
+			if (error.message === 'Premature close') return;
+			console.log('/radio\n', error);
+		});
+	});
+});
+
+app.get('/mp3', (req, res) => {
+	res.set({ 'Content-Type': 'audio/mpeg' });
+	http.get(`${URL}/${MPEG_MOUNTPOINT}`, (src) => {
 		pipeline(src, res, (error) => {
 			if (error.message === 'Premature close') return;
 			console.log('/radio\n', error);
