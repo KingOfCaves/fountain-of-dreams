@@ -8,13 +8,14 @@ const mm = require('music-metadata');
 const { pipeline } = require('stream');
 
 const app = express();
-const server = https.createServer(
-	{
-		key: fs.readFileSync('/etc/letsencrypt/fountainofdreams.net/privkey.pem', 'utf-8'),
-		cert: fs.readFileSync('/etc/letsencrypt/fountainofdreams.net/fullchain.pem', 'utf-8'),
-	},
-	app
-);
+// const server = https.createServer(
+// 	{
+// 		key: fs.readFileSync('/etc/letsencrypt/fountainofdreams.net/privkey.pem', 'utf-8'),
+// 		cert: fs.readFileSync('/etc/letsencrypt/fountainofdreams.net/fullchain.pem', 'utf-8'),
+// 	},
+// 	app
+// );
+const server = http.createServer(app);
 const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
