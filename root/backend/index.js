@@ -6,12 +6,20 @@ const socketio = require('socket.io');
 const fs = require('fs');
 const mm = require('music-metadata');
 const { pipeline } = require('stream');
+require('dotenv').config();
+
+const PORT = process.env.PORT || 8080;
+const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
+const CERT_LOC = process.env.CERT_LOC;
+const OGG_MOUNTPOINT = 'ogg';
+const MPEG_MOUNTPOINT = 'mp3';
+const URL = `http://localhost:${ICECAST_PORT}`;
 
 const app = express();
 const server = https.createServer(
 	{
-		key: fs.readFileSync('/etc/letsencrypt/live/fountainofdreams.net/privkey.pem', 'utf-8'),
-		cert: fs.readFileSync('/etc/letsencrypt/live/fountainofdreams.net/fullchain.pem', 'utf-8'),
+		key: fs.readFileSync(`${CERT_LOC}/privkey.pem`, 'utf-8'),
+		cert: fs.readFileSync(`${CERT_LOC}/fullchain.pem`, 'utf-8'),
 	},
 	app
 );
@@ -19,13 +27,6 @@ const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
 app.use(express.static(build_dir, { dotFiles: 'allow' }));
-require('dotenv').config();
-
-const PORT = process.env.PORT || 8080;
-const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
-const OGG_MOUNTPOINT = 'ogg';
-const MPEG_MOUNTPOINT = 'mp3';
-const URL = `http://localhost:${ICECAST_PORT}`;
 
 let currentMetadata = {};
 
