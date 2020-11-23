@@ -4,7 +4,7 @@
   "description": "An internet radio with a Node.js backend. Based on the same idea as plaza.one, except more focused on melancholy genres.",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 ./index.js",
+    "start": "pm2 start ./index.js",
     "start:dev": "nodemon ./index.js"
   },
   "repository": {
