@@ -11,7 +11,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
-app.use(express.static(build_dir));
+app.use(express.static(build_dir), { dotFiles: 'allow' });
 
 require('dotenv').config();
 
