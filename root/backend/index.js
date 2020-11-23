@@ -10,8 +10,8 @@ const { pipeline } = require('stream');
 const app = express();
 const server = https.createServer(
 	{
-		key: fs.readFileSync('/etc/letsencrypt/fountainofdreams.net/privkey.pem', 'utf-8'),
-		cert: fs.readFileSync('/etc/letsencrypt/fountainofdreams.net/fullchain.pem', 'utf-8'),
+		key: fs.readFileSync('/etc/letsencrypt/live/fountainofdreams.net/privkey.pem', 'utf-8'),
+		cert: fs.readFileSync('/etc/letsencrypt/live/fountainofdreams.net/fullchain.pem', 'utf-8'),
 	},
 	app
 );
