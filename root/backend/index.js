@@ -6,6 +6,7 @@ const socketio = require('socket.io');
 const fs = require('fs');
 const mm = require('music-metadata');
 const { pipeline } = require('stream');
+require('dotenv').config();
 
 const app = express();
 const server = https.createServer(
@@ -19,7 +20,6 @@ const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
 app.use(express.static(build_dir, { dotFiles: 'allow' }));
-require('dotenv').config();
 
 const PORT = process.env.PORT || 8080;
 const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
