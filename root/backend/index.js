@@ -3,20 +3,26 @@ const http = require('http');
 const https = require('https');
 const express = require('express');
 const socketio = require('socket.io');
+const fs = require('fs');
 const mm = require('music-metadata');
 const { pipeline } = require('stream');
 
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(
+	{
+		key: fs.readFileSync(process.env.KEY, 'utf-8'),
+		cert: fs.readFileSync(process.env.CERT, 'utf-8'),
+	},
+	app
+);
 const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
 app.use(express.static(build_dir, { dotFiles: 'allow' }));
-
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8000;
-const ICECAST_PORT = process.env.ICECAST_PORT || 8080;
+const PORT = process.env.PORT || 8080;
+const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
 const MOUNTPOINT = process.env.MOUNTPOINT || 'radio';
 const URL = `http://localhost:${ICECAST_PORT}/${MOUNTPOINT}`;
 
@@ -84,6 +90,10 @@ app.get('/radio', (req, res) => {
 app.get('/info', (req, res) => {
 	res.set({ 'Content-Type': 'application/json' });
 	res.send(currentMetadata);
+});
+
+app.get('*', (req, res) => {
+	res.redirect('/');
 });
 
 server.listen(PORT, () => {
