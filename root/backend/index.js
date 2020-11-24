@@ -72,9 +72,10 @@ io.on('connection', (socket) => {
 	socket.emit('metadataUpdate', currentMetadata);
 });
 
-app.all('*', (req, res, next) => {
+app.enable('trust proxy');
+app.use((req, res, next) => {
 	if (req.secure) {
-		return next();
+		next();
 	} else {
 		res.redirect('https://' + req.headers.host + req.url);
 	}
