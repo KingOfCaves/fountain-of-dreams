@@ -8,7 +8,7 @@ const mm = require('music-metadata');
 const { pipeline } = require('stream');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8443;
 const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
 const CERT_LOC = process.env.CERT_LOC;
 const OGG_MOUNTPOINT = 'ogg';
@@ -23,6 +23,7 @@ const server = https.createServer(
 	},
 	app
 );
+
 const io = socketio.listen(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
