@@ -17,13 +17,9 @@ const URL = `http://localhost:${ICECAST_PORT}`;
 
 const app = express();
 const server = https.createServer(
-	{
-		key: fs.readFileSync(`${CERT_LOC}/privkey.pem`, 'utf-8'),
-		cert: fs.readFileSync(`${CERT_LOC}/fullchain.pem`, 'utf-8'),
-	},
+	{ key: fs.readFileSync(`${CERT_LOC}/privkey.pem`, 'utf-8'), cert: fs.readFileSync(`${CERT_LOC}/fullchain.pem`, 'utf-8') },
 	app
 );
-
 const io = socketio.listen(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
@@ -74,6 +70,14 @@ http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 io.on('connection', (socket) => {
 	console.log(io.sockets.clients.length);
 	socket.emit('metadataUpdate', currentMetadata);
+});
+
+app.use((req, res, next) => {
+	if (req.secure) {
+		next();
+	} else {
+		res.redirect('https://' + req.headers.host + req.url);
+	}
 });
 
 app.get('/', (req, res) => {
