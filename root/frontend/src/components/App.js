@@ -64,11 +64,10 @@ const App = () => {
 		const radio = document.querySelector('audio');
 
 		if (action === 'play') {
-			radio.src = '';
+			radio.currentSrc = '';
 			radio.currentTime = 0;
 			setAction('stop');
 		} else if (action === 'stop') {
-			radio.src = '/radio';
 			radio.load();
 			setAction('load');
 			const playPromise = radio.play();
@@ -198,7 +197,10 @@ const App = () => {
 					<div className="player__playpause player__button" onClick={handlePlay}>
 						{handleIcon(action)}
 					</div>
-					<audio className="player__audio" muted={muted} preload="auto"></audio>
+					<audio className="player__audio" muted={muted} preload="auto">
+						<source src="/ogg" type="audio/ogg" />
+						<source src="/mp3" type="audio/mpeg" />
+					</audio>
 				</div>
 			</WindowBorder>
 			<WindowBorder title="coverart" titlebar={true} extraDecor={true}>

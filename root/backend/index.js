@@ -23,7 +23,7 @@ const server = https.createServer(
 	},
 	app
 );
-const io = socketio(server);
+const io = socketio.listen(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
 app.use(express.static(build_dir, { dotFiles: 'allow' }));
