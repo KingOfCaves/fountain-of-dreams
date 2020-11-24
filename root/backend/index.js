@@ -72,6 +72,7 @@ io.on('connection', (socket) => {
 	socket.emit('metadataUpdate', currentMetadata);
 });
 
+app.enable('trust proxy');
 app.use((req, res, next) => {
 	if (req.secure) {
 		next();
