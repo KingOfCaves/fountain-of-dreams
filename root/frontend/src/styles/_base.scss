@@ -28,8 +28,8 @@ body {
 	background-size: 2px 2px, 2px 2px;
 	color: #5e5f5a;
 	font-size: 1.6rem;
-	font-family: 'ＭＳ ゴシック', 'MS Gothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体',
-		YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, HiraKakuProN-W3, 'TakaoExゴシック', TakaoExGothic, 'MotoyaLCedar',
+	font-family: 'ＭＳ ゴシック', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', YuGothic,
+		'Yu Gothic', 'メイリオ', Meiryo, HiraKakuProN-W3, 'TakaoExゴシック', TakaoExGothic, 'MotoyaLCedar',
 		'Droid Sans Japanese', sans-serif;
 	font-smooth: never;
 	-webkit-font-smoothing: none;
@@ -47,19 +47,19 @@ body {
 #desktop {
 	position: relative;
 	display: grid;
-	grid-template-rows: max-content 60px;
-	grid-auto-columns: auto auto;
+	grid-template-rows: max-content min-content;
+	grid-auto-columns: min-content min-content;
 	gap: 24px;
 
-	& > :nth-child(1) {
+	& > .arranged-a {
 		grid-row: span 1;
 		grid-column: 1;
 	}
-	& > :nth-child(2) {
+	& > .arranged-b {
 		grid-row: span 1;
 		grid-column: 1;
 	}
-	& > :nth-child(3) {
+	& > .arranged-c {
 		grid-row: 1 / span 2;
 		grid-column: 2;
 	}
@@ -69,6 +69,7 @@ input[type='range'] {
 	-webkit-appearance: none;
 	width: 100%;
 	background: transparent;
+	overflow: hidden;
 }
 
 input[type='range']:focus {
@@ -81,7 +82,8 @@ input[type='range']::-webkit-slider-thumb {
 	width: 16px;
 	height: 100%;
 	background-color: var(--border-medium);
-	box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
+	box-shadow: -200px 0 0 200px #555a63,
+		inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
 		inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
 	border: none;
 	cursor: pointer;
@@ -107,6 +109,11 @@ input[type='range']::-webkit-slider-runnable-track {
 input[type='range']::-moz-range-track {
 	height: 100%;
 	background-color: var(--border-dark);
+}
+
+input[type='range']::-moz-range-progress {
+	height: 100%;
+	background-color: #555a63;
 }
 
 input[type='range']::-moz-focus-outer {

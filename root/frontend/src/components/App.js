@@ -17,8 +17,7 @@ const socket =
 
 const App = () => {
 	const [metadata, setMetadata] = useState({});
-	const [volume, setVolume] = useState(0);
-	const [displayVolume, setDisplayVolume] = useState(false);
+	const [volume, setVolume] = useState(localStorage.getItem('userVolume') || 0.1);
 	const [currentInfo, setCurrentInfo] = useState('');
 	const [enteredInfo, setEnteredInfo] = useState(false);
 	const [action, setAction] = useState('stop');
@@ -58,16 +57,19 @@ const App = () => {
 
 	useEffect(() => {
 		document.querySelector('.player__audio').volume = volume;
+		localStorage.setItem('userVolume', volume);
 	}, [volume]);
 
 	const handlePlay = () => {
 		const radio = document.querySelector('audio');
+		const sources = document.querySelectorAll('audio source');
 
 		if (action === 'play') {
-			radio.currentSrc = '';
+			sources.forEach((source) => source.setAttribute('src', ''));
 			radio.currentTime = 0;
 			setAction('stop');
 		} else if (action === 'stop') {
+			['/ogg', '/mp3'].map((src, index) => sources[index].setAttribute('src', src));
 			radio.load();
 			setAction('load');
 			const playPromise = radio.play();
@@ -122,10 +124,6 @@ const App = () => {
 		popUpTimerRef.current = setTimeout(() => setPopUp({ active: false }), 3000);
 	}, [popUp]);
 
-	const handleVolumeClick = (state) => {
-		setDisplayVolume(state);
-	};
-
 	const handleIcon = (playerState) => {
 		switch (true) {
 			case playerState === 'play':
@@ -156,7 +154,7 @@ const App = () => {
 				src="/images/fountainofdreamsbanner.gif"
 				alt="fountain of dreams banner"
 			/> */}
-			<WindowBorder title="terminal" type="dark" titlebar={true} extraDecor={true}>
+			<WindowBorder helperClasses="arranged-a" title="terminal" type="dark" titlebar={true} extraDecor={true}>
 				<ol className="player__info" onClick={handleInfoClick}>
 					<li className="player__info__artist" data-info="artist">
 						{metadata.artist || '. . .'}
@@ -173,7 +171,7 @@ const App = () => {
 					</div>
 				</ol>
 			</WindowBorder>
-			<WindowBorder>
+			<WindowBorder helperClasses="arranged-b">
 				<div className="player__controls">
 					<input
 						className="player__volume"
@@ -182,28 +180,28 @@ const App = () => {
 						max="1"
 						step="0.01"
 						onChange={handleVolumeChange}
-						onMouseEnter={() => handleVolumeClick(true)}
-						onMouseLeave={() => handleVolumeClick(false)}
-						onTouchStart={() => handleVolumeClick(true)}
-						onTouchEnd={() => handleVolumeClick(false)}
 					></input>
-					<div
-						className={`player__volume__display ${muted ? 'muted' : ''} ${displayVolume ? 'active' : ''}`}
-						onClick={handleMute}
-					>
+					<div className={`player__volume__display`}>
 						<span>Volume</span>
 						<span>{(volume * 100).toFixed(0) + '%'}</span>
 					</div>
 					<div className="player__playpause player__button" onClick={handlePlay}>
 						{handleIcon(action)}
 					</div>
-					<audio className="player__audio" muted={muted} preload="auto">
+					<div className="player__mutetoggle player__button" onClick={handleMute}>
+						{muted ? (
+							<img src="/images/icons/sound_off.svg" alt="umute" />
+						) : (
+							<img src="/images/icons/sound_on.svg" alt="mute" />
+						)}
+					</div>
+					<audio className="player__audio" muted={muted} preload="none">
 						<source src="/ogg" type="audio/ogg" />
 						<source src="/mp3" type="audio/mpeg" />
 					</audio>
 				</div>
 			</WindowBorder>
-			<WindowBorder title="coverart" titlebar={true} extraDecor={true}>
+			<WindowBorder helperClasses="arranged-c" title="coverart" titlebar={true} extraDecor={true}>
 				<div className="player__coverart">
 					<img src="/images/covers/unknown.jpg" alt={metadata.album} data-info="Coming soon!" />
 				</div>

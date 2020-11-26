@@ -10,7 +10,7 @@ const WindowBorder = ({
 }) => {
 	const [contentWidth, setContentWidth] = useState(0);
 	const [contentHeight, setContentHeight] = useState(0);
-	const windowClass = [helperClasses, 'window', `window--${type}`].join(' ');
+	const windowClass = ['window', `window--${type}`, helperClasses].join(' ');
 	let content = null;
 
 	useEffect(() => {

@@ -89,6 +89,11 @@
 			width: var(--button-sizing);
 		}
 
+		&__min:active,
+		&__exit:active {
+			filter: invert(1);
+		}
+
 		&__min::after {
 			content: '';
 			width: 12px;

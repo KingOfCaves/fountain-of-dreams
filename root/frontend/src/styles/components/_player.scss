@@ -58,10 +58,14 @@
 	}
 
 	&__controls {
-		height: 100%;
+		width: 200px;
+		height: 46px;
 		display: grid;
-		grid-auto-columns: 1fr;
-		grid-auto-rows: 1fr;
+		grid-template-areas:
+			'b b a'
+			'c d a';
+		grid-template-columns: 1fr 1fr min-content;
+		grid-template-rows: 1fr 1fr;
 	}
 
 	&__button {
@@ -80,6 +84,10 @@
 			// 	inset var(--border-sizing) var(--border-sizing) 0 var(--border-medium);
 			// background: var(--border-dark);
 		}
+	}
+
+	&__playpause {
+		grid-area: c;
 	}
 
 	&__icon__play {
@@ -102,33 +110,39 @@
 		}
 	}
 
+	&__mutetoggle {
+		grid-area: d;
+		img {
+			width: 16px;
+			height: auto;
+		}
+	}
+
 	&__volume {
+		grid-area: b;
 		margin: 0;
+		cursor: pointer;
 	}
 
 	&__volume__display {
-		position: absolute;
-		border: calc(2 * var(--border-sizing)) solid;
-		border-top-color: var(--border-light);
-		border-right-color: var(--border-dark);
-		border-bottom-color: var(--border-dark);
-		border-left-color: var(--border-light);
-		background-color: var(--border-medium);
-		box-shadow: inset 0 0 0 2px var(--border-medium);
-		background: var(--bg-pattern-light);
-		display: none;
+		grid-area: a;
+		box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0
+				darken($color: #59546c, $amount: 15%),
+			inset var(--border-sizing) var(--border-sizing) 0 lighten($color: #59546c, $amount: 30%);
+		background-color: #59546c;
+		color: #cfd4cb;
+		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding: 4px 8px;
-		height: 100%;
+		padding: 2px 8px;
+		font-size: 10pt;
+		user-select: none;
 
 		& > span:first-of-type {
-			font-size: 12px;
+			font-size: 8pt;
 			margin-bottom: 4px;
 		}
-
-		transform: translate(calc(-100% - 7px), 0);
 
 		&.active {
 			display: flex;
@@ -141,7 +155,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 200px;
-	height: 100%;
+	height: 96px;
 	padding: 2px;
 	list-style-type: none;
 	list-style-position: inside;
@@ -156,7 +170,7 @@
 		white-space: nowrap;
 		counter-increment: customlistcounter;
 		padding: 2px;
-		cursor: help;
+		cursor: pointer;
 
 		&:hover {
 			background-color: #59546c;
@@ -165,7 +179,7 @@
 	}
 
 	& > li:before {
-		content: counter(customlistcounter) ' ';
+		content: counter(customlistcounter);
 		float: left;
 		margin: 0 8px 0 4px;
 	}
@@ -178,7 +192,7 @@
 		position: relative;
 		padding: 2px;
 		font-size: 12px;
-		color: #8e988d;
+		color: #8b9186;
 		background-color: #555a63;
 		user-select: none;
 		cursor: default;
