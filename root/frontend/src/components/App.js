@@ -135,13 +135,6 @@ const App = () => {
 		}
 	};
 
-	const volumeFormat = (vol) => {
-		const toHundred = +(vol * 100).toFixed(0);
-		if (toHundred < 10) return `00${toHundred}%`;
-		if (toHundred < 100) return `0${toHundred}%`;
-		if (toHundred === 100) return `${toHundred}%`;
-	};
-
 	return (
 		<div
 			id="desktop"
