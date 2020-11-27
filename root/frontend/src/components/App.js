@@ -22,6 +22,9 @@ const App = () => {
 	const [enteredInfo, setEnteredInfo] = useState(false);
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
+	const [newVisitor, setNewVisitor] = useState(
+		localStorage.getItem('newVisitor') ? JSON.parse(localStorage.getItem('newVisitor')) : true
+	);
 
 	const fullhouse = !!metadata.artist && !!metadata.album && !!metadata.title;
 
@@ -112,8 +115,8 @@ const App = () => {
 		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
 			const data = e.target.dataset;
 			window.getSelection().selectAllChildren(e.target);
-			document.execCommand('copy');
-			setPopUp({ active: true, text: `${data.info} - copied!` });
+			// document.execCommand('copy');
+			// setPopUp({ active: true, text: `${data.info} - copied!` });
 		}
 	};
 
@@ -135,6 +138,14 @@ const App = () => {
 		}
 	};
 
+	const handleExit = () => {
+		setNewVisitor(false);
+	};
+
+	useEffect(() => {
+		localStorage.setItem('newVisitor', newVisitor);
+	}, [newVisitor]);
+
 	return (
 		<div
 			id="desktop"
@@ -142,12 +153,40 @@ const App = () => {
 			onMouseMove={handleInfoMouseMove}
 			onMouseLeave={() => setEnteredInfo(false)}
 		>
-			{/* <img
-				className="splash__banner"
-				src="/images/fountainofdreamsbanner.gif"
-				alt="fountain of dreams banner"
-			/> */}
-			<WindowBorder helperClasses="arranged-a" title="terminal" type="dark" titlebar={true} extraDecor={true}>
+			{newVisitor && (
+				<WindowBorder
+					closable={{ enabled: true, fn: handleExit }}
+					helperClasses="splash"
+					type="other"
+					title="introduction"
+					titlebar={true}
+				>
+					<div className="splash__banner"></div>
+					<div className="splash__text">
+						<p>Welcome!</p>
+						<p>fountain_of_dreams is an internet radio with a primary focus on 80's tunes from Japan.</p>
+						<h2>tips & tricks</h2>
+						<p>
+							There is a minimize button (button on the left) and an exit button (button on the right) for every
+							window that has a titlebar enabled.
+						</p>
+						<WindowBorder
+							helperClasses="splash__test"
+							type="dark"
+							title="clickme!"
+							titlebar={true}
+							extraDecor={true}
+						/>
+						<p>
+							For most windows they don't do anything, but the introduction window you are looking at right now
+							can be closed.
+						</p>
+						<p></p>
+						<p>Enjoy your stay!</p>
+					</div>
+				</WindowBorder>
+			)}
+			<WindowBorder helperClasses="arranged-a" type="dark" titlebar={true} extraDecor={true}>
 				<ol className="player__info" onClick={handleInfoClick}>
 					<li className="player__info__artist" data-info="artist">
 						{metadata.artist || '. . .'}

@@ -71,7 +71,7 @@
 		background-color: var(--border-light);
 		height: var(--button-sizing);
 		font-size: 1.2rem;
-		color: var(--title-color);
+		color: var(--border-title);
 		z-index: 1;
 		user-select: none;
 
@@ -115,7 +115,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			padding: 0 16px;
+			padding: 0 8px;
 		}
 	}
 

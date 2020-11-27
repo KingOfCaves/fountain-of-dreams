@@ -6,6 +6,7 @@ const WindowBorder = ({
 	titlebar = false,
 	extraDecor = false,
 	helperClasses = '',
+	closable = { enabled: false, fn: () => {} },
 	children,
 }) => {
 	const [contentWidth, setContentWidth] = useState(0);
@@ -17,6 +18,10 @@ const WindowBorder = ({
 		setContentWidth(content.getBoundingClientRect().width);
 		setContentHeight(content.getBoundingClientRect().height);
 	}, [content]);
+
+	const handleExit = () => {
+		if (closable.enabled) return closable.fn();
+	};
 
 	return (
 		<div
@@ -33,7 +38,7 @@ const WindowBorder = ({
 							<div className="window__titlebar">
 								<div className="window__titlebar__min"></div>
 								<div className="window__titlebar__name">{title}</div>
-								<div className="window__titlebar__exit"></div>
+								<div className="window__titlebar__exit" onClick={handleExit}></div>
 							</div>
 						)}
 						<div className="window__content">{children}</div>

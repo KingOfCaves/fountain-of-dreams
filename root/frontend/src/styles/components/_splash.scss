@@ -1,0 +1,60 @@
+.splash {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	font-size: 14px;
+
+	& .window__content {
+		display: flex;
+		gap: 8px;
+		width: 460px;
+		height: 200px;
+		padding: 12px 6px;
+		overflow: hidden;
+	}
+
+	&__test {
+		box-shadow: none;
+		& .window__content {
+			width: 0;
+			height: 0;
+			padding: 0;
+		}
+	}
+
+	&__banner {
+		height: 100%;
+		width: 45%;
+		overflow: hidden;
+		background-image: url('/images/fountainofdreamsbanner.gif');
+		background-repeat: no-repeat;
+		background-position: calc(50% + 6px) calc(100% + 32px);
+	}
+
+	&__text {
+		position: relative;
+		flex: 1;
+		padding-right: 8px;
+		line-height: 1.2em;
+		white-space: pre-line;
+		overflow-y: auto;
+		overflow-x: hidden;
+		overscroll-behavior: contain;
+		user-select: none;
+
+		& h2 {
+			border-bottom: 1px solid currentColor;
+			padding-bottom: 4px;
+		}
+
+		& img {
+			max-width: 100%;
+		}
+
+		& > :not(:last-child) {
+			margin-bottom: 1.6rem;
+		}
+	}
+}
