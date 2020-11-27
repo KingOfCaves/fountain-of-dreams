@@ -10,16 +10,12 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 8443;
 const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
-const CERT_LOC = process.env.CERT_LOC;
 const OGG_MOUNTPOINT = 'ogg';
 const MPEG_MOUNTPOINT = 'mp3';
 const URL = `http://localhost:${ICECAST_PORT}`;
 
 const app = express();
-const server = https.createServer(
-	{ key: fs.readFileSync(`${CERT_LOC}/privkey.pem`, 'utf-8'), cert: fs.readFileSync(`${CERT_LOC}/fullchain.pem`, 'utf-8') },
-	app
-);
+const server = http.createServer(app);
 const io = socketio.listen(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
