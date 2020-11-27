@@ -8,7 +8,7 @@ const mm = require('music-metadata');
 const { pipeline } = require('stream');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8443;
+const PORT = process.env.PORT || 8080;
 const ICECAST_PORT = process.env.ICECAST_PORT || 8000;
 const OGG_MOUNTPOINT = 'ogg';
 const MPEG_MOUNTPOINT = 'mp3';
