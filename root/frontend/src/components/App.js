@@ -20,6 +20,7 @@ const App = () => {
 	const [volume, setVolume] = useState(localStorage.getItem('userVolume') || 0.1);
 	const [currentInfo, setCurrentInfo] = useState('');
 	const [enteredInfo, setEnteredInfo] = useState(false);
+	const [acceptedSrc, setAcceptedSrc] = useState('');
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
 	const [newVisitor, setNewVisitor] = useState(
@@ -63,16 +64,25 @@ const App = () => {
 		localStorage.setItem('userVolume', volume);
 	}, [volume]);
 
+	useEffect(() => {
+		const radio = document.querySelector('.player__audio');
+
+		if (radio.canPlayType('audio/ogg')) {
+			setAcceptedSrc('/ogg');
+		} else {
+			setAcceptedSrc('/mp3');
+		}
+	}, []);
+
 	const handlePlay = () => {
-		const radio = document.querySelector('audio');
-		const sources = document.querySelectorAll('audio source');
+		const radio = document.querySelector('.player__audio');
 
 		if (action === 'play') {
-			sources.forEach((source) => source.setAttribute('src', ''));
+			radio.src = '';
 			radio.currentTime = 0;
 			setAction('stop');
 		} else if (action === 'stop') {
-			['/ogg', '/mp3'].map((src, index) => sources[index].setAttribute('src', src));
+			radio.src = acceptedSrc;
 			radio.load();
 			setAction('load');
 			const playPromise = radio.play();
@@ -227,10 +237,7 @@ const App = () => {
 							<img src="/images/icons/sound_on.svg" alt="mute" />
 						)}
 					</div>
-					<audio className="player__audio" muted={muted} preload="none">
-						<source src="/ogg" type="audio/ogg" />
-						<source src="/mp3" type="audio/mpeg" />
-					</audio>
+					<audio className="player__audio" muted={muted} preload="auto"></audio>
 				</div>
 			</WindowBorder>
 			<WindowBorder helperClasses="arranged-c" title="coverart" titlebar={true} extraDecor={true}>

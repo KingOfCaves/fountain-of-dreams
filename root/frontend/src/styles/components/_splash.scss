@@ -5,13 +5,14 @@
 	transform: translate(-50%, -50%);
 	z-index: 100;
 	font-size: 14px;
+	image-rendering: pixelated;
 
 	& .window__content {
 		display: flex;
-		gap: 8px;
-		width: 460px;
+		gap: 16px;
+		width: 420px;
 		height: 200px;
-		padding: 12px 6px;
+		padding: 16px;
 		overflow: hidden;
 	}
 
