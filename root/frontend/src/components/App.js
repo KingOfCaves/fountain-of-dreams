@@ -177,8 +177,8 @@ const App = () => {
 						<p>fountain_of_dreams is an internet radio with a primary focus on 80's tunes from Japan.</p>
 						<h2>tips & tricks</h2>
 						<p>
-							There is a minimize button (button on the left) and an exit button (button on the right) for every
-							window that has a titlebar enabled.
+							There is a minimize button on the left and an exit button on the right for every window that has a
+							titlebar enabled.
 						</p>
 						<WindowBorder
 							helperClasses="splash__test"
@@ -188,11 +188,11 @@ const App = () => {
 							extraDecor={true}
 						/>
 						<p>
-							For most windows they don't do anything, but the introduction window you are looking at right now
-							can be closed.
+							For most windows they don't do anything, but the intro window you are looking at right now can be
+							closed.
 						</p>
 						<p></p>
-						<p>Enjoy your stay!</p>
+						<p>Enjoy!</p>
 					</div>
 				</WindowBorder>
 			)}
