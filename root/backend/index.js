@@ -16,7 +16,7 @@ const URL = `http://localhost:${ICECAST_PORT}`;
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio.listen(server);
+const io = socketio(server);
 
 const build_dir = path.join(__dirname, '../frontend/build');
 app.use(express.static(build_dir, { dotFiles: 'allow' }));
@@ -64,7 +64,6 @@ http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 });
 
 io.on('connection', (socket) => {
-	console.log(io.sockets.clients.length);
 	socket.emit('metadataUpdate', currentMetadata);
 });
 
