@@ -27,7 +27,7 @@ const App = () => {
 		localStorage.getItem('newVisitor') ? JSON.parse(localStorage.getItem('newVisitor')) : true
 	);
 
-	const fullhouse = !!metadata.artist && !!metadata.album && !!metadata.title;
+	const fullhouse = !!metadata.artist && !!metadata.album && !!metadata.title && !!metadata.coverart;
 
 	const [popUp, setPopUp] = useState({
 		text: '',
@@ -42,6 +42,7 @@ const App = () => {
 					artist: '中森明菜',
 					album: 'Slow Motion スローモーション',
 					title: 'スローモーション',
+					coverart: 'unknown.jpg',
 				});
 			}, 5000);
 		} else {
@@ -123,7 +124,7 @@ const App = () => {
 
 	const handleInfoClick = (e) => {
 		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
-			const data = e.target.dataset;
+			// const data = e.target.dataset;
 			window.getSelection().selectAllChildren(e.target);
 			// document.execCommand('copy');
 			// setPopUp({ active: true, text: `${data.info} - copied!` });
@@ -242,7 +243,7 @@ const App = () => {
 			</WindowBorder>
 			<WindowBorder helperClasses="arranged-c" title="coverart" titlebar={true} extraDecor={true}>
 				<div className="player__coverart">
-					<img src="/images/covers/unknown.jpg" alt={metadata.album} data-info="Coming soon!" />
+					{metadata.coverart ? <img src={`/images/covers/${metadata.coverart}`} alt={metadata.album} /> : <Loader />}
 				</div>
 			</WindowBorder>
 			<WindowBorder helperClasses={`player__tooltip ${enteredInfo ? 'active' : ''}`}>

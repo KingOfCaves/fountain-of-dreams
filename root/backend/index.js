@@ -41,19 +41,27 @@ http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 				skipPostHeaders: true,
 				skipCovers: true,
 				observer: (update) => {
-					const { artist, title, album } = update.metadata.common;
-					const allTags = artist && title && album;
-					const changed =
-						currentMetadata.artist !== artist || currentMetadata.album !== album || currentMetadata.title !== title;
+					const { artist, title, album, comment } = update.metadata.common;
+					const allTags = artist && title && album && comment;
 
-					if (allTags && changed) {
-						currentMetadata = {
-							title,
-							album,
-							artist,
-						};
-						io.emit('metadataUpdate', currentMetadata);
-						console.log(currentMetadata);
+					if (allTags) {
+						const changed =
+							currentMetadata.artist !== artist ||
+							currentMetadata.album !== album ||
+							currentMetadata.title !== title ||
+							currentMetadata.coverart !== comment[0];
+
+						if (changed) {
+							const coverart = comment[0] || 'unknown.jpg';
+							currentMetadata = {
+								title,
+								album,
+								artist,
+								coverart,
+							};
+							io.emit('metadataUpdate', currentMetadata);
+							console.log(currentMetadata);
+						}
 					}
 				},
 			});
