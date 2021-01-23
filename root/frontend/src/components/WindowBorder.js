@@ -6,7 +6,9 @@ const WindowBorder = ({
 	titlebar = false,
 	extraDecor = false,
 	helperClasses = '',
+	helperId = '',
 	closable = { enabled: false, fn: () => {} },
+	movable = false,
 	children,
 }) => {
 	const [contentWidth, setContentWidth] = useState(0);
@@ -25,11 +27,13 @@ const WindowBorder = ({
 
 	return (
 		<div
+			id={helperId}
 			className={windowClass}
 			ref={(div) => {
 				content = div;
 			}}
 		>
+			{/* <div className="window__placeholder" style={{ width: contentWidth, height: contentHeight }}></div> */}
 			<div className="window__mask">
 				{extraDecor && contentWidth > 80 && <div className="window__decor--horizontal"></div>}
 				<div className="window__inner">

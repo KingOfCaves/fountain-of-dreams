@@ -50,19 +50,18 @@ body {
 	grid-template-rows: max-content min-content;
 	grid-auto-columns: min-content min-content;
 	gap: 24px;
-
-	& > .arranged-a {
-		grid-row: span 1;
-		grid-column: 1;
-	}
-	& > .arranged-b {
-		grid-row: span 1;
-		grid-column: 1;
-	}
-	& > .arranged-c {
-		grid-row: 1 / span 2;
-		grid-column: 2;
-	}
+}
+#window-info {
+	grid-row: span 1;
+	grid-column: 1;
+}
+#window-controls {
+	grid-row: span 1;
+	grid-column: 1;
+}
+#window-coverart {
+	grid-row: 1 / span 2;
+	grid-column: 2;
 }
 
 ::-webkit-scrollbar {

@@ -9,15 +9,16 @@
 
 	& .window__content {
 		display: flex;
-		gap: 16px;
-		width: 420px;
-		height: 200px;
 		padding: 16px;
+		width: 480px;
+		height: 320px;
 		overflow: hidden;
 	}
 
 	&__test {
 		box-shadow: none;
+		flex: 1;
+
 		& .window__content {
 			width: 0;
 			height: 0;
@@ -38,14 +39,25 @@
 		position: relative;
 		flex: 1;
 		padding-right: 8px;
+		margin-left: 16px;
 		line-height: 1.2em;
 		white-space: pre-line;
 		overflow-y: auto;
 		overflow-x: hidden;
 		overscroll-behavior: contain;
 		user-select: none;
+		display: flex;
+		flex-wrap: wrap;
 
 		& h2 {
+			flex: 1;
+			font-weight: bold;
+			border-bottom: 3px solid currentColor;
+			padding-bottom: 4px;
+		}
+
+		& h3 {
+			color: #59546c;
 			border-bottom: 1px solid currentColor;
 			padding-bottom: 4px;
 		}
