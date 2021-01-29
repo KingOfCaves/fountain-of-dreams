@@ -14,6 +14,7 @@ html {
 *::before,
 *::after {
 	box-sizing: inherit;
+	-webkit-user-drag: none;
 }
 
 *:link,
@@ -36,7 +37,7 @@ body {
 	-moz-osx-font-smoothing: none;
 }
 
-#wrapper {
+#desktop {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,19 +45,19 @@ body {
 	overflow: hidden;
 }
 
-#desktop {
-	position: relative;
+main {
+	position: fixed;
 	display: grid;
-	grid-template-rows: max-content min-content;
 	grid-auto-columns: min-content min-content;
+	grid-template-rows: max-content min-content;
 	gap: 24px;
 }
 #window-info {
-	grid-row: span 1;
+	grid-row: 1 / span 1;
 	grid-column: 1;
 }
 #window-controls {
-	grid-row: span 1;
+	grid-row: 2 / span 1;
 	grid-column: 1;
 }
 #window-coverart {

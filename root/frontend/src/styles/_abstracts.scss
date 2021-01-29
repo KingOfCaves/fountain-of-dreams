@@ -1,16 +1,18 @@
 :root {
 	--bg-color-1: #dcdcd0;
 	--bg-color-2: #e6e6da;
-
 	--bg-pattern-light: linear-gradient(0deg, var(--bg-color-1) 1px, transparent 1px),
 		linear-gradient(90deg, var(--bg-color-1) 1px, var(--bg-color-2) 1px);
+
+	--border-sizing: 1px;
+	--button-sizing: 18px;
 }
 
 .window--light {
 	--border-light: #dbe0d7;
 	--border-medium: #9fa696;
 	--border-dark: #52564e;
-	--border-title: #5e5f5a;
+	--border-title: #4b4c48;
 }
 
 .window--dark {

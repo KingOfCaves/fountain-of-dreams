@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
+
 import WelcomeWindow from './WelcomeWindow';
 import InfoWindow from './InfoWindow';
 import ControlsWindow from './ControlsWindow';
 import CoverartWindow from './CoverartWindow';
 import TooltipWindow from './TooltipWindow';
+
+import AppContext from '../context/AppContext';
 
 const environment = process.env.NODE_ENV;
 const socket =
@@ -23,8 +26,12 @@ const App = () => {
 	const [currentInfo, setCurrentInfo] = useState('');
 	const [enteredInfo, setEnteredInfo] = useState(false);
 	const [newVisitor, setNewVisitor] = useState(
-		localStorage.getItem('newVisitor') ? JSON.parse(localStorage.getItem('newVisitor')) : true
+		// localStorage.getItem('newVisitor') ? JSON.parse(localStorage.getItem('newVisitor')) : true
+		true
 	);
+	const [windows, setWindows] = useState({});
+	const [mDown, setmDown] = useState(false);
+	const clickedWindow = useRef(null);
 
 	const fullhouse = !!metadata.artist && !!metadata.album && !!metadata.title && !!metadata.coverart;
 
@@ -49,6 +56,10 @@ const App = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		localStorage.setItem('newVisitor', newVisitor);
+	}, [newVisitor]);
+
 	const handleInfoMouse = (e) => {
 		if (!!e.target.dataset.info) {
 			setEnteredInfo(true);
@@ -60,7 +71,6 @@ const App = () => {
 	};
 
 	const handleInfoMouseMove = (e) => {
-		console.log(e.clientX, e.clientY);
 		const tooltip = document.querySelector('.player__tooltip');
 		if (!!e.target.dataset.info) {
 			tooltip.style.left = `${e.clientX + 10}px`;
@@ -74,26 +84,65 @@ const App = () => {
 		}
 	};
 
-	const handleExit = () => {
-		setNewVisitor(false);
+	const handleDesktopMouseMove = (e) => {
+		const { movementX, movementY } = e;
+
+		if (mDown && clickedWindow.current) {
+			const currentWindow = clickedWindow.current;
+			const parseTransform = window
+				.getComputedStyle(currentWindow)
+				.transform.split(/\(|,|\)/)
+				.slice(1, -1)
+				.map((v) => parseFloat(v));
+			const [transX, transY] = parseTransform.slice(Math.max(parseTransform.length - 2, 0));
+			currentWindow.style.transform = `translate(${transX + movementX}px, ${transY + movementY}px)`;
+		}
+	};
+
+	const handleDesktopClick = (e, holding) => {
+		setmDown(holding);
+		const currentWindow = e.target.closest('.window');
+		if (holding && currentWindow) {
+			if (e.target.classList.contains('window__titlebar__name')) {
+				clickedWindow.current = currentWindow;
+				// refPoint.current = currentWindow.querySelector('');
+			}
+			const oldOrder = Array.from(document.querySelectorAll('.window:not(.player__tooltip)')).sort(
+				(a, b) => a.style.zIndex - b.style.zIndex
+			);
+			const currentIndex = oldOrder.findIndex((el) => el === currentWindow);
+			oldOrder.splice(currentIndex, 1);
+			oldOrder.push(currentWindow);
+			oldOrder.forEach((el, index) => (el.style.zIndex = index + 1));
+		} else {
+			clickedWindow.current = null;
+		}
 	};
 
 	useEffect(() => {
-		localStorage.setItem('newVisitor', newVisitor);
-	}, [newVisitor]);
+		console.log(clickedWindow.current);
+	}, [clickedWindow]);
 
 	return (
 		<div
 			id="desktop"
-			onMouseOver={handleInfoMouse}
-			onMouseMove={handleInfoMouseMove}
-			onMouseLeave={() => setEnteredInfo(false)}
+			onMouseDown={(e) => handleDesktopClick(e, true)}
+			onMouseUp={(e) => handleDesktopClick(e, false)}
+			onMouseMove={handleDesktopMouseMove}
 		>
-			{newVisitor && <WelcomeWindow handleExit={handleExit} />}
-			<InfoWindow metadata={metadata} handleInfoClick={handleInfoClick} />
-			<ControlsWindow />
-			<CoverartWindow metadata={metadata} />
-			<TooltipWindow enteredInfo={enteredInfo} currentInfo={currentInfo} />
+			<AppContext.Provider value={{ windowSet: [windows, setWindows] }}>
+				<main
+					onMouseOver={handleInfoMouse}
+					onMouseMove={handleInfoMouseMove}
+					onMouseLeave={() => setEnteredInfo(false)}
+				>
+					{newVisitor && <WelcomeWindow setNewVisitor={setNewVisitor} />}
+					<InfoWindow metadata={metadata} handleInfoClick={handleInfoClick} />
+					<ControlsWindow />
+					<CoverartWindow metadata={metadata} />
+				</main>
+				<TooltipWindow enteredInfo={enteredInfo} currentInfo={currentInfo} />
+			</AppContext.Provider>
 		</div>
 	);
 };

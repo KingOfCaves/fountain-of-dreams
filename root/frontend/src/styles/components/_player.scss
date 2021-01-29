@@ -3,24 +3,6 @@
 		display: none;
 	}
 
-	&__popup {
-		left: 50%;
-		bottom: 110%;
-		transform: translate(-50%, 0);
-		position: absolute;
-		display: none;
-		text-transform: capitalize;
-		z-index: 2;
-
-		& .window__content {
-			padding: 12px;
-		}
-
-		&.active {
-			display: block;
-		}
-	}
-
 	&__tooltip {
 		position: fixed;
 		display: none;
@@ -29,7 +11,7 @@
 		flex-direction: column;
 		text-transform: capitalize;
 		font-size: 12px;
-		z-index: 2;
+		z-index: 100;
 
 		& .window__content {
 			padding: 4px 8px;
@@ -45,8 +27,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 176px;
-		height: 176px;
+		width: 196px;
+		height: 196px;
 		padding: 4px;
 
 		& > img {
@@ -57,8 +39,13 @@
 	}
 
 	&__controls {
+		--border-light: #dbe0d7;
+		--border-medium: #9fa696;
+		--border-dark: #52564e;
+		--border-title: #5e5f5a;
+
 		width: 200px;
-		height: 46px;
+		height: 48px;
 		display: grid;
 		grid-template-areas:
 			'b b a'
