@@ -59,7 +59,6 @@ const WindowBorder = ({
 												<li onClick={() => (content.style.transform = 'translate(0,0)')}>
 													reset window position
 												</li>
-												<li>change window theme</li>
 											</ul>
 										</div>
 									)}

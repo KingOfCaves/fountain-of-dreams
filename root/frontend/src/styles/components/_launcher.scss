@@ -1,0 +1,19 @@
+.launcher {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 8px;
+
+	&__item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 8px;
+
+		& img {
+			image-rendering: pixelated;
+			filter: drop-shadow(1px 0 0 var(--border-medium)) drop-shadow(-1px 0 0 var(--border-medium))
+				drop-shadow(0 1px 0 var(--border-light)) drop-shadow(0 -1px 0 var(--border-light));
+		}
+	}
+}

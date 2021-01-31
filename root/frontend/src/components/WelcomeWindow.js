@@ -1,18 +1,9 @@
 import React from 'react';
 import WindowBorder from './WindowBorder';
 
-const WelcomeWindow = ({ setNewVisitor }) => {
-	const closeWindow = () => setNewVisitor(false);
-
+const WelcomeWindow = () => {
 	return (
-		<WindowBorder
-			handleClose={closeWindow}
-			helperClasses="splash"
-			type="other"
-			title="introduction"
-			titlebar={true}
-			extraDecor={true}
-		>
+		<WindowBorder helperClasses="splash" type="other" title="introduction" titlebar={true} extraDecor={true}>
 			<div className="splash__banner"></div>
 			<div className="splash__text">
 				<h2>Welcome!</h2>

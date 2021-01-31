@@ -5,6 +5,7 @@ import WelcomeWindow from './WelcomeWindow';
 import InfoWindow from './InfoWindow';
 import ControlsWindow from './ControlsWindow';
 import CoverartWindow from './CoverartWindow';
+import LauncherWindow from './LauncherWindow';
 import TooltipWindow from './TooltipWindow';
 
 import AppContext from '../context/AppContext';
@@ -25,14 +26,21 @@ const App = () => {
 	const [metadata, setMetadata] = useState({});
 	const [currentInfo, setCurrentInfo] = useState('');
 	const [enteredInfo, setEnteredInfo] = useState(false);
-	const [newVisitor, setNewVisitor] = useState(
-		// localStorage.getItem('newVisitor') ? JSON.parse(localStorage.getItem('newVisitor')) : true
-		true
+	const [windows, setWindows] = useState(
+		// localStorage.getItem('windows')
+		// 	? JSON.parse(localStorage.getItem('windows'))
+		// 	:
+		[
+			{
+				component: WelcomeWindow,
+				icon: 'text-x-java.png',
+				open: true,
+			},
+		]
 	);
-	const [windows, setWindows] = useState({});
 	const [mDown, setmDown] = useState(false);
-	const clickedWindow = useRef(null);
 
+	const clickedWindow = useRef(null);
 	const fullhouse = !!metadata.artist && !!metadata.album && !!metadata.title && !!metadata.coverart;
 
 	useEffect(() => {
@@ -57,8 +65,8 @@ const App = () => {
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem('newVisitor', newVisitor);
-	}, [newVisitor]);
+		localStorage.setItem('windows', windows);
+	}, [windows]);
 
 	const handleInfoMouse = (e) => {
 		if (!!e.target.dataset.info) {
@@ -75,12 +83,6 @@ const App = () => {
 		if (!!e.target.dataset.info) {
 			tooltip.style.left = `${e.clientX + 10}px`;
 			tooltip.style.top = `${e.clientY - 40}px`;
-		}
-	};
-
-	const handleInfoClick = (e) => {
-		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
-			window.getSelection().selectAllChildren(e.target);
 		}
 	};
 
@@ -119,10 +121,6 @@ const App = () => {
 		}
 	};
 
-	useEffect(() => {
-		console.log(clickedWindow.current);
-	}, [clickedWindow]);
-
 	return (
 		<div
 			id="desktop"
@@ -136,11 +134,12 @@ const App = () => {
 					onMouseMove={handleInfoMouseMove}
 					onMouseLeave={() => setEnteredInfo(false)}
 				>
-					{newVisitor && <WelcomeWindow setNewVisitor={setNewVisitor} />}
-					<InfoWindow metadata={metadata} handleInfoClick={handleInfoClick} />
+					{windows.map((win) => win.open && <win.component />)}
+					<InfoWindow metadata={metadata} fullhouse={fullhouse} />
 					<ControlsWindow />
 					<CoverartWindow metadata={metadata} />
 				</main>
+				<LauncherWindow />
 				<TooltipWindow enteredInfo={enteredInfo} currentInfo={currentInfo} />
 			</AppContext.Provider>
 		</div>

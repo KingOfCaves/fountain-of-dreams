@@ -68,7 +68,7 @@ const ControlsWindow = () => {
 	};
 
 	return (
-		<WindowBorder helperId="window-controls" titlebar={true} title="controls" extraDecor={true} type="dark">
+		<WindowBorder helperId="window-controls" titlebar={true} title="controls" extraDecor={true}>
 			<div className="player__controls">
 				<input
 					className="player__volume"

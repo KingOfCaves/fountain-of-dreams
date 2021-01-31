@@ -1,7 +1,13 @@
 import React from 'react';
 import WindowBorder from './WindowBorder';
 
-const InfoWindow = ({ metadata, handleInfoClick }) => {
+const InfoWindow = ({ metadata, fullhouse }) => {
+	const handleInfoClick = (e) => {
+		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
+			window.getSelection().selectAllChildren(e.target);
+		}
+	};
+
 	return (
 		<WindowBorder helperId="window-info" type="dark" titlebar={true} extraDecor={true}>
 			<ol className="player__info" onClick={handleInfoClick}>
