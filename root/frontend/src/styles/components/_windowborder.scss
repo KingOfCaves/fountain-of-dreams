@@ -3,11 +3,12 @@
 	box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7);
 	transform: translate(0px, 0px);
 	z-index: auto;
+	user-select: none;
+	max-width: 100vw;
+	max-height: 100vh;
 
-	&__placeholder {
-		position: absolute;
-		top: 0;
-		left: 0;
+	&.minimize {
+		display: none;
 	}
 
 	&__mask {
@@ -67,6 +68,7 @@
 	}
 
 	&__titlebar {
+		flex-shrink: 0;
 		position: relative;
 		display: flex;
 		background-color: var(--border-light);
@@ -74,7 +76,6 @@
 		font-size: 1.2rem;
 		color: var(--border-title);
 		z-index: 1;
-		user-select: none;
 
 		& > * {
 			box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
@@ -93,7 +94,7 @@
 			filter: invert(1);
 		}
 
-		&__min::after {
+		&__options::after {
 			content: '';
 			width: 12px;
 			height: 4px;
@@ -101,7 +102,7 @@
 				inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark);
 		}
 
-		&__options::after {
+		&__min::after {
 			content: '';
 			width: 4px;
 			height: 4px;
@@ -109,7 +110,7 @@
 				inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark);
 		}
 
-		&__exit::after {
+		&__max::after {
 			content: '';
 			width: 10px;
 			height: 10px;
@@ -128,7 +129,7 @@
 		&__options__menu {
 			position: absolute;
 			top: 100%;
-			right: 0;
+			left: 0;
 			display: flex;
 			flex-direction: column;
 			white-space: nowrap;

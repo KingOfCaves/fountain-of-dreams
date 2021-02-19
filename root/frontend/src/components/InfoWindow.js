@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import WindowBorder from './WindowBorder';
 
-const InfoWindow = ({ metadata, fullhouse }) => {
-	const handleInfoClick = (e) => {
-		if (Array.from(e.currentTarget.querySelectorAll('li')).includes(e.target) && fullhouse) {
-			window.getSelection().selectAllChildren(e.target);
-		}
-	};
+import AppContext from '../context/AppContext';
+
+const InfoWindow = ({ type, handleMinimize, handleMax, minimize, max, layer }) => {
+	const {
+		metadata: { artist, album, title },
+	} = useContext(AppContext);
 
 	return (
-		<WindowBorder helperId="window-info" type="dark" titlebar={true} extraDecor={true}>
-			<ol className="player__info" onClick={handleInfoClick}>
-				<li className="player__info__artist" data-info="artist">
-					{metadata.artist || '. . .'}
-				</li>
-				<li className="player__info__album" data-info="album">
-					{metadata.album || '. . .'}
-				</li>
-				<li className="player__info__title" data-info="title">
-					{metadata.title || '. . .'}
-				</li>
+		<WindowBorder
+			helperId="window-info"
+			type={type}
+			titlebar={true}
+			extraDecor={true}
+			handleMinimize={handleMinimize}
+			minimize={minimize}
+			max={max}
+			layer={layer}
+		>
+			<ol className="player__info">
+				<li data-info="artist">{artist || '. . .'}</li>
+				<li data-info="album">{album || '. . .'}</li>
+				<li data-info="title">{title || '. . .'}</li>
 				<div className="player__info__decor">
 					<span>info.txt</span>
 					<span>[utf-8]</span>

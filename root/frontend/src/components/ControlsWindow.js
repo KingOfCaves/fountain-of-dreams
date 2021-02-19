@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import WindowBorder from './WindowBorder';
 import Loader from './Loader';
 
-const ControlsWindow = () => {
+const ControlsWindow = ({ type, handleMinimize, handleMax, minimize, max, layer }) => {
 	const [volume, setVolume] = useState(localStorage.getItem('userVolume') || 0.1);
 	const [acceptedSrc, setAcceptedSrc] = useState('');
 	const [action, setAction] = useState('stop');
@@ -68,7 +68,16 @@ const ControlsWindow = () => {
 	};
 
 	return (
-		<WindowBorder helperId="window-controls" titlebar={true} title="controls" extraDecor={true}>
+		<WindowBorder
+			helperId="window-controls"
+			type={type}
+			titlebar={true}
+			title="controls"
+			extraDecor={false}
+			handleMinimize={handleMinimize}
+			minimize={minimize}
+			layer={layer}
+		>
 			<div className="player__controls">
 				<input
 					className="player__volume"

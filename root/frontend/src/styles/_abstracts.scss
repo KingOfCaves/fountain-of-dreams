@@ -1,30 +1,14 @@
 :root {
-	--bg-color-1: #dcdcd0;
-	--bg-color-2: #e6e6da;
-	--bg-pattern-light: linear-gradient(0deg, var(--bg-color-1) 1px, transparent 1px),
-		linear-gradient(90deg, var(--bg-color-1) 1px, var(--bg-color-2) 1px);
+	--bg-dark-color-1: #8b9186;
+	--bg-dark-color-2: #677267;
+	--bg-pattern-dark: linear-gradient(0deg, var(--bg-dark-color-1) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bg-dark-color-1) 1px, var(--bg-dark-color-2) 1px);
+
+	--bg-light-color-1: #dcdcd0;
+	--bg-light-color-2: #e6e6da;
+	--bg-pattern-light: linear-gradient(0deg, var(--bg-light-color-1) 1px, transparent 1px),
+		linear-gradient(90deg, var(--bg-light-color-1) 1px, var(--bg-light-color-2) 1px);
 
 	--border-sizing: 1px;
 	--button-sizing: 18px;
-}
-
-.window--light {
-	--border-light: #dbe0d7;
-	--border-medium: #9fa696;
-	--border-dark: #52564e;
-	--border-title: #4b4c48;
-}
-
-.window--dark {
-	--border-light: #8a9489;
-	--border-medium: #646c63;
-	--border-dark: #353835;
-	--border-title: #ddded2;
-}
-
-.window--other {
-	--border-light: #7a739b;
-	--border-medium: #5b576d;
-	--border-dark: #313136;
-	--border-title: #ddded2;
 }

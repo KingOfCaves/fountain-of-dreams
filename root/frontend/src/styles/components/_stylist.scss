@@ -1,0 +1,89 @@
+.stylist {
+	position: fixed;
+	margin: auto;
+	width: min-content;
+	height: min-content;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	& .window__content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__tabs {
+		display: flex;
+
+		& > a {
+			flex: 1;
+			padding: 4px 16px;
+			background-color: grey;
+			color: black;
+			text-transform: capitalize;
+			text-align: center;
+
+			&.active {
+				box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
+					inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
+				background: var(--border-medium);
+			}
+		}
+	}
+
+	&__colors {
+		width: 100%;
+		height: 100%;
+		position: relative;
+
+		&__section {
+			flex-direction: column;
+			padding: 12px;
+			display: none;
+			white-space: pre-wrap;
+
+			&.active {
+				display: block;
+			}
+
+			& > article {
+				display: flex;
+				flex-direction: column;
+			}
+		}
+
+		&__section > * {
+			margin-bottom: 12px;
+		}
+	}
+
+	&__actions {
+		display: flex;
+
+		& > div {
+			flex: 1;
+			padding: 8px;
+			text-align: center;
+			color: black;
+			box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
+				inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
+			background: var(--border-medium);
+
+			&:active {
+				filter: invert(1);
+			}
+		}
+	}
+
+	& h3 {
+		width: min-content;
+		padding-right: 24px;
+		margin-bottom: 12px;
+		font-size: 18px;
+		text-shadow: 1px 0 0 currentColor;
+		color: #3f5021;
+		border-bottom: 2px solid currentColor;
+		padding-bottom: 4px;
+	}
+}

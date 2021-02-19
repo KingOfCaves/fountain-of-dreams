@@ -1,9 +1,18 @@
 import React from 'react';
 import WindowBorder from './WindowBorder';
 
-const WelcomeWindow = () => {
+const WelcomeWindow = ({ type, handleMinimize, handleMax, minimize, max, layer }) => {
 	return (
-		<WindowBorder helperClasses="splash" type="other" title="introduction" titlebar={true} extraDecor={true}>
+		<WindowBorder
+			helperClasses="splash"
+			type={type}
+			title="introduction"
+			titlebar={true}
+			extraDecor={true}
+			handleMinimize={handleMinimize}
+			minimize={minimize}
+			layer={layer}
+		>
 			<div className="splash__banner"></div>
 			<div className="splash__text">
 				<h2>Welcome!</h2>
