@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 const WindowBorder = ({
 	title = 'terminal',
-	type = 'light',
+	type = 'a',
 	titlebar = false,
 	extraDecor = false,
 	helperClasses = '',
 	helperId = '',
 	handleMinimize = null,
 	handleMax = null,
+	handleLayering = () => {},
+	handleWindowClick = () => {},
 	minimize = false,
 	max = false,
 	layer = null,
-	children,
+	children
 }) => {
 	const [contentWidth, setContentWidth] = useState(0);
 	const [contentHeight, setContentHeight] = useState(0);
@@ -29,13 +31,14 @@ const WindowBorder = ({
 	return (
 		<>
 			<div
-				id={helperId}
-				className={windowClass}
-				onMouseLeave={() => setOpenOptions(false)}
-				style={layer ? { zIndex: layer } : {}}
 				ref={(div) => {
 					content = div;
 				}}
+				id={helperId}
+				className={windowClass}
+				onMouseDown={handleLayering}
+				onMouseLeave={() => setOpenOptions(false)}
+				style={layer ? { zIndex: layer } : {}}
 			>
 				<div className="window__mask">
 					{extraDecor && contentWidth > 80 && <div className="window__decor--horizontal"></div>}
@@ -47,7 +50,12 @@ const WindowBorder = ({
 										className="window__titlebar__button window__titlebar__options"
 										onClick={() => setOpenOptions(true)}
 									></div>
-									<div className="window__titlebar__name">{title.length > 0 ? `- ${title} -` : ''}</div>
+									<div
+										className="window__titlebar__name"
+										onMouseDown={() => handleWindowClick(content, true)}
+									>
+										{title}
+									</div>
 									{handleMinimize && (
 										<div
 											className="window__titlebar__button window__titlebar__min"

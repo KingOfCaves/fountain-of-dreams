@@ -1,5 +1,5 @@
 .help {
-	position: fixed;
+	position: absolute;
 	margin: auto;
 	width: 360px;
 	height: 480px;
@@ -10,25 +10,6 @@
 	image-rendering: pixelated;
 
 	& .window__content {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		padding: 16px;
-		padding-bottom: 0;
-		overscroll-behavior: contain;
-		line-height: 18px;
-
-		&::after {
-			content: '';
-			width: 100%;
-			height: auto;
-			padding-bottom: 24px;
-		}
-
-		& > *:not(:last-child) {
-			margin-bottom: 2rem;
-		}
-
 		& h2 {
 			--shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
 
@@ -56,7 +37,6 @@
 		& h3 {
 			font-size: 20px;
 			text-shadow: 1px 0 0 currentColor;
-			color: #3f5021;
 			border-bottom: 2px solid currentColor;
 			padding-bottom: 4px;
 		}
@@ -84,10 +64,6 @@
 			}
 		}
 
-		& a {
-			color: purple;
-		}
-
 		& sub {
 			margin-left: 48px;
 		}
@@ -100,6 +76,27 @@
 		}
 
 		overflow-y: scroll;
+	}
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 16px;
+		padding-bottom: 0;
+		overscroll-behavior: contain;
+		line-height: 18px;
+
+		&::after {
+			content: '';
+			width: 100%;
+			height: auto;
+			padding-bottom: 24px;
+		}
+
+		& > *:not(:last-child) {
+			margin-bottom: 2rem;
+		}
 	}
 
 	@media screen and (max-width: 376px) {
@@ -118,5 +115,10 @@
 				}
 			}
 		}
+	}
+
+	@media screen and (max-width: 320px) {
+		width: 100vw;
+		height: 100vh;
 	}
 }

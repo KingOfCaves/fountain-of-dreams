@@ -26,9 +26,10 @@
 		&--horizontal,
 		&--vertical {
 			position: absolute;
+			z-index: 1;
 		}
 
-		&--horizontal {
+		&--vertical {
 			top: -2px;
 			right: calc(var(--button-sizing) + 3px);
 			left: calc(var(--button-sizing) + 3px);
@@ -38,7 +39,7 @@
 				var(--border-sizing) 0 0 var(--border-light);
 		}
 
-		&--vertical {
+		&--horizontal {
 			top: calc(var(--button-sizing) + 3px);
 			right: -2px;
 			left: -2px;
@@ -63,6 +64,7 @@
 	}
 
 	&__inner {
+		position: relative;
 		height: inherit;
 		border: calc(2 * var(--border-sizing)) solid var(--border-medium);
 	}
@@ -172,7 +174,7 @@
 	&__content {
 		flex-grow: 1;
 		position: relative;
-		background-image: var(--bg-pattern-light);
+		background: var(--bg-window);
 		background-size: 2px 2px, 2px 2px;
 		white-space: pre;
 	}

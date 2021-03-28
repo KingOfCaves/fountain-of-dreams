@@ -37,17 +37,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
-			inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
-		background: var(--border-medium);
 		cursor: pointer;
-
-		&:active {
-			filter: invert(1);
-			// box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-light),
-			// 	inset var(--border-sizing) var(--border-sizing) 0 var(--border-medium);
-			// background: var(--border-dark);
-		}
 	}
 
 	&__playpause {
@@ -90,11 +80,6 @@
 
 	&__volume__display {
 		grid-area: a;
-		box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0
-				darken($color: #59546c, $amount: 15%),
-			inset var(--border-sizing) var(--border-sizing) 0 lighten($color: #59546c, $amount: 30%);
-		background-color: #59546c;
-		color: #cfd4cb;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -136,8 +121,7 @@
 		user-select: all;
 
 		&:hover {
-			background-color: #59546c;
-			color: #cfd4cb;
+			background-color: white;
 		}
 	}
 
@@ -172,7 +156,7 @@
 		width: max-content;
 	}
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 476px) {
 		grid-column: 1;
 		grid-row: auto;
 	}
@@ -184,7 +168,7 @@
 	justify-self: flex-end;
 	align-self: flex-start;
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 476px) {
 		grid-column: 1;
 		grid-row: auto;
 	}
@@ -217,6 +201,11 @@
 		overflow: hidden;
 		min-width: 198px;
 		min-height: 198px;
+
+		@media screen and (max-width: 320px), screen and (max-height: 320px) {
+			min-width: 178px;
+			min-height: 178px;
+		}
 	}
 
 	& img {
@@ -227,7 +216,7 @@
 		object-fit: contain;
 	}
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 476px) {
 		grid-column: 1;
 		grid-row: 1;
 	}

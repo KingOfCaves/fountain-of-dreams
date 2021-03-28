@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import WindowBorder from './WindowBorder';
 
-import AppContext from '../context/AppContext';
+import AppContext from '../context';
 
-const InfoWindow = ({ type, handleMinimize, handleMax, minimize, max, layer }) => {
+const InfoWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWindowClick, minimize, max, layer }) => {
 	const {
-		metadata: { artist, album, title },
+		metadata: { artist, album, title }
 	} = useContext(AppContext);
 
 	return (
@@ -15,6 +15,8 @@ const InfoWindow = ({ type, handleMinimize, handleMax, minimize, max, layer }) =
 			titlebar={true}
 			extraDecor={true}
 			handleMinimize={handleMinimize}
+			handleLayering={handleLayering}
+			handleWindowClick={handleWindowClick}
 			minimize={minimize}
 			max={max}
 			layer={layer}

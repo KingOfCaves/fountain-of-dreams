@@ -1,14 +1,4 @@
 :root {
-	--bg-dark-color-1: #8b9186;
-	--bg-dark-color-2: #677267;
-	--bg-pattern-dark: linear-gradient(0deg, var(--bg-dark-color-1) 1px, transparent 1px),
-		linear-gradient(90deg, var(--bg-dark-color-1) 1px, var(--bg-dark-color-2) 1px);
-
-	--bg-light-color-1: #dcdcd0;
-	--bg-light-color-2: #e6e6da;
-	--bg-pattern-light: linear-gradient(0deg, var(--bg-light-color-1) 1px, transparent 1px),
-		linear-gradient(90deg, var(--bg-light-color-1) 1px, var(--bg-light-color-2) 1px);
-
 	--border-sizing: 1px;
 	--button-sizing: 18px;
 }

@@ -2,24 +2,23 @@ import React, { useState, useEffect } from 'react';
 import WindowBorder from './WindowBorder';
 import Loader from './Loader';
 
-const ControlsWindow = ({ type, handleMinimize, handleMax, minimize, max, layer }) => {
-	const [volume, setVolume] = useState(localStorage.getItem('userVolume') || 0.1);
+const ControlsWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWindowClick, minimize, max, layer }) => {
+	const [volume, setVolume] = useState(localStorage.getItem('volume') || 0.1);
 	const [acceptedSrc, setAcceptedSrc] = useState('');
 	const [action, setAction] = useState('stop');
 	const [muted, setMuted] = useState(false);
+	let radio = null;
 
 	const handleVolumeChange = (e) => {
 		setVolume(e.target.value);
 	};
 
 	useEffect(() => {
-		document.querySelector('.player__audio').volume = volume;
-		localStorage.setItem('userVolume', volume);
-	}, [volume]);
+		radio.volume = volume;
+		localStorage.setItem('volume', volume);
+	}, [radio, volume]);
 
 	useEffect(() => {
-		const radio = document.querySelector('.player__audio');
-
 		if (radio.canPlayType('audio/ogg')) {
 			setAcceptedSrc('/ogg');
 		} else {
@@ -28,8 +27,6 @@ const ControlsWindow = ({ type, handleMinimize, handleMax, minimize, max, layer 
 	}, []);
 
 	const handlePlay = () => {
-		const radio = document.querySelector('.player__audio');
-
 		if (action === 'play') {
 			radio.src = '';
 			radio.currentTime = 0;
@@ -75,6 +72,8 @@ const ControlsWindow = ({ type, handleMinimize, handleMax, minimize, max, layer 
 			title="controls"
 			extraDecor={false}
 			handleMinimize={handleMinimize}
+			handleLayering={handleLayering}
+			handleWindowClick={handleWindowClick}
 			minimize={minimize}
 			layer={layer}
 		>
@@ -91,17 +90,24 @@ const ControlsWindow = ({ type, handleMinimize, handleMax, minimize, max, layer 
 					<span>Volume</span>
 					<span>{(volume * 100).toFixed(0) + '%'}</span>
 				</div>
-				<div className="player__playpause player__button" onClick={handlePlay}>
+				<button className="player__playpause player__button" onClick={handlePlay}>
 					{handleIcon(action)}
-				</div>
-				<div className="player__mutetoggle player__button" onClick={handleMute}>
+				</button>
+				<button className="player__mutetoggle player__button" onClick={handleMute}>
 					{muted ? (
 						<img src="/images/icons/sound_off.svg" alt="umute" />
 					) : (
 						<img src="/images/icons/sound_on.svg" alt="mute" />
 					)}
-				</div>
-				<audio className="player__audio" muted={muted} preload="auto"></audio>
+				</button>
+				<audio
+					ref={(audio) => {
+						radio = audio;
+					}}
+					className="player__audio"
+					muted={muted}
+					preload="auto"
+				></audio>
 			</div>
 		</WindowBorder>
 	);

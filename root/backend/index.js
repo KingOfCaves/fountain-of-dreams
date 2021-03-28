@@ -1,9 +1,7 @@
 const path = require('path');
 const http = require('http');
-const https = require('https');
 const express = require('express');
 const socketio = require('socket.io');
-const fs = require('fs');
 const mm = require('music-metadata');
 const { pipeline } = require('stream');
 require('dotenv').config();
@@ -57,13 +55,13 @@ http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 								title,
 								album,
 								artist,
-								coverart,
+								coverart
 							};
 							io.emit('metadataUpdate', currentMetadata);
 							console.log(currentMetadata);
 						}
 					}
-				},
+				}
 			});
 		} catch (error) {
 			console.log(error);

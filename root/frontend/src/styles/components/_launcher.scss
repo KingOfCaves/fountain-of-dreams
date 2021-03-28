@@ -10,7 +10,7 @@
 		right: calc(100% + 5px);
 		top: 0;
 		height: 100%;
-		padding: 0 10px;
+		padding: 0 6px;
 		cursor: pointer;
 		box-shadow: inset calc(var(--border-sizing) * -1) calc(var(--border-sizing) * -1) 0 var(--border-dark),
 			inset var(--border-sizing) var(--border-sizing) 0 var(--border-light);
@@ -51,7 +51,7 @@
 	margin: 8px;
 	transition: transform 0.5s;
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 480px), screen and (max-height: 480px) {
 		position: fixed;
 		right: 0;
 		margin: 0;
