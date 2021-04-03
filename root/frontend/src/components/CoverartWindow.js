@@ -17,18 +17,18 @@ const CoverartWindow = ({ type, handleMinimize, handleMax, handleLayering, handl
 			titlebar={true}
 			extraDecor={true}
 			handleMinimize={handleMinimize}
-			handleMax={handleMax}
 			handleLayering={handleLayering}
 			handleWindowClick={handleWindowClick}
 			minimize={minimize}
 			max={max}
 			layer={layer}
 		>
-			{coverart ? (
+			{/* {coverart ? (
 				<img style={{ imageRendering: 'pixelated' }} src={`/images/covers/${coverart}`} alt={album} />
 			) : (
 				<Loader />
-			)}
+			)} */}
+			<img style={{ imageRendering: 'auto' }} src="/images/covers/unknown.jpg" alt={album} />
 		</WindowBorder>
 	);
 };

@@ -25,7 +25,9 @@
 	},
 	"dependencies": {
 		"express": "^4.17.1",
+		"jsdom": "^16.5.1",
 		"music-metadata": "^6.4.0",
+		"request": "^2.88.2",
 		"socket.io": "^2.4.1"
 	}
 }

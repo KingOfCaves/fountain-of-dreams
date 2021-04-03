@@ -1,5 +1,8 @@
-const options = {
-	host: 'https://jpop80ss2.blogspot.com'
-};
+const request = require('request');
+const jsdom = require('jsdom');
 
-console.log(http);
+request('https://jpop80ss2.blogspot.com', (err, res, body) => {
+	const dom = new jsdom.JSDOM(body);
+	const doc = dom.window.document;
+	console.log(doc.querySelector('#sidebar-right-1h'));
+});

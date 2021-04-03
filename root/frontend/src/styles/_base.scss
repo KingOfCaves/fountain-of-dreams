@@ -19,10 +19,10 @@ html {
 body {
 	color: var(--window-text-color);
 	font-size: 14px;
-	font-family: sans-serif;
+	font-family: monospace;
 	font-family: 'ＭＳ ゴシック', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', YuGothic,
 		'Yu Gothic', 'メイリオ', Meiryo, HiraKakuProN-W3, 'TakaoExゴシック', TakaoExGothic, 'MotoyaLCedar',
-		'Droid Sans Japanese', sans-serif;
+		'Droid Sans Japanese';
 	font-smooth: never;
 	-webkit-font-smoothing: none;
 	-moz-osx-font-smoothing: none;
@@ -31,6 +31,7 @@ body {
 }
 
 #desktop {
+	padding: 8px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -39,20 +40,75 @@ body {
 	min-height: 100vh;
 }
 
+#statusbox {
+	margin: 8px;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: -1;
+
+	@media screen and (max-width: 480px), screen and (max-height: 640px) {
+		display: none;
+	}
+}
+
+#windowground {
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#actions {
+	display: flex;
+	flex-direction: column;
+	margin: 8px;
+	position: fixed;
+	left: 0;
+	top: 0;
+
+	@media screen and (max-width: 480px), screen and (max-height: 640px) {
+		display: none;
+	}
+
+	& label {
+		display: flex;
+		flex-direction: column;
+		width: min-content;
+		cursor: pointer;
+
+		& figure {
+			padding: 4px;
+			width: 100%;
+
+			& > div {
+				display: flex;
+				justify-content: center;
+				padding: 4px;
+				width: 100%;
+			}
+		}
+
+		& span {
+			padding: 8px;
+			text-align: center;
+		}
+	}
+}
+
 main {
-	position: relative;
 	margin: auto;
 	display: grid;
 	grid-auto-columns: min-content min-content;
 	grid-template-rows: max-content min-content;
 	gap: 24px;
 
-	@media screen and (max-width: 476px) {
+	@media screen and (max-width: 480px) {
 		gap: 12px;
 	}
-}
-
-aside {
 }
 
 ::-webkit-scrollbar {

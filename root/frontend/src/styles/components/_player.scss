@@ -122,6 +122,7 @@
 
 		&:hover {
 			background-color: white;
+			color: black;
 		}
 	}
 
@@ -139,8 +140,6 @@
 		position: relative;
 		padding: 2px;
 		font-size: 12px;
-		color: #8b9186;
-		background-color: #555a63;
 		cursor: default;
 	}
 }
@@ -156,7 +155,7 @@
 		width: max-content;
 	}
 
-	@media screen and (max-width: 476px) {
+	@media screen and (max-width: 480px) {
 		grid-column: 1;
 		grid-row: auto;
 	}
@@ -168,7 +167,7 @@
 	justify-self: flex-end;
 	align-self: flex-start;
 
-	@media screen and (max-width: 476px) {
+	@media screen and (max-width: 480px) {
 		grid-column: 1;
 		grid-row: auto;
 	}
@@ -177,6 +176,9 @@
 #window-coverart {
 	grid-row: 1 / span 2;
 	grid-column: 2;
+
+	width: 208px;
+	height: 226px;
 
 	&.max {
 		position: fixed;
@@ -216,7 +218,7 @@
 		object-fit: contain;
 	}
 
-	@media screen and (max-width: 476px) {
+	@media screen and (max-width: 480px) {
 		grid-column: 1;
 		grid-row: 1;
 	}

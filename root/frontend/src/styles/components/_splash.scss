@@ -3,10 +3,6 @@
 	margin: auto;
 	width: 480px;
 	height: 360px;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
 	image-rendering: pixelated;
 
 	& .window__content {
@@ -20,7 +16,6 @@
 		height: 100%;
 		width: 45%;
 		overflow: hidden;
-		background-image: url('/images/fountainofdreamsbanner.gif');
 		background-repeat: no-repeat;
 		background-position: calc(50% + 6px) calc(100% + 32px);
 	}

@@ -13,10 +13,10 @@ const LauncherWindow = ({ handleLayering }) => {
 		const update = windows.map((win, index) => {
 			if (index === w && win.minimize) {
 				win.minimize = false;
+				handleLayering(w);
 			}
 			return win;
 		});
-		handleLayering(w);
 		setWindows(update);
 		setCollapsed(true);
 	};
@@ -30,10 +30,10 @@ const LauncherWindow = ({ handleLayering }) => {
 			<div className="launcher__drawer" onClick={handleToggle}>
 				<div className="launcher__drawer__icon"></div>
 			</div>
-			<ul className="launcher popout--alt">
+			<ul className="launcher popout--b">
 				{windows.map((win, index) => (
-					<div key={win.icon + index} className="launcher__item" onClick={() => handleOpen(index)}>
-						<img src={`/images/icons/${win.icon}`} alt={`${win.alt}`} />
+					<div key={win.icon + index} title={win.alt} className="launcher__item" onClick={() => handleOpen(index)}>
+						<img src={`/images/icons/${win.icon}`} alt={win.alt} />
 					</div>
 				))}
 			</ul>

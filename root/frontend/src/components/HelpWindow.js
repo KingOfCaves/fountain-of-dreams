@@ -15,7 +15,7 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 			minimize={minimize}
 			layer={layer}
 		>
-			<div className="help__container popout--alt">
+			<div className="help__container popout--b">
 				<h2>
 					{[
 						'                       ,,           ',
@@ -36,10 +36,14 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 				</p>
 				<h3>Table of Contents</h3>
 				<nav>
-					<a href="#external-use">External Use</a>
-					<a href="#windows-and-titlebars">Windows and Titlebars</a>
+					<span role="link" onClick={() => window.scrollTo(document.querySelector(''))}>
+						External Use
+					</span>
+					<span role="link" onClick={() => window.scrollTo(document.querySelector(''))}>
+						Windows and Titlebars
+					</span>
 				</nav>
-				<h3 id="external-use">External Use</h3>
+				<h3 data-chapter="external-use">External Use</h3>
 				<p>
 					There are a few links that will take you directly to the audio streams that run in parallel with the
 					website.
@@ -53,22 +57,18 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 					<sub>╰─> stream in mp3 format</sub>
 				</article>
 				<p>Make sure that your audio player of choice supports streams, as well as the available formats!</p>
-				<h3 id="windows-and-titlebars">Windows and Titlebars</h3>
+				<h3 data-chapter="windows-and-titlebars">Windows and Titlebars</h3>
 				<p>
 					Most windows with a titlebar can be interacted with. Grabbing and dragging windows, closing (for those that
 					have it enabled), and window options are all available.
 				</p>
 				<p>Here's a bit of "window anatomy".</p>
 				<article style={{ margin: '32px 0', padding: '0 24px', position: 'relative' }}>
-					<span style={{ position: 'absolute', top: '-36px', right: '34px', color: 'darkgreen' }}>
-						{'maximize <──────╮'}
-					</span>
-					<span style={{ position: 'absolute', top: '-26px', right: '30px', color: 'darkgreen' }}>{'│'}</span>
-					<span style={{ position: 'absolute', top: '-12px', right: '30px', color: 'darkgreen' }}>{'│'}</span>
-					<span style={{ position: 'absolute', top: '-20px', right: '52px', color: 'darkred' }}>
-						{'minimize <──╮'}
-					</span>
-					<span style={{ position: 'absolute', top: '-10px', right: '48px', color: 'darkred' }}>{'│'}</span>
+					<span style={{ position: 'absolute', top: '-36px', right: '34px' }}>{'maximize <──────╮'}</span>
+					<span style={{ position: 'absolute', top: '-26px', right: '30px' }}>{'│'}</span>
+					<span style={{ position: 'absolute', top: '-12px', right: '30px' }}>{'│'}</span>
+					<span style={{ position: 'absolute', top: '-20px', right: '52px' }}>{'minimize <──╮'}</span>
+					<span style={{ position: 'absolute', top: '-10px', right: '48px' }}>{'│'}</span>
 					<WindowBorder
 						helperClasses="test"
 						type="other"
@@ -77,11 +77,33 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 						handleMinimize={() => {}}
 						handleMax={() => {}}
 					/>
-					<span style={{ position: 'absolute', bottom: '-10px', left: '31px', color: 'darkblue' }}>{'│'}</span>
-					<span style={{ position: 'absolute', bottom: '-20px', left: '34px', color: 'darkblue' }}>
-						{'╰─────> options'}
-					</span>
+					<span style={{ position: 'absolute', bottom: '-10px', left: '31px' }}>{'│'}</span>
+					<span style={{ position: 'absolute', bottom: '-20px', left: '34px' }}>{'╰─────> options'}</span>
 				</article>
+				<h3 data-chapter="launcher">Launcher</h3>
+				<p>
+					The launcher is always open at the bottom of the page and transforms into a drawer on devices with a smaller
+					resolution. Each openable and closable window is represented by an icon.
+				</p>
+				<p>Here's what each icons opens!</p>
+				<div style={{ margin: '0 auto' }}>
+					{[
+						['text-x-java.png', 'Welcome'],
+						['accessories-dictionary.png', 'Help'],
+						['preferences-desktop.png', 'Stylist'],
+						['applications-office.png', 'Track Info'],
+						['media-playback.png', 'Controls'],
+						['image-x-generic.png', 'Cover Art']
+					].map((icon) => (
+						<div
+							key={`${icon[0]}__${icon[1]}`}
+							style={{ display: 'flex', alignItems: 'center', fontSize: '16px', marginBottom: '16px' }}
+						>
+							<img src={`/images/icons/${icon[0]}`} alt={icon[1]} />
+							<span style={{ marginLeft: '16px', fontWeight: 'bold' }}>{icon[1]}</span>
+						</div>
+					))}
+				</div>
 			</div>
 		</WindowBorder>
 	);

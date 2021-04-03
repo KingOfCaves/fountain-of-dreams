@@ -60,13 +60,11 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 	};
 
 	const handleFullStyleReset = () => {
-		if (window.confirm('This will reset all of the custom styles to their initial values. Are you sure?')) {
-			(async () => {
-				await setThumbnail('');
-				await setQueueBackground({ ...defaults.customBackground });
-				await setQueueColors({ ...defaults.customColors });
-			})();
-		}
+		(async () => {
+			await setThumbnail('');
+			await setQueueBackground({ ...defaults.customBackground });
+			await setQueueColors({ ...defaults.customColors });
+		})();
 	};
 
 	const handleStyleApply = () => {
@@ -190,14 +188,14 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 			layer={layer}
 		>
 			<div className="stylist__tabs">
-				<button className="popout--alt" onClick={() => handlePage('colors')} role="navigation">
+				<button className="popout--b" onClick={() => handlePage('colors')} role="navigation">
 					Colors
 				</button>
-				<button className="popout--alt" onClick={() => handlePage('background')} role="navigation">
+				<button className="popout--b" onClick={() => handlePage('background')} role="navigation">
 					Background
 				</button>
 			</div>
-			<div className={`stylist__page popout ${page === 'colors' ? 'active' : ''}`}>
+			<div className={`stylist__page popout--a ${page === 'colors' ? 'active' : ''}`}>
 				<section className="stylist__palettes">
 					<h2>Palettes</h2>
 					<select
@@ -233,7 +231,7 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 						))}
 				</section>
 			</div>
-			<div className={`stylist__page popout ${page === 'background' ? 'active' : ''}`}>
+			<div className={`stylist__page popout--a ${page === 'background' ? 'active' : ''}`}>
 				<section style={{ display: 'flex', flex: 0 }}>
 					<h2>Color</h2>
 					<input
@@ -252,7 +250,7 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 				</section>
 				<section style={{ display: 'flex', flexDirection: 'column' }}>
 					<h2>Image</h2>
-					<button className="popout--alt">
+					<button className="popout--b">
 						<label htmlFor="customImage" style={{ padding: '6px', cursor: 'pointer' }}>
 							Upload Image
 						</label>
@@ -276,8 +274,8 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 					</select>
 				</section>
 			</div>
-			<div className="stylist__actions popout">
-				<button className="popout--alt" style={{ gridColumn: 'span 2' }} onClick={handleFullStyleReset}>
+			<div className="stylist__actions popout--a">
+				<button className="popout--b" style={{ gridColumn: 'span 2' }} onClick={handleFullStyleReset}>
 					FULL RESET
 				</button>
 				<button style={{ gridColumn: 'span 2' }} onClick={handleStyleLoadApplied}>

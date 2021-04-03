@@ -10,6 +10,7 @@ import ControlsWindow from './ControlsWindow';
 import CoverartWindow from './CoverartWindow';
 import LauncherWindow from './LauncherWindow';
 import TooltipWindow from './TooltipWindow';
+import StatusBox from './StatusBox';
 
 import AppContext from '../context';
 import defaults from '../data/defaults';
@@ -66,6 +67,7 @@ const App = () => {
 
 	const [mDown, setmDown] = useState(false);
 	const clickedWindow = useRef(null);
+	const windowGround = useRef(null);
 
 	useEffect(() => {
 		if (environment === 'development') {
@@ -110,7 +112,11 @@ const App = () => {
 			`--window-text-color: ${tinycolor(customColors.colors[3]).isDark() ? 'white' : 'black'};`,
 			'}',
 
-			'.popout, button {',
+			'#actions {',
+			`color: ${tinycolor.mostReadable(customBackground.color, ['white', 'grey', 'black'])};`,
+			'}',
+
+			'.popout--a, button {',
 			`background-color: ${customColors.colors[5]};`,
 			'border: 1px solid;',
 			`border-top-color: ${tinycolor(customColors.colors[5]).lighten(lightFactor)};`,
@@ -120,7 +126,7 @@ const App = () => {
 			`color: ${tinycolor(customColors.colors[5]).isDark() ? 'white' : 'black'};`,
 			'}',
 
-			'.popout--alt {',
+			'.popout--b {',
 			`background-color: ${customColors.colors[4]};`,
 			'border: 1px solid;',
 			`border-top-color: ${tinycolor(customColors.colors[4]).lighten(lightFactor)};`,
@@ -128,6 +134,16 @@ const App = () => {
 			`border-bottom-color: ${tinycolor(customColors.colors[4]).darken(darkFactor)};`,
 			`border-left-color: ${tinycolor(customColors.colors[4]).lighten(lightFactor)};`,
 			`color: ${tinycolor(customColors.colors[4]).isDark() ? 'white' : 'black'};`,
+			'}',
+
+			'.popout--c {',
+			`background-color: ${customColors.colors[2]};`,
+			'border: 1px solid;',
+			`border-top-color: ${tinycolor(customColors.colors[2]).lighten(lightFactor)};`,
+			`border-right-color: ${tinycolor(customColors.colors[2]).darken(darkFactor)};`,
+			`border-bottom-color: ${tinycolor(customColors.colors[2]).darken(darkFactor)};`,
+			`border-left-color: ${tinycolor(customColors.colors[2]).lighten(lightFactor)};`,
+			`color: ${tinycolor(customColors.colors[2]).isDark() ? 'white' : 'black'};`,
 			'}',
 
 			'section {',
@@ -184,6 +200,11 @@ const App = () => {
 			'}',
 			'.help h3 {',
 			`color: ${tinycolor.mostReadable(customColors.colors[4], ['palegreen', 'mediumseagreen', 'darkgreen'])};`,
+			'}',
+
+			'.player__info__decor {',
+			`background-color: ${customColors.colors[7]};`,
+			`color: ${tinycolor(customColors.colors[7]).isDark() ? 'white' : 'black'};`,
 			'}'
 		]);
 	}, [customColors, lightFactor, darkFactor]);
@@ -207,30 +228,38 @@ const App = () => {
 	}, [customBackground]);
 
 	const handleDesktopMouseMove = (e) => {
-		const { clientX, clientY, movementX, movementY } = e;
-		if (mDown && clickedWindow.current) {
-			const currentWindow = clickedWindow.current;
+		const { clientX, clientY } = e;
 
-			const parseTransform = window
-				.getComputedStyle(currentWindow)
-				.transform.split(/\(|,|\)/)
-				.slice(1, -1)
-				.map((v) => parseFloat(v));
-			const [transX, transY] = parseTransform.slice(Math.max(parseTransform.length - 2, 0));
-			currentWindow.style.transform = `translate(${transX + movementX}px, ${transY + movementY}px)`;
+		if (mDown && clickedWindow.current && windowGround.current) {
+			e.stopPropagation();
+			e.preventDefault();
 
-			// const { x: winX, y: winY } = currentWindow.getBoundingClientRect();
-			// const desktopXBound = Math.min(Math.max(0, clientX + (winX - clientX) + movementX), document.inn);
-			// const desktopYBound = Math.min(Math.max(0, clientY + (winY - clientY) + movementY), document.innerHeight);
-			// currentWindow.style.left = desktopXBound + 'px';
-			// currentWindow.style.top = desktopYBound + 'px';
+			const { el, cPos } = clickedWindow.current;
+			const { left, top, right, bottom } = windowGround.current.getBoundingClientRect();
+
+			// const parseTransform = window
+			// 	.getComputedStyle(currentWindow)
+			// 	.transform.split(/\(|,|\)/)
+			// 	.slice(1, -1)
+			// 	.map((v) => parseFloat(v));
+			// const [transX, transY] = parseTransform.slice(Math.max(parseTransform.length - 2, 0));
+			// currentWindow.style.transform = `translate(${transX + movementX}px, ${transY + movementY}px)`;
+
+			const desktopXBound = Math.min(Math.max(left, clientX - cPos.x), right - el.clientWidth);
+			const desktopYBound = Math.min(Math.max(top, clientY - cPos.y), bottom - el.clientHeight);
+			el.style.position = 'absolute';
+			el.style.left = Math.round(desktopXBound) + 'px';
+			el.style.top = Math.round(desktopYBound) + 'px';
 		}
 	};
 
-	const handleWindowClick = (target, holding) => {
+	const handleWindowClick = (target, holding, e) => {
 		setmDown(holding);
 		if (target && holding) {
-			clickedWindow.current = target;
+			clickedWindow.current = {
+				el: target,
+				cPos: { x: e.pageX - target.getBoundingClientRect().left, y: e.pageY - target.getBoundingClientRect().top }
+			};
 		} else {
 			clickedWindow.current = null;
 		}
@@ -253,17 +282,25 @@ const App = () => {
 	};
 
 	const handleLayering = (w) => {
-		const zMax = Math.max(...windows.map((win) => win.layer));
-		console.log(zMax);
+		const zMax = windows.length;
+		if (windows[w].layer === zMax) return;
 		const update = windows.map((win, index) => {
-			if (index === w) {
-				console.log(win);
-				win.layer = zMax + 1;
+			if (index === w && win.layer !== zMax) {
+				win.layer = zMax;
+			} else {
+				win.layer = Math.max(0, --win.layer);
 			}
 			return win;
 		});
 		setWindows(update);
 	};
+
+	const handleResetAllPositions = () =>
+		windowGround.current.querySelectorAll('.window').forEach((win) => {
+			win.style.top = null;
+			win.style.left = null;
+			win.style.position = null;
+		});
 
 	const windowSeparator = () => {
 		const m = [];
@@ -299,8 +336,20 @@ const App = () => {
 						metadata
 					}}
 				>
-					<aside></aside>
-					{windowSeparator()}
+					<div id="windowground" ref={(section) => (windowGround.current = section)}>
+						{windowSeparator()}
+					</div>
+					<aside id="actions">
+						<label onClick={handleResetAllPositions}>
+							<figure className="popout--c">
+								<div className="popout--b">
+									<img src="/images/icons/view-refresh.png" alt="Reset Positions" />
+								</div>
+							</figure>
+							<span className="popout--c">Recenter Windows</span>
+						</label>
+					</aside>
+					<StatusBox />
 					<LauncherWindow handleLayering={handleLayering} />
 					<TooltipWindow />
 				</AppContext.Provider>

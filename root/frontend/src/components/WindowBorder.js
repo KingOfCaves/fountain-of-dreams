@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const WindowBorder = ({
 	title = 'terminal',
@@ -21,18 +21,24 @@ const WindowBorder = ({
 	const [openOptions, setOpenOptions] = useState(false);
 
 	const windowClass = ['window', `window--${type}`, helperClasses, max ? 'max' : '', minimize ? 'minimize' : ''].join(' ');
-	let content = null;
+	let content = useRef(null);
 
 	useEffect(() => {
-		setContentWidth(content.getBoundingClientRect().width);
-		setContentHeight(content.getBoundingClientRect().height);
+		setContentWidth(content.current.getBoundingClientRect().width);
+		setContentHeight(content.current.getBoundingClientRect().height);
 	}, [content]);
+
+	const handleResetPosition = () => {
+		content.current.style.top = null;
+		content.current.style.left = null;
+		content.current.style.position = null;
+	};
 
 	return (
 		<>
 			<div
 				ref={(div) => {
-					content = div;
+					content.current = div;
 				}}
 				id={helperId}
 				className={windowClass}
@@ -41,7 +47,7 @@ const WindowBorder = ({
 				style={layer ? { zIndex: layer } : {}}
 			>
 				<div className="window__mask">
-					{extraDecor && contentWidth > 80 && <div className="window__decor--horizontal"></div>}
+					{extraDecor && contentWidth > 60 && <div className="window__decor--horizontal"></div>}
 					<div className="window__inner">
 						<div className="window__decor--inner">
 							{titlebar && (
@@ -52,7 +58,7 @@ const WindowBorder = ({
 									></div>
 									<div
 										className="window__titlebar__name"
-										onMouseDown={() => handleWindowClick(content, true)}
+										onMouseDown={(e) => handleWindowClick(content.current, true, e)}
 									>
 										{title}
 									</div>
@@ -70,7 +76,7 @@ const WindowBorder = ({
 										>
 											<h2>options</h2>
 											<ul>
-												<li onClick={() => (content.style.transform = '')}>reset window position</li>
+												<li onClick={() => handleResetPosition()}>reset window position</li>
 											</ul>
 										</div>
 									)}
@@ -85,7 +91,7 @@ const WindowBorder = ({
 							{children && <div className="window__content">{children}</div>}
 						</div>
 					</div>
-					{extraDecor && contentHeight > 80 && <div className="window__decor--vertical"></div>}
+					{extraDecor && contentHeight > 60 && <div className="window__decor--vertical"></div>}
 				</div>
 			</div>
 		</>

@@ -22,9 +22,9 @@ const InfoWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 			layer={layer}
 		>
 			<ol className="player__info">
-				<li data-info="artist">{artist || '. . .'}</li>
-				<li data-info="album">{album || '. . .'}</li>
-				<li data-info="title">{title || '. . .'}</li>
+				<li title="Artist">{artist || '. . .'}</li>
+				<li title="Album">{album || '. . .'}</li>
+				<li title="Title">{title || '. . .'}</li>
 				<div className="player__info__decor">
 					<span>info.txt</span>
 					<span>[utf-8]</span>
