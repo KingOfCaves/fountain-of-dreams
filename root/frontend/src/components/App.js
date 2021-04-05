@@ -10,6 +10,7 @@ import ControlsWindow from './ControlsWindow';
 import CoverartWindow from './CoverartWindow';
 import LauncherWindow from './LauncherWindow';
 import TooltipWindow from './TooltipWindow';
+import DesktopActions from './DesktopActions';
 import StatusBox from './StatusBox';
 
 import AppContext from '../context';
@@ -112,10 +113,6 @@ const App = () => {
 			`--window-text-color: ${tinycolor(customColors.colors[3]).isDark() ? 'white' : 'black'};`,
 			'}',
 
-			'#actions {',
-			`color: ${tinycolor.mostReadable(customBackground.color, ['white', 'grey', 'black'])};`,
-			'}',
-
 			'.popout--a, button {',
 			`background-color: ${customColors.colors[5]};`,
 			'border: 1px solid;',
@@ -195,7 +192,7 @@ const App = () => {
 			`border-bottom-color: ${tinycolor(customColors.colors[3]).brighten(20)};`,
 			'}',
 
-			'.help a {',
+			'.help a, .help nav span {',
 			`color: ${tinycolor.mostReadable(customColors.colors[4], ['pink', 'mediumpurple', 'darkmagenta'])};`,
 			'}',
 			'.help h3 {',
@@ -302,6 +299,13 @@ const App = () => {
 			win.style.position = null;
 		});
 
+	const handleFactoryReset = () => {
+		if (window.confirm('Do you want to reset to factory preset and reload the site?')) {
+			localStorage.clear();
+			window.location.reload();
+		}
+	};
+
 	const windowSeparator = () => {
 		const m = [];
 		const d = windows
@@ -339,17 +343,8 @@ const App = () => {
 					<div id="windowground" ref={(section) => (windowGround.current = section)}>
 						{windowSeparator()}
 					</div>
-					<aside id="actions">
-						<label onClick={handleResetAllPositions}>
-							<figure className="popout--c">
-								<div className="popout--b">
-									<img src="/images/icons/view-refresh.png" alt="Reset Positions" />
-								</div>
-							</figure>
-							<span className="popout--c">Recenter Windows</span>
-						</label>
-					</aside>
 					<StatusBox />
+					<DesktopActions handleResetAllPositions={handleResetAllPositions} handleFactoryReset={handleFactoryReset} />
 					<LauncherWindow handleLayering={handleLayering} />
 					<TooltipWindow />
 				</AppContext.Provider>

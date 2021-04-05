@@ -24,7 +24,7 @@ const ControlsWindow = ({ type, handleMinimize, handleMax, handleLayering, handl
 		} else {
 			setAcceptedSrc('/mp3');
 		}
-	}, []);
+	}, [radio]);
 
 	const handlePlay = () => {
 		if (action === 'play') {

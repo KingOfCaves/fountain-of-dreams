@@ -19,10 +19,9 @@ html {
 body {
 	color: var(--window-text-color);
 	font-size: 14px;
-	font-family: monospace;
 	font-family: 'ＭＳ ゴシック', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', YuGothic,
 		'Yu Gothic', 'メイリオ', Meiryo, HiraKakuProN-W3, 'TakaoExゴシック', TakaoExGothic, 'MotoyaLCedar',
-		'Droid Sans Japanese';
+		'Droid Sans Japanese', sans-serif;
 	font-smooth: never;
 	-webkit-font-smoothing: none;
 	-moz-osx-font-smoothing: none;
@@ -67,17 +66,30 @@ body {
 	flex-direction: column;
 	margin: 8px;
 	position: fixed;
+	width: min-content;
 	left: 0;
 	top: 0;
+
+	@media screen and (max-width: 960px) {
+		flex-direction: row;
+	}
 
 	@media screen and (max-width: 480px), screen and (max-height: 640px) {
 		display: none;
 	}
 
+	& > :not(:last-child) {
+		margin-bottom: 8px;
+
+		@media screen and (max-width: 960px) {
+			margin-bottom: 0;
+			margin-right: 8px;
+		}
+	}
+
 	& label {
 		display: flex;
 		flex-direction: column;
-		width: min-content;
 		cursor: pointer;
 
 		& figure {

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import WindowBorder from '../components/WindowBorder';
 
 const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWindowClick, minimize, max, layer }) => {
+	const help = useRef(null);
+
+	const handleScrollTo = (chapter) => help.current.querySelector(`h3[data-chapter="${chapter}"]`).scrollIntoView(true);
+
 	return (
 		<WindowBorder
 			helperClasses="help"
@@ -15,7 +19,7 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 			minimize={minimize}
 			layer={layer}
 		>
-			<div className="help__container popout--b">
+			<div ref={(div) => (help.current = div)} className="help__container popout--b">
 				<h2>
 					{[
 						'                       ,,           ',
@@ -36,11 +40,14 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 				</p>
 				<h3>Table of Contents</h3>
 				<nav>
-					<span role="link" onClick={() => window.scrollTo(document.querySelector(''))}>
+					<span role="link" onClick={() => handleScrollTo('external-use')}>
 						External Use
 					</span>
-					<span role="link" onClick={() => window.scrollTo(document.querySelector(''))}>
+					<span role="link" onClick={() => handleScrollTo('windows-and-titlebars')}>
 						Windows and Titlebars
+					</span>
+					<span role="link" onClick={() => handleScrollTo('launcher')}>
+						Launcher
 					</span>
 				</nav>
 				<h3 data-chapter="external-use">External Use</h3>
@@ -50,11 +57,11 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 				</p>
 				<article>
 					<a href="/ogg">https://fountainofdreams.net/ogg</a>
-					<sub>╰─> stream in ogg format</sub>
+					<sub>╰─&gt; stream in ogg format</sub>
 				</article>
 				<article>
 					<a href="/mp3">https://fountainofdreams.net/mp3</a>
-					<sub>╰─> stream in mp3 format</sub>
+					<sub>╰─&gt; stream in mp3 format</sub>
 				</article>
 				<p>Make sure that your audio player of choice supports streams, as well as the available formats!</p>
 				<h3 data-chapter="windows-and-titlebars">Windows and Titlebars</h3>

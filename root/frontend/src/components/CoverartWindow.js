@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import WindowBorder from './WindowBorder';
-import Loader from './Loader';
+// import Loader from './Loader';
 
 import AppContext from '../context';
 
 const CoverartWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWindowClick, minimize, max, layer }) => {
 	const {
-		metadata: { album, coverart }
+		// metadata: { album, coverart }
+		metadata: { album }
 	} = useContext(AppContext);
 
 	return (
