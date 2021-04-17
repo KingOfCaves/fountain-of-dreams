@@ -16,6 +16,10 @@ html {
 	text-decoration: none;
 }
 
+html, body, #root {
+	height: 100%;
+}
+
 body {
 	color: var(--window-text-color);
 	font-size: 14px;
@@ -36,7 +40,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
+	height: inherit;
 }
 
 #statusbox {

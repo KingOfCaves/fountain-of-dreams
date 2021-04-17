@@ -56,11 +56,15 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 					website.
 				</p>
 				<article>
-					<a href="/ogg">https://fountainofdreams.net/ogg</a>
+					<a href="https://fountainofdreams.net/ogg" target="_blank" rel="noreferrer">
+						https://fountainofdreams.net/ogg
+					</a>
 					<sub>╰─&gt; stream in ogg format</sub>
 				</article>
 				<article>
-					<a href="/mp3">https://fountainofdreams.net/mp3</a>
+					<a href="https://fountainofdreams.net/mp3" target="_blank" rel="noreferrer">
+						https://fountainofdreams.net/mp3
+					</a>
 					<sub>╰─&gt; stream in mp3 format</sub>
 				</article>
 				<p>Make sure that your audio player of choice supports streams, as well as the available formats!</p>

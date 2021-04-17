@@ -234,14 +234,6 @@ const App = () => {
 			const { el, cPos } = clickedWindow.current;
 			const { left, top, right, bottom } = windowGround.current.getBoundingClientRect();
 
-			// const parseTransform = window
-			// 	.getComputedStyle(currentWindow)
-			// 	.transform.split(/\(|,|\)/)
-			// 	.slice(1, -1)
-			// 	.map((v) => parseFloat(v));
-			// const [transX, transY] = parseTransform.slice(Math.max(parseTransform.length - 2, 0));
-			// currentWindow.style.transform = `translate(${transX + movementX}px, ${transY + movementY}px)`;
-
 			const desktopXBound = Math.min(Math.max(left, clientX - cPos.x), right - el.clientWidth);
 			const desktopYBound = Math.min(Math.max(top, clientY - cPos.y), bottom - el.clientHeight);
 			el.style.position = 'absolute';
