@@ -49,9 +49,9 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 
 	const handleStyleReset = () => {
 		if (page === 'colors') {
-			setQueueColors({ ...palettes[queueColors.index] });
+			setQueueColors({ ...palettes[customColors.index] });
 		} else {
-			setThumbnail('');
+			handleFileUnload();
 			setQueueBackground({
 				image: '',
 				color: '#807e9b'
@@ -61,7 +61,7 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 
 	const handleFullStyleReset = () => {
 		(async () => {
-			await setThumbnail('');
+			handleFileUnload();
 			await setQueueBackground({ ...defaults.customBackground });
 			await setQueueColors({ ...defaults.customColors });
 		})();
@@ -79,7 +79,8 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 
 	const handleFileParse = (e) => {
 		const reader = new FileReader();
-		const file = e.currentTarget.files[0];
+		let file = e.currentTarget.files[0];
+		e.currentTarget.value = null;
 		if (file) {
 			setLoading(true);
 			reader.readAsDataURL(file);
@@ -201,7 +202,7 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 					<select
 						style={{ backgroundColor: customColors.colors[3] }}
 						onChange={handlePaletteChange}
-						defaultValue={queueColors.index}
+						value={queueColors.index}
 						size="6"
 					>
 						{palettes.map((palette, index) => (
@@ -276,13 +277,13 @@ const StylistWindow = ({ type, handleMinimize, handleMax, handleLayering, handle
 			</div>
 			<div className="stylist__actions popout--a">
 				<button className="popout--b" style={{ gridColumn: 'span 2' }} onClick={handleFullStyleReset}>
-					FULL RESET
+					FULL RESET TO DEFAULTS
 				</button>
 				<button style={{ gridColumn: 'span 2' }} onClick={handleStyleLoadApplied}>
 					Load Applied Styles
 				</button>
 				<button style={{ gridColumn: '1' }} onClick={handleStyleReset}>
-					Refresh Styles
+					Reset {page === 'colors' ? 'Palette' : 'Background'}
 				</button>
 				<button style={{ gridColumn: '2' }} onClick={handleStyleApply}>
 					Apply Styles

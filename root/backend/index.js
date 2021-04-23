@@ -97,11 +97,6 @@ app.get('/mp3', (req, res) => {
 	});
 });
 
-app.get('/info', (req, res) => {
-	res.set({ 'Content-Type': 'application/json' });
-	res.send(currentMetadata);
-});
-
 app.get('*', (req, res) => {
 	res.redirect('/');
 });
