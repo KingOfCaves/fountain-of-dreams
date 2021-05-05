@@ -19,7 +19,12 @@ const io = socketio(server);
 const build_dir = path.join(__dirname, '../frontend/build');
 app.use(express.static(build_dir, { dotFiles: 'allow' }));
 
-let currentMetadata = {};
+let currentMetadata = {
+	artist: '',
+	album: '',
+	title: '',
+	coverart: ''
+};
 
 http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 	let keepParsing = true;
@@ -39,18 +44,18 @@ http.get(`${URL}/${OGG_MOUNTPOINT}`, async (src) => {
 				skipPostHeaders: true,
 				skipCovers: true,
 				observer: (update) => {
-					const { artist, title, album, comment } = update.metadata.common;
-					const allTags = artist && title && album && comment;
+					const { artist = '???', title = '???', album = '???', comment = ['unknown.jpg'] } = update.metadata.common;
+					const coverart = comment[0];
+					const allTags = artist && title && album && coverart;
 
 					if (allTags) {
 						const changed =
 							currentMetadata.artist !== artist ||
 							currentMetadata.album !== album ||
 							currentMetadata.title !== title ||
-							currentMetadata.coverart !== comment[0];
+							currentMetadata.coverart !== coverart;
 
 						if (changed) {
-							const coverart = comment[0] || 'unknown.jpg';
 							currentMetadata = {
 								title,
 								album,

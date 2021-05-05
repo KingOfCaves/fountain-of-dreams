@@ -49,6 +49,9 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 					<span role="link" onClick={() => handleScrollTo('launcher')}>
 						Launcher
 					</span>
+					<span role="link" onClick={() => handleScrollTo('track-info')}>
+						Track Information
+					</span>
 				</nav>
 				<h3 data-chapter="external-use">External Use</h3>
 				<p>
@@ -114,6 +117,19 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 							<span style={{ marginLeft: '16px', fontWeight: 'bold' }}>{icon[1]}</span>
 						</div>
 					))}
+				</div>
+				<h3 data-chapter="track-info">Track Information</h3>
+				<p>
+					The window that displays all of the metadata from the stream is layed out in a specific order. When a field
+					is clicked it will select everything in the block, even the parts you can't see.
+				</p>
+				<div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
+					<span>1. 山下 達郎</span>
+					<sub style={{ marginBottom: '8px' }}>╰─&gt; Artist</sub>
+					<span>2. TREASURES</span>
+					<sub style={{ marginBottom: '8px' }}>╰─&gt; Album</sub>
+					<span>1. スプリンクラー</span>
+					<sub style={{ marginBottom: '8px' }}>╰─&gt; Title</sub>
 				</div>
 			</div>
 		</WindowBorder>

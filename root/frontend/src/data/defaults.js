@@ -19,7 +19,7 @@ const defaults = {
 			alt: 'Help',
 			minimize: false,
 			max: false,
-			layer: 0,
+			layer: 2,
 			main: false
 		},
 		{

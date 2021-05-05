@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import WindowBorder from './WindowBorder';
-// import Loader from './Loader';
+import Loader from './Loader';
 
 import AppContext from '../context';
 
 const CoverartWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWindowClick, minimize, max, layer }) => {
 	const {
-		// metadata: { album, coverart }
-		metadata: { album }
+		metadata: { album, coverart }
 	} = useContext(AppContext);
+	const [artPlaceholder, setArtPlaceholder] = useState(coverart);
+
+	const replaceUnknown = (e) => setArtPlaceholder('unknown.jpg');
 
 	return (
 		<WindowBorder
@@ -24,12 +26,16 @@ const CoverartWindow = ({ type, handleMinimize, handleMax, handleLayering, handl
 			max={max}
 			layer={layer}
 		>
-			{/* {coverart ? (
-				<img style={{ imageRendering: 'pixelated' }} src={`/images/covers/${coverart}`} alt={album} />
+			{coverart ? (
+				<img
+					style={{ imageRendering: 'auto' }}
+					src={`/images/covers/${artPlaceholder}`}
+					alt={album}
+					onError={replaceUnknown}
+				/>
 			) : (
 				<Loader />
-			)} */}
-			<img style={{ imageRendering: 'auto' }} src="/images/covers/unknown.jpg" alt={album} />
+			)}
 		</WindowBorder>
 	);
 };
