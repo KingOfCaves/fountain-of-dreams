@@ -38,6 +38,7 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 					In this guide you will find some special secondary features of the website/radio that you can use to your
 					advantage.
 				</p>
+				<p>QUICK NOTE: Hovering over most things will tell you what they are!</p>
 				<h3>Table of Contents</h3>
 				<nav>
 					<span role="link" onClick={() => handleScrollTo('external-use')}>
@@ -128,7 +129,7 @@ const HelpWindow = ({ type, handleMinimize, handleMax, handleLayering, handleWin
 					<sub style={{ marginBottom: '8px' }}>╰─&gt; Artist</sub>
 					<span>2. TREASURES</span>
 					<sub style={{ marginBottom: '8px' }}>╰─&gt; Album</sub>
-					<span>1. スプリンクラー</span>
+					<span>3. スプリンクラー</span>
 					<sub style={{ marginBottom: '8px' }}>╰─&gt; Title</sub>
 				</div>
 			</div>

@@ -76,12 +76,13 @@ body {
 	left: 0;
 	top: 0;
 
-	@media screen and (max-width: 960px) {
-		flex-direction: row;
+	@media screen and (max-width: 480px), screen and (max-height: 640px) {
+		left: auto;
+		right: auto;
 	}
 
-	@media screen and (max-width: 480px), screen and (max-height: 640px) {
-		display: none;
+	@media screen and (max-width: 960px) {
+		flex-direction: row;
 	}
 
 	& > :not(:last-child) {
@@ -98,9 +99,21 @@ body {
 		flex-direction: column;
 		cursor: pointer;
 
+		@media screen and (max-height: 576px) {
+			& {
+				display: none;
+			}
+		}
+
 		& figure {
 			padding: 4px;
 			width: 100%;
+
+			@media screen and (max-width: 480px), screen and (max-height: 640px) {
+				& {
+					display: none;
+				}
+			}
 
 			& > div {
 				display: flex;
