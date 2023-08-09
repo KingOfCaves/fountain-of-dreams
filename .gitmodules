@@ -1,0 +1,6 @@
+[submodule "root/frontend"]
+	path = root/frontend
+	url = https://github.com/KingOfCaves/fod-frontend.git
+[submodule "root/backend"]
+	path = root/backend
+	url = https://github.com/KingOfCaves/fod-backend.git
